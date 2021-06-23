@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>WordPress提示 &quot;在裁剪您的图像时发生了错误&quot;</title>
+    <url>/wordpress-editing-pics-error/</url>
+    <content><![CDATA[<p>前几天上传图片想用作site icon，但是提示:”在裁剪您的图像时发生了错误。”</p>
+<p>英文显示，”There has been an error cropping your image.”</p>
+<p>这是因为缺少PHP GD库的原因，貌似直接装php7.0-fpm不会装这个库。没有这个库，则图片水印、缩略图、验证码等都无法使用。</p>
+<p>解决:</p>
+<span id="more"></span>
+
+<p>Debian/Ubuntu下运行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install php7.0-gd</span><br></pre></td></tr></table></figure>
+<p>#我用的php7.0，如果是其他版本，请自行修改</p>
+<p>CentOS下运行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install php7.0-gd</span><br></pre></td></tr></table></figure>
+<p>安装PHP-GD库后</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>wordpress</tag>
+        <tag>error</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Macbook-12 装win10后蓝牙模块不识别，蓝牙鼠标不能用</title>
+    <url>/macbook-win10-bluetooth/</url>
+    <content><![CDATA[<p>有个朋友macbook 12寸装了win8.1，发现无法检测的蓝牙，更不用说蓝牙鼠标了。</p>
+<p>解决方法如下:</p>
+<span id="more"></span>
+
+<p>为了正版win10，激活win8.1后，用系统更新升级win10。macbook 12寸只有一个口，直接用u盘安装显示必须接电源。。。接了电源就不能接u盘，so。。。。充分说明苹果反人类的本质。。。</p>
+<p><strong>升级之后安装iTunes，<br>选帮助-更新apple软件，<br>更新最新版的bootcamp 6.0 for win10 update.</strong></p>
+<p>之后就可以识别蓝牙硬件了。</p>
+<p>想使用蓝牙鼠标，可能遇到的情况是不能连接，或者时断时续。两种方案：</p>
+<p>1.在mac下先断开蓝牙鼠标连接，在win10中连接，再回到mac连接。</p>
+<p>2.如果不行，那么可能在mac下就没有连接过，先在mac下连接，再回到win10下连接。</p>
+<p>试试吧！</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>macbook</tag>
+        <tag>win10</tag>
+        <tag>bluetooth</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WR-703N 安装openwrt到外置储存</title>
+    <url>/703n-openwrt-external-storage/</url>
+    <content><![CDATA[<p>这两天折腾了下openwrt，起因是发现了一个深藏的703n，这个古老的小东西竟然非常受openwrt社区欢迎，一直是主要支持的设备之一。</p>
+<p>根据<a href="https://wiki.openwrt.org/toh/tp-link/tl-wr703n%EF%BC%8C">https://wiki.openwrt.org/toh/tp-link/tl-wr703n，</a></p>
+<p>安装了openwrt其中也是颇为曲折，在windows下的curl不好找，最新版的都是带ssl的，使用sftp各种错误，后来在</p>
+<p><a href="http://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=159078&amp;highlight=703n">http://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=159078&amp;highlight=703n</a></p>
+<p>的2楼找到了先贤做好的各种文件，直接就可以刷了，结合这两篇文章总算是刷好了openwrt，版本新的吓人，DESIGNATED DRIVER (Bleeding Edge, r49379) ，空间也是占用的很多，想玩儿必须是装个外接u盘了，很可惜网上这方面的信息比较少，大多数也很旧，折腾了半天，发现都成功不了。以前玩儿vps，都没有搞过挂载这回事儿啊，无奈跑去openwrt的wiki发现，人家早就更新了最新的信息啊。。。参见：</p>
+<p><a href="https://wiki.openwrt.org/doc/howto/extroot">https://wiki.openwrt.org/doc/howto/extroot</a></p>
+<span id="more"></span>
+
+<p>这里想说的是，不要跟着网上的其他教程贴子瞎搞，都太老了。。。另外，703n的空间实在是太小了，大约400+kb，</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">opkg install block-mount kmod-fs-ext4 kmod-usb-storage-extras&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+<p>就足以占个七七八八了，其他的都先别装，跟着教程走完自然就海阔天空啦！</p>
+<p>主要有两条命令：</p>
+<ol>
+<li>Prepare your external storage root overlay <em>copy files from existing /overlay into new root</em></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mount /dev/sda1 /mnt ; tar -C /overlay -cvf - . | tar -C /mnt -xf - ; umount /mnt</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Create fstab with the following command</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">block detect &gt; /etc/config/fstab; \</span><br><span class="line">   sed -i s/option$&#x27;\t&#x27;enabled$&#x27;\t&#x27;\&#x27;0\&#x27;/option$&#x27;\t&#x27;enabled$&#x27;\t&#x27;\&#x27;1\&#x27;/ /etc/config/fstab; \</span><br><span class="line">   sed -i s#/mnt/sda1#/overlay# /etc/config/fstab; \</span><br><span class="line">   cat /etc/config/fstab;</span><br></pre></td></tr></table></figure>
+<p>还有windows下将u盘分区并格式化一部分为ext4和swap的工具可以用minitool，很好用，自己搜一下哈。</p>
+<p>就酱</p>
+<p>其他参考：<a href="https://www.coldawn.com/tl-wr703n-tl-wr720n-official-openwrt-barrier_breaker-14-07-extroot-rootfs-on-remove-disk/">https://www.coldawn.com/tl-wr703n-tl-wr720n-official-openwrt-barrier_breaker-14-07-extroot-rootfs-on-remove-disk/</a></p>
+<p>试了一下Chaos Calmer 15.05.1，安装完成后剩余空间只有280kb，最经典的是删除固件自带的程序后这个空间会进一步缩小，是没有办法实现本文的文件转移的，因为kmod-fs-ext4就需要200+空间的，无奈再好换回DESIGNATED DRIVER。想了想，可能是openwrt固件里编译好的程序没有办法删除吧，删除了其实相当于在rom中写入了些什么文件用来屏蔽想删除的程序，因而越删越小？猜测。。</p>
+<p>不能挂载fat32的情况，</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dmesg | tail</span><br></pre></td></tr></table></figure>
+<p>可见缺少kmod-nls-cp437     kmod-nls-iso8859-1     kmod-nls-utf8，安装后</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mount -t vfat /mnt/sda1 /data </span><br></pre></td></tr></table></figure>
+<p>即可</p>
+<p>参考：<a href="http://www.right.com.cn/forum/forum.php?mod=redirect&amp;goto=findpost&amp;ptid=54211&amp;pid=370118">http://www.right.com.cn/forum/forum.php?mod=redirect&amp;goto=findpost&amp;ptid=54211&amp;pid=370118</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>openwrt</tag>
+        <tag>703n</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows下ftp服务器无法访问</title>
+    <url>/window-ftp-no-access/</url>
+    <content><![CDATA[<p>以前在win2003下的ftp在安装iis和FTP服务，设置后，即可使用。</p>
+<p>最近的新买了一台windows server 2008的，流程走完竟然不能访问。搜索了一下：</p>
+<span id="more"></span>
+
+<p>windows2003和windows2008服务器端安装IIS自带的FTP功能，如果防火墙关闭才可以通过FTP正常访问，打开FTP则不能访问，解决办法如下：</p>
+<ol>
+<li>在windows2003服务器端设置：</li>
+</ol>
+<p>控制面板 》系统和安全 》Windows 防火墙 》允许的程序”，在“允许另一个程序”中添加 “C:\WINDOWS\system32\inetsrv\inetinfo.exe”这个程序，添加完成即可</p>
+<ol start="2">
+<li>在windows 2008/2012服务器端设置：</li>
+</ol>
+<p>控制面板 》系统和安全 》Windows 防火墙 》允许的程序”，在“允许另一个程序”中添加 “C:\Windows\System32\svchost.exe”这个程序，添加完成即可。</p>
+<p>步骤2应该是大部分问题之所在，win10也需要调整此处。</p>
+<p>参考：<a href="http://kkworms.blog.51cto.com/540865/558477">http://kkworms.blog.51cto.com/540865/558477</a></p>
+<p><a href="http://www.myhack58.com/Article/sort099/sort0100/2015/58873.htm">http://www.myhack58.com/Article/sort099/sort0100/2015/58873.htm</a></p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>ftp</tag>
+        <tag>firewall</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win10升级导致的键盘失灵和卡锁屏界面</title>
+    <url>/win10-upgrade-keyboard-login/</url>
+    <content><![CDATA[<ol>
+<li>升级win10后键盘失灵，必须重启才能使用。</li>
+</ol>
+<p>网上的部分解决方案说关闭电源管理中的快速启动，个人又想保留这一功能，后各种查询，解决方法如下：</p>
+<span id="more"></span>
+
+<p>注册表删除：</p>
+<p>[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\PECKbdProtector]</p>
+<p>文件删除windows/system32/driver/peckp_x64.sys</p>
+<p>即可。</p>
+<ol start="2">
+<li>win10周年更新，卡锁屏界面的解决方案</li>
+</ol>
+<p>打开管理员的命令提示符，运行<br>if exist “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” (<br>takeown /f “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” /A<br>icacls “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” /deny “NT AUTHORITY\SYSTEM:RX”<br>)</p>
+<p>就不会出现SYSTEM用户的ChsIME.exe了</p>
+<p>参考：<a href="http://bbs.pcbeta.com/viewthread-1706070-1-1.html">http://bbs.pcbeta.com/viewthread-1706070-1-1.html</a></p>
+<p>还有人说关掉个性化-锁屏界面-在登录屏幕上显示锁屏界面背景图片，这个没有是不知道了。还有人说跟快速启动有关。。。为啥老是快速启动背锅啊。。。</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>error</tag>
+        <tag>win10</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>wordpress与nginx迁移之坑</title>
+    <url>/wordpress-nginx-error/</url>
+    <content><![CDATA[<ol>
+<li><p>nginx 设置include时*.conf，但实际设置文件却没有加.conf…</p>
+</li>
+<li><p>nginx certs写的结尾crt和cert不同。。找不到</p>
+</li>
+<li><p>wp-config.php中的WP_DEBUG 改成ture可以看到具体的错误提示“error establishing a database connection”，实际上我是把用户名和密码设置错了。。。</p>
+</li>
+<li><p>413 Request Entity Too Large. 在nginx.conf的http{}段， 增大nginx上传文件大小限制</p>
+</li>
+</ol>
+<span id="more"></span>
+
+<p>设置允许发布内容为8M:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client_max_body_size 8M;</span><br><span class="line">client_body_buffer_size 128k;</span><br></pre></td></tr></table></figure>
+<p>另外如果运行的是php，那么还要检查<code>php.ini</code>，这个大小<code>client_max_body_size</code>要和<code>php.ini</code>中的如下值的最大值一致或者稍大，这样就不会因为提交数据大小不一致出现的错误。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_max_size = 8M</span><br><span class="line">upload_max_filesize = 6M</span><br></pre></td></tr></table></figure>
+<p>修改完配置后，别忘记重新加载。</p>
+<p>虽然这样修改能解决一般问题，相信大家都会问<code>post_max_size</code> 和 <code>upload_max_filesize</code> 之间关系是什么？</p>
+<p>从字面含义看一个是上传文件最大值<code>upload_max_filesize</code>，一个是通过POST提交数据的最大值<code>post_max_size</code>，一般在php中用的是POST方式上传。</p>
+<p>所以<code>php.ini</code>中设置 <code>memory_limit</code> ; <code>post_max_size</code> ; <code>upload_max_filesize</code></p>
+<p>当上传大文件时为了防止网速慢时超时现象，需要适当调大<code>max_execution_time</code>的值。</p>
+<p>参考：<a href="http://www.nginx.cn/837.html">http://www.nginx.cn/837.html</a></p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>wordpress</tag>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>x200 wake on lan wol 远程启动</title>
+    <url>/x200-WOL/</url>
+    <content><![CDATA[<p>家里用闲置的x200建了服务器，各种爽，各种折腾。</p>
+<p>这日，不小心在外边把机器给关了，于是有了远程启动的心头长草。家里有花生棒，年付58可以添加远程启动功能，但是自从有了移动的公网ip后，花生棒完全闲置，也不想再花钱了，觉得应该可以从外界启动的吧，那就在想想机器怎么搞吧。</p>
+<p>主要有以下几个要点：</p>
+<span id="more"></span>
+
+<ol>
+<li>BIOS要启动wake on lan</li>
+<li>在网卡属性里选择好允许远程唤醒</li>
+<li>最重要的一步！！！如果你用的win10，在电源管理中关闭“快速启动”</li>
+</ol>
+<p>嗯，手机上装了个wol，各种爽！</p>
+<p>—2017-10-25—更新—</p>
+<p>还需要更新网卡驱动，否则网卡属性内可能没有远程唤醒，甚至即使显示有选项，设置后也会无效</p>
+<p>—2017-10-29—-更新—</p>
+<p>在路由器中既要设置静态ip，也要将ip-arp绑定。这是因为当路由器重启时，arp表消失，此时外部传入的唤醒信号因为找不到ip而丢弃数据包。</p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>x200</tag>
+        <tag>wol</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>你会打电话给谁？</title>
+    <url>/who-will-you-call/</url>
+    <content><![CDATA[<p>突然看到这么一个情景模拟。</p>
+<p>如果有个杀手用枪指着你的头，让你打电话，对方接电话了他就扣扳机，不接就放你走，你会发给谁？</p>
+<span id="more"></span>
+
+<p>我想了很久，觉得打给谁都有风险啊?</p>
+<p>也许打给我导师吧，不是因为有仇，而是她是挂我电话最多的那个人，有更多的机会救卿性命。</p>
+<p>说到仇恨，也许是自己阅历浅薄，没有刻骨铭心的仇恨，总觉得即使过去很讨厌的人，许多年没有联系了，也许我打电话，他们反倒会很大概率和蔼地接起电话，问问，寒暄一下。人也许不是神奇的动物，但时间一定是伟大的力量，人类或深痛或真挚的情感，都会随着时光消逝。</p>
+<p>所以，曾经刻骨铭心的感情，然后变得无话可说，最后就是相忘于世间，电话，我又是否会接呢？</p>
+]]></content>
+      <categories>
+        <category>Thinking</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>android电视盒子无法打开win10共享文件夹</title>
+    <url>/0xc0000205-android-shared-folder/</url>
+    <content><![CDATA[<p>前段时间买了个android电视盒子，在家中服务器上开启了共享，之前没有问题，突然有天win10升级，之后就各种诡异。共享的盘符，随即出现一个或多个无法访问，具体表现就是共享文件夹点了没有反应，而同时win电脑则可以访问。换了android手机用es文件管理器同样无法访问，也没有错误提示。</p>
+<p>后来想了个办法，整个文件夹复制到手机，终于看到了错误提示代码 (0xC0000205)。</p>
+<span id="more"></span>
+
+<p>查了无数资料，百度无望，都是在说改权限，但我的设置没有问题。最后在谷歌上搜了好久，一个<a href="https://www.tenforums.com/network-sharing/43931-samba-access-android-device-stopped-working-post885824.html?s=62a07bacd1f654ea36105f0a2d60cbe7#post885824">论坛回复</a>给出了正解。</p>
+<p>So follow the link and add the new <code>IRPStackSize DWORD</code> in</p>
+<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters</code></p>
+<p>and set the value to <code>50</code> works for me. Hope this helps other people.</p>
+<p>注意，50是十进制数</p>
+<p>他注册论坛为了分享，我注册论坛，为了感谢他。</p>
+<p>也希望能帮到需要的人吧.</p>
+<hr>
+<p>2018.11.1 在“程序和功能”-“启动或关闭windows功能”-“SMB1.0XX”开启。</p>
+<hr>
+<p>2019.5.3 another <a href="https://forum.kodi.tv/showthread.php?tid=304203">link</a> may be helpful.</p>
+<ol>
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Click on Connections:Ethernet</span><br><span class="line">Click on Properties button (lower left)</span><br><span class="line">Double click internet Protocol Version 4 (TCP/IPv4)</span><br><span class="line">Click Advanced Button lower right</span><br><span class="line">Click the WINS tab</span><br><span class="line">Click the radio button to Enable NetBios over TCP/IP</span><br></pre></td></tr></table></figure>
+
+<p>2.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">I could not get the sc config command (or sc.exe in Powershell) to achieve the result I desired, so I resorted to two registry edits and a reboot.  See new steps below. Try this:</span><br><span class="line">1. Run &quot;tasklist /svc&quot;</span><br><span class="line">In the output, you should see something like this: Browser and LanmanServer running in their own svchost processes. *Sample output below is abbreviated for illustration purposes. You will see a longer list.Image Name                     PID Services</span><br><span class="line">========================= ======== ==============</span><br><span class="line">svchost.exe                   2772 LanmanServer</span><br><span class="line">svchost.exe                   2868 Browser</span><br><span class="line"></span><br><span class="line">2. Run these two commands to add the SvcHostSplitDisable registry value set to 1.</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Browser /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">This will reconfigure the Browser service to run in a shared svchost with LanmanServer like in previous versions of Windows.</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Create a user profile with password in Windows 10. It&#x27;s not wise to use your main Windows admin profile as Kodi will leak this password in plain text.</span><br><span class="line"></span><br><span class="line">Make sure your media folder is shared to this user. I will presume you know how to set up a Windows share.</span><br><span class="line"></span><br><span class="line">Install Kodi v.18. Until Microsoft fixes SMB v.1 (maybe in June), you cannot share to earlier builds.</span><br><span class="line"></span><br><span class="line">(More info: https://support.microsoft.com/en-us/help...-kb4103721 )</span><br><span class="line"></span><br><span class="line">In Kodi &gt; Settings &gt; Services &gt; SMB &gt; Default settings (min none, max v.3).</span><br><span class="line"></span><br><span class="line">In Kodi File Manager &gt; Add Source &gt; Browse &gt; Add Network Location &gt; (Protocol SMB) &gt; Enter fields: Server Name, Shared Folder, Username, Password (do no attempt to browse there).</span><br><span class="line"></span><br><span class="line">Once you&#x27;ve succeeded in creating a link to your shared folder you can choose it as an Add Source shortcut for all media.</span><br><span class="line"></span><br><span class="line">NB: Make sure you instruct Kodi to remember your password.</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li></li>
+</ol>
+<p><strong>Don’t use USB Hub to connect your hard driver!!</strong></p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>error</tag>
+        <tag>win10</tag>
+        <tag>android</tag>
+        <tag>tvbox</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决</title>
+    <url>/qbittorrent-libtorrent-rasterbar-so-7/</url>
+    <content><![CDATA[<p>debian8 x64 编译 qbittorrent 3.3.11.</p>
+<p>根据教程<a href="https://github.com/qbittorrent/qBittorrent/wiki/Compiling-qBittorrent-on-Debian-and-Ubuntu">Compiling-qBittorrent-on-Debian-and-Ubuntu</a>和 <a href="https://github.com/qbittorrent/qBittorrent/wiki/Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-(15.04-and-newer">Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-(15.04-and-newer)</a>进行操作，最终提示：</p>
+<blockquote>
+<p>error while loading shared libraries: libtorrent-rasterbar.so.7: cannot open shared object file: No such file or directory</blockquote></p>
+</blockquote>
+<p>解决方法 参考：<a href="http://blog.csdn.net/layrong/article/details/38388703">http://blog.csdn.net/layrong/article/details/38388703</a></p>
+<p>这种问题的原因有两个：</p>
+<span id="more"></span>
+
+<ol>
+<li>一个是操作系统里确实没有包含该共享库(lib*.so.*文件)或者共享库版本不对, 遇到这种情况那就去网上下载并安装上即可.</li>
+<li>另外一个原因就是已经安装了该共享库, 但执行需要调用该共享库的程序的时候, 程序按照默认共享库路径找不到该共享库文件.  所以安装共享库后要注意共享库路径设置问题, 如下:</li>
+</ol>
+<ul>
+<li><p>如果共享库文件安装到了/lib或/usr/lib目录下, 那么需执行一下ldconfig命令。这个命令的用途, 主要是在默认搜寻目录(/lib和/usr/lib)以及动态库配置文件/etc/ld.so.conf内所列的目录下, 搜索出可共享的动态链接库(格式如lib*.so*), 进而创建出动态装入程序(ld.so)所需的连接和缓存文件. 缓存文件默认为/etc/ld.so.cache, 此文件保存已排好序的动态链接库名字列表.</p>
+</li>
+<li><p>如果共享库文件安装到了/usr/local/lib(很多开源的共享库都会安装到该目录下)或其它”非/lib或/usr/lib”目录下, 那么在执行ldconfig命令前, 还要把新共享库目录加入到共享库配置文件/etc/ld.so.conf中, 如下:</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># cat /etc/ld.so.conf</span><br><span class="line">include ld.so.conf.d/*.conf</span><br><span class="line"># echo &quot;/usr/local/lib&quot; &gt;&gt; /etc/ld.so.conf</span><br><span class="line"># ldconfig</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果共享库文件安装到了其它”非/lib或/usr/lib” 目录下,  但是又不想在/etc/ld.so.conf中加路径(或者是没有权限加路径). 那可以export一个全局变量LD_LIBRARY_PATH, 然后运行程序的时候就会去这个目录中找共享库.</li>
+</ul>
+<p>export LD_LIBRARY_PATH=/usr/local/mysql/lib:$LD_LIBRARY_PATH</p>
+<p>一般来讲这只是一种临时的解决方案, 在没有权限或临时需要的时候使用.</p>
+<ul>
+<li>如果程序需要的库文件比系统目前存在的村文件版本低，可以做一个链接<br>比如：<blockquote>
+<p>error while loading shared libraries: libncurses.so.4: cannot open shared<br>object file: No such file or directory</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls /usr/lib/libncu*</span><br><span class="line">/usr/lib/libncurses.a   /usr/lib/libncurses.so.5</span><br><span class="line">/usr/lib/libncurses.so  /usr/lib/libncurses.so.5.3</span><br></pre></td></tr></table></figure>
+<p>可见虽然没有<code>libncurses.so.4</code>，但有<code>libncurses.so.5</code>，是可以向下兼容的<br>建一个链接就好了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ln -s  /usr/lib/libncurses.so.5.3  /usr/lib/libncurses.so.4</span><br></pre></td></tr></table></figure>
+<p>我使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
+<p>即解决。</p>
+<p>此外，如编译安装，在/etc/systemd/system/qbittorrent.service文件中的地址因该是：/usr/local/bin</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>debian</tag>
+        <tag>qbittorrent</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github pages本地环境配置</title>
+    <url>/github-pages-local-environment/</url>
+    <content><![CDATA[<p>在win10下搭建github pages的本地环境真是坎坷多舛，各种错误，而且可用的文档也相对较少，中文的更是寥寥无几。。</p>
+<p>主要问题有以下几点：</p>
+<ul>
+<li>jekyll以及其包管理、开发环境的搭建</li>
+<li>github pages环境的配置</li>
+</ul>
+<span id="more"></span>
+
+<p>要做到第一点，让所有的依赖符合要求，要么vpn，要么换国内源。</p>
+<h1 id="1-下载安装ruby"><a href="#1-下载安装ruby" class="headerlink" title="1. 下载安装ruby"></a>1. 下载安装ruby</h1><p>下载 <a href="https://rubyinstaller.org/">rubyinstaller forwindows</a>，注意版本号，比如我在2019.11.06操作时发现，最新的 ruby 2.6和我的Gemfile.lock中的部分组件冲突，不得已下载了2.5的旧版才成功。</p>
+<p>安装完成后输入’ridk install’来安装MSYS2, gems等必须组件。问选项的时候一路回车即可。</p>
+<h1 id="2-解决网络速度慢"><a href="#2-解决网络速度慢" class="headerlink" title="2. 解决网络速度慢"></a>2. 解决网络速度慢</h1><h2 id="2-1-更换ruby国内源"><a href="#2-1-更换ruby国内源" class="headerlink" title="2.1 更换ruby国内源"></a>2.1 更换ruby国内源</h2><p><code>gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/</code></p>
+<p>用<code>gem sources -l</code>检测是否替换成功</p>
+<h2 id="2-2-给cmd加上代理"><a href="#2-2-给cmd加上代理" class="headerlink" title="2.2 给cmd加上代理"></a>2.2 给cmd加上代理</h2><p>以下命令设置环境变量，只会持续到cmd窗口关闭。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set http_proxy=http://127.0.0.1:1080</span><br><span class="line">set https_proxy=http://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-安装bundler"><a href="#2-安装bundler" class="headerlink" title="2. 安装bundler"></a>2. 安装bundler</h1><p><code>gem install bundler</code></p>
+<h1 id="3-进入博客的repository目录"><a href="#3-进入博客的repository目录" class="headerlink" title="3. 进入博客的repository目录"></a>3. 进入博客的repository目录</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bundle install</span><br><span class="line">bundle exec jekyll server</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-解决“No-GitHub-API-authentication”"><a href="#4-解决“No-GitHub-API-authentication”" class="headerlink" title="4.  解决“No GitHub API authentication”"></a>4.  解决“No GitHub API authentication”</h1><ul>
+<li><p>github: [metadata]</p>
+</li>
+<li><p>填写 <code>_config.yml</code> 中的站点description</p>
+</li>
+</ul>
+<h1 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h1><p>2020.8.12 增加切换国内源及加代理</p>
+<p>2019.11.06 重写</p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>github pages</tag>
+        <tag>jekyll</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阻止外置硬盘自动休眠</title>
+    <url>/external-hard-drive-auto-sleep/</url>
+    <content><![CDATA[<p>最近给家里换了个服务器，加了个硬盘柜，但发现硬盘柜中的硬盘时常自动断开连接，四处搜索后，得出以下解决方案：</p>
+<h2 id="调整电源选项"><a href="#调整电源选项" class="headerlink" title="调整电源选项"></a>调整电源选项</h2><p>在windows电源选项的计划设置中-更改高级电源设置-USB设置-禁用USB选择性暂停设置。</p>
+<span id="more"></span>
+
+<h2 id="调整设备管理器"><a href="#调整设备管理器" class="headerlink" title="调整设备管理器"></a>调整设备管理器</h2><p>在计算机管理中，选择设备管理，通用串行总线控制器里的各个集线器，属性，电源管理，取消<em>允许计算机关闭此设备以节约电源</em></p>
+<p>问题解决~</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>hard-driver</tag>
+        <tag>auto-sleep</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>qbittorrent、flexget和AMT配合使用，全自动的盒子配置</title>
+    <url>/qbittorrent-flexget-autoremove-torrents/</url>
+    <content><![CDATA[<p>qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission<br>因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会<br>脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎<br>能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。</p>
+<p>qbittorrent的另一个致命问题是，其webui不支持rss，可想而知对于盒子用户而言这是多么不可理喻<br>的事情，但为了qb的高效率，还是忍了。。。由于懒的学习flexget，一直以来都是通过安装rutorrent<br>来充当rss下载器，然后qb监控ru的.session种子文件夹来实现自动下载。后来，我的这个方法受到了<br>严重挑战，一是不知道为何，qb在我的vps上难以修改watch folder，多番测试，结果都很玄学，可能与<br>配置文件的权限、是否先启动qb完成同意协议的过程并生成配置文件、浏览器缓存等等有关，试了好多次<br>后，最终放弃;二是ru实在太卡了，即使只负责下载种子，作为一个强迫症患者，删除种子的时候都会卡死，<br>是可忍孰不可忍，叔叔能忍，婶婶不能忍，那就ByeBye啦！</p>
+<p>被逼无奈，最终捡起flexget，然后开启了新世界的大门！这玩意儿真的是非常便捷强大，比在rutorrent<br>里写正则表达过滤方便太多了！！</p>
+<p>最后要介绍的PT贴吧大神做的autoremove-torrents，真的是神器，最终实现了全自动无人值守的盒子配置。<br>下面进入正题吧：</p>
+<span id="more"></span>
+<p>（本文所有命令均在Ubuntu 16.04 x64下运行，理论上讲18.04也可以，14.04主要是apt和<br>apt-get的区别,均在root用户下，/root/目录下运行）</p>
+<h2 id="安装qbittorrent"><a href="#安装qbittorrent" class="headerlink" title="安装qbittorrent"></a>安装qbittorrent</h2><h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt install software-properties-common python-software-properties</span><br><span class="line">add-apt-repository ppa:qbittorrent-team/qbittorrent-stable</span><br><span class="line">apt update &amp;&amp; apt install qbittorrent-nox</span><br></pre></td></tr></table></figure>
+<h3 id="设置自启动"><a href="#设置自启动" class="headerlink" title="设置自启动"></a>设置自启动</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano /etc/systemd/system/qbittorrent.service</span><br></pre></td></tr></table></figure>
+
+<p>填入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=qBittorrent Daemon Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=root</span><br><span class="line">ExecStart=/usr/bin/qbittorrent-nox</span><br><span class="line">ExecStop=/usr/bin/killall -w qbittorrent-nox</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用方法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable qbittorrent  #开启自启动</span><br><span class="line">systemctl start qbittorrent   #启动qb</span><br><span class="line">systemctl stop qbittorrent    #停止qb</span><br><span class="line">systemctl restart qbittorrent #重启qb</span><br></pre></td></tr></table></figure>
+
+<p>启动后应该可以在http://你的ip:8080/访问webui，用户名admin，密码adminadmin，登录后<br>切记修改用户名和密码！！！</p>
+<h2 id="安装flexget"><a href="#安装flexget" class="headerlink" title="安装flexget"></a>安装flexget</h2><h3 id="pip安装"><a href="#pip安装" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt install python3-setuptools python3-pip</span><br><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install flexget ##也可能是pip install，取决于你是否安装了python2.</span><br></pre></td></tr></table></figure>
+
+<h3 id="填写flexget配置文件："><a href="#填写flexget配置文件：" class="headerlink" title="填写flexget配置文件："></a>填写flexget配置文件：</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir .flexget</span><br><span class="line">nano .flexget/config.yml</span><br></pre></td></tr></table></figure>
+
+<p>填入以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">templates:</span><br><span class="line">  freespace:</span><br><span class="line">    free_space:</span><br><span class="line">      path: /home/star</span><br><span class="line">      space: 10240     </span><br><span class="line">  qb:</span><br><span class="line">    qbittorrent:</span><br><span class="line">      path: /home/star/Downloads/</span><br><span class="line">      host: localhost</span><br><span class="line">      port: 8080</span><br><span class="line">      username: xx</span><br><span class="line">      password: xx	  </span><br><span class="line">  size:</span><br><span class="line">    content_size:</span><br><span class="line">      min: 10000</span><br><span class="line">      max: 66666</span><br><span class="line">      strict: no</span><br><span class="line">tasks:</span><br><span class="line">  CHDbits:</span><br><span class="line">    rss: https://chdbits.co/torrentrss.php?rows=</span><br><span class="line">    verify_ssl_certificates: no</span><br><span class="line">    accept_all: yes</span><br><span class="line">    template:</span><br><span class="line">      - freespace</span><br><span class="line">      - qb</span><br><span class="line">    qbittorrent:</span><br><span class="line">      label: CHDbits</span><br><span class="line">  CMCT:</span><br><span class="line">    rss: https://hdcmct.org/torrentrss.php?rows=</span><br><span class="line">    verify_ssl_certificates: no</span><br><span class="line">    accept_all: yes</span><br><span class="line">    template:</span><br><span class="line">      - freespace</span><br><span class="line">	  - size</span><br><span class="line">      - qb</span><br><span class="line">    qbittorrent:</span><br><span class="line">      label: CMCT</span><br><span class="line">schedules:</span><br><span class="line">  - tasks: [ChDbits, CMCT]</span><br><span class="line">    interval:</span><br><span class="line">      minutes: 10</span><br></pre></td></tr></table></figure>
+
+<p>以上配置是最简单的配置了，直接替换rss链接，就会下载10-66g之间的种子，每10分钟更新<br>一次，更多配置可以参考：</p>
+<ol>
+<li><a href="https://raw.githubusercontent.com/Aniverse/inexistence/968bf4ef1c92db5d53adf840ececd2e3aab97e89/00.Installation/template/config/flexget.config.yml">flexget.config.yml</a></li>
+<li><a href="https://www.2dan.cc/pt/qbittorrent-flexget.html">qbittorrent配合flexget</a></li>
+<li>google和百度</li>
+</ol>
+<h3 id="测试flexget运行"><a href="#测试flexget运行" class="headerlink" title="测试flexget运行"></a>测试flexget运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flexget --test  --loglevel debug execute</span><br></pre></td></tr></table></figure>
+
+<p>看看是不是符合你的预期？</p>
+<h3 id="flexget以daemon运行"><a href="#flexget以daemon运行" class="headerlink" title="flexget以daemon运行"></a>flexget以daemon运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flexget daemon start -d</span><br></pre></td></tr></table></figure>
+
+<h3 id="flexget以daemon开机自启动"><a href="#flexget以daemon开机自启动" class="headerlink" title="flexget以daemon开机自启动"></a>flexget以daemon开机自启动</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano /etc/rc.local</span><br></pre></td></tr></table></figure>
+
+<p>在exit0之前填入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flexget daemon start -d</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="安装autoremove-torrents"><a href="#安装autoremove-torrents" class="headerlink" title="安装autoremove-torrents"></a>安装autoremove-torrents</h2><p>软件来自<a href="https://tieba.baidu.com/p/5617157829?red_tag=0564171599">贴吧大神 @蛋糕机Mac</a><br>2018年12月31号，最新版本1.2.4，但是我发现有重复统计的bug，就一直在用1.1了。</p>
+<h3 id="下载并解压"><a href="#下载并解压" class="headerlink" title="下载并解压"></a>下载并解压</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://github.com/jerrymakesjelly/autoremove-torrents/archive/v1.1.0.tar.gz</span><br><span class="line">tar zxf v1.1.0.tar.gz</span><br><span class="line">cd autoremove-torrents-1.1.0</span><br><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure>
+
+<h3 id="在-root-下建立config-yml"><a href="#在-root-下建立config-yml" class="headerlink" title="在/root/下建立config.yml"></a>在/root/下建立config.yml</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano config.yml</span><br></pre></td></tr></table></figure>
+
+<p>填入如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">my_task: </span><br><span class="line">  client: qbittorrent</span><br><span class="line">  host: http://127.0.0.1:8080</span><br><span class="line">  username: XXX</span><br><span class="line">  password: XXX</span><br><span class="line">  strategies:</span><br><span class="line">    s1:</span><br><span class="line">      all_categories: true</span><br><span class="line">      #seeding_time: 1209600</span><br><span class="line">      seed_size:</span><br><span class="line">        limit: 1020</span><br><span class="line">        action: remove-old-seeds</span><br><span class="line">  delete_data: true</span><br></pre></td></tr></table></figure>
+
+<p>这个设置是说，检查所有的分类，如果种子总大小超过1020G则删除较旧的种子和数据。<br>更多设置请参考<a href="https://github.com/jerrymakesjelly/autoremove-torrents/wiki">AMT-wiki</a></p>
+<h3 id="测试AMT运行"><a href="#测试AMT运行" class="headerlink" title="测试AMT运行"></a>测试AMT运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">autoremove-torrents --view</span><br></pre></td></tr></table></figure>
+
+<p>看看是不是符合你的预期？</p>
+<h3 id="自动运行"><a href="#自动运行" class="headerlink" title="自动运行"></a>自动运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">*/15 * * * * /usr/local/bin/autoremove-torrents --conf=/root/config.yml ##切记按照这个写，原作者的那个bin文件位置不对</span><br></pre></td></tr></table></figure>
+
+<p>每十五分钟运行一次，看看有没有符合条件需要删除的种子。</p>
+<h2 id="监控qb和flexget的情况"><a href="#监控qb和flexget的情况" class="headerlink" title="监控qb和flexget的情况"></a>监控qb和flexget的情况</h2><h3 id="qb监控脚本"><a href="#qb监控脚本" class="headerlink" title="qb监控脚本"></a>qb监控脚本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano listen-qb.sh</span><br></pre></td></tr></table></figure>
+
+<p>填入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pgrep qbittorrent &amp;&gt; /dev/null</span><br><span class="line">if [ $? -gt 0 ]</span><br><span class="line">then</span><br><span class="line">echo &quot;`date` qbittorrent is stop&quot;</span><br><span class="line">systemctl start qbittorrent</span><br><span class="line">else</span><br><span class="line">echo &quot;`date` qbittorrent running&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="flexget监控脚本"><a href="#flexget监控脚本" class="headerlink" title="flexget监控脚本"></a>flexget监控脚本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano listen-flex.sh</span><br></pre></td></tr></table></figure>
+
+<p>填入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pgrep flexget &amp;&gt; /dev/null</span><br><span class="line">if [ $? -gt 0 ]</span><br><span class="line">then</span><br><span class="line">echo &quot;`date` flexget is stop&quot;</span><br><span class="line">flexget daemon start -d</span><br><span class="line">else</span><br><span class="line">echo &quot;`date` flexget is running&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod 777 listen-qb.sh</span><br><span class="line">chmod 777 listen-flex.sh</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="定时运行"><a href="#定时运行" class="headerlink" title="定时运行"></a>定时运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+
+<p>加入如下两行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*/5 * * * * /root/listen-qb.sh</span><br><span class="line">*/5 * * * * /root/listen-flex.sh</span><br></pre></td></tr></table></figure>
+
+<p>每五分钟自动检测qb和flex是否再运行，没有则启动。</p>
+<h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>qbittorrent</tag>
+        <tag>flexget</tag>
+        <tag>autoremove-torrents</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu重启后SSH不启动以及Syncthing更新1.0后无法启动</title>
+    <url>/ubuntu-reboot-ssh-stop-syncthingv1-stop/</url>
+    <content><![CDATA[<p>古老的Openvz终于露出了狰狞的獠牙，美人白发，英雄迟暮，不单单是世人看不下去，他们自己，也看不下去。。。</p>
+<span id="more"></span>
+
+<h2 id="不知道原因就再也进不去的Ubuntu"><a href="#不知道原因就再也进不去的Ubuntu" class="headerlink" title="不知道原因就再也进不去的Ubuntu"></a>不知道原因就再也进不去的Ubuntu</h2><p>Linux的用户，真的应该谨记，计算机是用来用的，不是用来折腾的，只要它还能动弹，就不要去碰它。今天闲的荒，apt upgrade出了事。。。不知道更新了什么，重启后就ssh不上了，当时服务器可以ping通，ISP的后台也能看到机器在运行，最终在ISP的后台开了online console，登上去看了下，ssh和syncthing都无法启动了，然后折腾了一下午，解决如下：</p>
+<h2 id="SSH无法启动的解决"><a href="#SSH无法启动的解决" class="headerlink" title="SSH无法启动的解决"></a>SSH无法启动的解决</h2><p>‘sshd -t’后提示：<br><code>Missing privilege separation directory: /var/run/sshd</code></p>
+<p>早在2006年就有人遇到过这个<a href="https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234">问题了</a>，当时的解决办法就是，<code>rc.local, bootmisc.sh - either way, it&#39;s seems trivial enough to me (yet I managed to get my patch wrong, aaargh!) and I hope this will be fixed soon.</code> </p>
+<p>比较悲伤，虽然我不知道是为啥，但十多年后我也遇到了。。。然后我又看到了<a href="https://talk.plesk.com/threads/missing-privilege-separation-directory-var-run-sshd.350438/">这个</a>,作者提问的同时也给出了解决办法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">@reboot mkdir -p -m0755 /var/run/sshd &amp;&amp; systemctl restart sshd.service</span><br></pre></td></tr></table></figure>
+
+<p>其实就是重启强行重建这个文件夹。。简单粗暴，但在找不到原因，又不想重装的情况下，不失为一个很好的选择了。</p>
+<h2 id="syncthing无法启动的解决"><a href="#syncthing无法启动的解决" class="headerlink" title="syncthing无法启动的解决"></a>syncthing无法启动的解决</h2><p>更新完syncthing的1.0版本后，无法启动了，这不是第一次发生了，这次的google终于有了些进展。</p>
+<p>之前我用的systemd文件如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Syncthing - Open Source Continuous File Synchronization for %I</span><br><span class="line">Documentation=man:syncthing(1)</span><br><span class="line">After=network.target</span><br><span class="line">Wants=syncthing-inotify@.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=%i</span><br><span class="line">ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0</span><br><span class="line">Restart=on-failure</span><br><span class="line">SuccessExitStatus=3 4</span><br><span class="line">RestartForceExitStatus=3 4</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>然后到github页查看发现，官方syncthing@.service的内容为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Syncthing - Open Source Continuous File Synchronization for %I</span><br><span class="line">Documentation=man:syncthing(1)</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=%i</span><br><span class="line">ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0</span><br><span class="line">Restart=on-failure</span><br><span class="line">SuccessExitStatus=3 4</span><br><span class="line">RestartForceExitStatus=3 4</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hardening</span></span><br><span class="line">ProtectSystem=full</span><br><span class="line">PrivateTmp=true</span><br><span class="line">SystemCallArchitectures=native</span><br><span class="line">MemoryDenyWriteExecute=true</span><br><span class="line">NoNewPrivileges=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>但是用如上内容也无法启动syncthing，依旧启动失败，之后发现了如下两个issue:</p>
+<ol>
+<li><a href="https://github.com/syncthing/syncthing/issues/5449">#5449</a></li>
+<li><a href="https://github.com/syncthing/syncthing/issues/5286">#5286</a></li>
+</ol>
+<p>之后把systemd文件中如下两项#掉，终于可以用了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># SystemCallArchitectures=native</span><br><span class="line"># MemoryDenyWriteExecute=true</span><br></pre></td></tr></table></figure>
+<p>issue中的对话值得深思：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@serl</span><br><span class="line">Problem is, as you can guess from my version information, I cannot update the kernel to support these options, as the machine is a OpenVZ VPS and I have no control on the hypervisor.</span><br><span class="line"></span><br><span class="line">Relates to #5286</span><br><span class="line"></span><br><span class="line">Version Information</span><br><span class="line">Syncthing Version: v1.0.0</span><br><span class="line">OS Version: Ubuntu 16.04 / Kernel 2.6.32-openvz-042stab120.18-amd64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@calmh</span><br><span class="line">Nonetheless, you’ve solved the problem. Outdated kernels and other software will always be around, but we cannot be forever prevented from using new features.</span><br></pre></td></tr></table></figure>
+
+<p>openvz不知道还能坚持多久？廉价vps如果没有了ovz的支持，会怎样走下去？毕竟2.6.32，真的太老了。。。</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>SSH</tag>
+        <tag>openvz</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hyper-v虚拟LEDE旁路由实现科学上网</title>
+    <url>/hyper-v-lede-side-router/</url>
+    <content><![CDATA[<p>事情的起因如此的简单，就是突然发现油管上给我推荐的视频都在讲软路由，点开看看。。。内容很基础，无感，但其中一个提到用旧电脑做了个旁路由，通过修改其他设备的网关来实现科学上网的，一下点燃了我的热情！</p>
+<span id="more"></span>
+
+<p>2021.6.9</p>
+<p>最近手贱，想直接升级，又搞了一次hyper-v</p>
+<p>最终是去掉桥接+iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE 起了作用，可以访问国内了。可能与我本次没有删除多余的wan口有关</p>
+<p>就利用softehter组建内部局域网有了一些心得，另文讨论吧。</p>
+<p>只启用虚拟dhcp的尝试，出口ip的设置，ip区间的设置。</p>
+<h2 id="2020-11-5补充：防火墙规则"><a href="#2020-11-5补充：防火墙规则" class="headerlink" title="2020.11.5补充：防火墙规则"></a>2020.11.5补充：防火墙规则</h2><p>不知道从什么时候起，旁路由需要添加防火墙规则了，否则要么不能用，要不只能用外网。具体措施两种：</p>
+<p>方法一：</p>
+<p>如果用这个固件做旁路由的话不要忘了加自定义防火墙规则（网络-&gt;防火墙-&gt;自定义规则）：<br>iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE<br>也可以尝试（有桥接存在的情况下）<br>iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE </p>
+<p>方法二：</p>
+<p>到网络-防火墙-自定义规则添加iptables -t nat -I POSTROUTING -j MASQUERADE这一句后重启防火墙<br>网络-接口-LAN-修改-物理设置-桥接接口不勾选。</p>
+<p>原理解释？：</p>
+<p>1 、加上那那条 就是做旁路由+nat转换，如果这台N1再做fq的话，N1的负载会增大，至于NAT与fq会不会有影响就不清楚。<br>2、不加上那条 N1就是旁路由，不做nat，做纯ip路由转发，路径是出去访问的包会经过N1-出口路由器，回包是直接原路由器转发过来，不经过N1的，对于fq的路径是是没有影响的。fq出去的数据包源ip是N1的eth0的地址，回包也是回到N1,解密后在转发出来到客户端。</p>
+<p><strong>以下原文</strong></p>
+<hr>
+<p>是的，最近沉迷喷射2无法自拔，9102年了，中国移动连接Nintendo是每况愈下，基本已经放弃治疗了。之前发现路由器版的UU加速器效果还行，最重要的是免费啊，嘿嘿，就用了一个月，但据说马上要收费了，本来要买的，但是测了下，发现高峰时候还是速度慢丢包啥的，实在不值，况且手里还有那么多vps闲置（此处一坑，后详解）。要是路由里自己科学上网，启用游戏模式，则会影响pt下载，太麻烦，旁路由就是完美的解决方案啊！</p>
+<p>老家是有能装lede的路由器，但不在手边，等家里人找到寄过来猴年马月了。。。然后就突然看到一个词“hyper-v”，很久以前就想试试这个win10自带的虚拟机啦，正好，一起来一波吧！</p>
+<h2 id="文献综述"><a href="#文献综述" class="headerlink" title="文献综述"></a>文献综述</h2><p>嗯，你没有看错，我真的觉得应该叫文献综述。。。比以前混学术下的辛苦都大啊。。。果然需求才是第一驱动力啊。</p>
+<p>网络中关于hyper-v装lede的文章真的是不要太多，也有踩坑分享的，有另辟蹊径的，当然也有互相抄来抄去的。。。突然发现，互联网时代，抄袭最大的问题可能都不是不尊重版权，而是浪！费！时！间！真的等同杀人。</p>
+<h2 id="安装lede"><a href="#安装lede" class="headerlink" title="安装lede"></a>安装lede</h2><p>大部分文章安装的lede，是真的要把这个虚拟路由作为拨号路由来用的，但我不是。这类文章，一般都是给lede虚拟机分配两个虚拟网卡，一个“外网”类型的做wan口，一个内网类型的来联通宿主机。主要有三篇：</p>
+<ul>
+<li><a href="https://www.zhiin.net/105a7cc2/">Hyper-V 部署 Lede 路由</a></li>
+<li><a href="http://koolshare.cn/thread-84735-1-2.html">Hyper-V 部署LEDE X64固件全教程</a></li>
+</ul>
+<p>这两篇讲的都是一个事儿</p>
+<ul>
+<li><a href="https://blog.skk.moe/post/hyper-v-win10-lede/">在 Windows 10 上使用 Hyper-V 安装 LEDE 软路由</a></li>
+</ul>
+<p>这一篇解决方案差不多，区别是使用了hyper-v的第二代虚拟化，所以虚拟盘使用的gpt-uefi的，记得要去掉安全启动，否则启动不了的，据说可以提升性能。另外本篇中提到的对宿主机虚拟网卡和lede-ui中设置ip，利用30s回滚的机会进行设置的方法，有一定的实践价值。</p>
+<p><em>划重点，这里我踩的坑你们估计想不到。。第一次启动虚拟后，死活找不到网卡，ifconfig返回为空，/etc/config/netwrok就没有这个文件，真的是一头雾水。。最后发现，是我下载的固件出了问题！眼瞎！！那么大的汉字“虚拟盘和转盘专用”。。。</em></p>
+<h2 id="理解虚拟机与宿主机的网络结构"><a href="#理解虚拟机与宿主机的网络结构" class="headerlink" title="理解虚拟机与宿主机的网络结构"></a>理解虚拟机与宿主机的网络结构</h2><p>然后就是实践本人想法的时候了，所有的文章都是一个类型，但不是我想要的，我希望虚拟机和宿主机在同一个网段下，就像真实的接入了一个旁路由，旁路由的lan口插在主路由的lan口，然后修改旁路由ip避免冲突，但与其他设备在一个网段下方便修改网关，这样就可以单独修改switch的网关设置，实现switch用lede里的软件游戏模式科学上网，而不影响其他设备。（说到这里，我突然有个想法，科学上网软件里好像有个功能叫“访问控制”？？？我天，我是不是这两天都白干了。。。答案是，yes。。。我写到这里去试了下，结果。。。:cry:，还是继续写吧）</p>
+<p>要实现这个，就需要研究一下虚拟机和宿主机的网络构成到底有哪几种：</p>
+<ul>
+<li>桥接</li>
+<li>NAT</li>
+<li>host-only</li>
+</ul>
+<p>基本可以确认，分别对应hyper-v的：</p>
+<ul>
+<li>外部网络</li>
+<li>内部网络</li>
+<li>专用网络</li>
+</ul>
+<p>就理解原理而言，写的最好的一篇文章是<a href="https://yuerblog.cc/2017/01/22/understand-bridge-and-dhcp/">理解桥接bridge和dhcp</a>，非常详细解释了区别以及交换机转发的原理，通过mac地址来决定该把信号发给一个网桥（一根网线）下的宿主还是虚拟机，从源头上给出思路，推荐有兴趣的都可以看看哈。</p>
+<p>就实际操作上，其实更简单，我是按照<a href="https://blog.csdn.net/sinat_36203615/article/details/77969800">Win10 Hyper-V 搭建虚拟机 桥接模式</a>做的。</p>
+<p><del>我只用了随虚拟机建立的default vEthernet这个内网虚拟网卡和lan口网卡桥接就成了，并没有如文中最后所说给网桥一个ip地址。</del> 此种方法实现的桥接尽在当时有效，一旦重启则default vEthernet会再次被分配一个内网地址，需要按照NAT的方式对LEDE的网卡进行设置才能上网。<del>理论上讲</del>我猜，记录好重启前的网卡状态，通过对网卡的相应设置应该还是可以实现桥接吧？但是,折腾也要有个限度吧XD，老老实实的在桥接和NAT中选一个就好了。。。 </p>
+<p>两种模式的区别一句话：桥接的网络下，物理机所在网络中的其他主机可以访问虚拟机；NAT的网络下，只有宿主机能访问虚拟机（有教程说可以通过Powershell设置转发来实现，但是。。。何必呢。。。）。</p>
+<p>哈哈，就酱了。。</p>
+<p>这里要说的是，桥接模式下如何控制宿主PC物理网卡的IP地址和虚拟机里LEDE的IP地址（我需要固定ip），因为桥接后，会出现一个网桥，而<del>接入网桥的设备</del>物理网卡已经没有单独设置ip的选项了。我的办法是，<del>在路由里用静态路由表确定宿主机的</del>修改网桥的ipv4设置来确定物理网卡ip地址，在虚拟机里修改/etc/config/network文件里lan口的地址来确定虚拟机的ip地址。例如：宿主机为192.168.1.2，那么将虚拟机设置为192.168.1.4就可以在宿主机的浏览器访问1.4上的lede了，之后再相应设置虚拟路由的网关、dns什么的。</p>
+<p>最重要的已经在刚才的一段里说完了。。。希望对看到的人有所帮助。</p>
+<h2 id="如何利用这个旁路由？"><a href="#如何利用这个旁路由？" class="headerlink" title="如何利用这个旁路由？"></a>如何利用这个旁路由？</h2><p>很简单，连接到192.168.1.x下的设备，选择手动ip设置，把网关设置为192.168.1.4，两个dns，我一般填虚拟机的ip和公网的dns，我猜两个公网dns应该也是可以的。 That‘s it.</p>
+<p><a href="https://instar.me/archives/e806f8ac.html">关于 N1 旁路由的设置</a>文章写的很清晰，大家可以参考。</p>
+<h2 id="一些补充"><a href="#一些补充" class="headerlink" title="一些补充"></a>一些补充</h2><h3 id="其他虚拟机”内部网络”连接外网的方式"><a href="#其他虚拟机”内部网络”连接外网的方式" class="headerlink" title="其他虚拟机”内部网络”连接外网的方式"></a>其他虚拟机”内部网络”连接外网的方式</h3><p>启用物理网卡的网络共享给vEthernet，具体设置就是在物理网卡的属性界面-共享-勾选“允许其他网络用户使用此网络连接”-然后选择LEDE的那张默认虚拟卡即可。之后lede的虚拟网卡会自动设置为192.168.137.1。需要在虚拟机里把LEDE的lan口改为192.168.137.x，然后就可以访问137.x的LEDE了。共享时其实就是nat转发模式，192.168.137.1就是那个转发的路由器wan口。这个方法中，虚拟机无法更新系统或下载插件，显示“插件下载显示文件校验不一致，错误代码4”，后来发现，应该是dns的问题，给lan口那里添加了一个公网dns即可，我添加了114.114.114.114。</p>
+<h3 id="外部网络设置中“允许管理操作系统共享此网络适配器“的意义"><a href="#外部网络设置中“允许管理操作系统共享此网络适配器“的意义" class="headerlink" title="外部网络设置中“允许管理操作系统共享此网络适配器“的意义"></a>外部网络设置中“允许管理操作系统共享此网络适配器“的意义</h3><p>以上实操教程，很多都提到了在什么时候勾选这个选项，什么时候去掉等等。在阅读是否勾选时win10的提示，以及数次尝试后，我觉得。勾选这个选项，应该是起到了与桥接相同的作用，至于是否能够在虚拟机内编辑设置文件将虚拟机置于宿主机的同一网段？还有待进一步测试。。。等哪天又犯贱了就去试试哈。</p>
+<p>不勾这个选项，就是让虚拟机接管物理网卡，我没有照上边的例子试过，但宿主机应该是进入了虚拟路由的子网。</p>
+<p><a href="https://blog.csdn.net/rrrfff/article/details/51168376">Win10下配置Hyper-V虚拟机通过NAT或桥接方式联网</a> 一文也提到了这些问题，应该与我的想法印证了。</p>
+<h3 id="旁路由时关闭dhcp无所谓"><a href="#旁路由时关闭dhcp无所谓" class="headerlink" title="旁路由时关闭dhcp无所谓"></a>旁路由时关闭dhcp无所谓</h3><p>如果像我这样设置虚拟旁路由，则dhcp关闭与否应该是无所谓的，因为根本不会用到旁路由下的子网。</p>
+<h3 id="准备个好点的酸酸乳。。。"><a href="#准备个好点的酸酸乳。。。" class="headerlink" title="准备个好点的酸酸乳。。。"></a>准备个好点的酸酸乳。。。</h3><p>全都设置好了，又折腾了一个多小时，手机、switch什么的改了网关为虚拟路由器的ip，就是不能上外网。。。真的是绝望了，什么鬼啊。。。准备放弃的时候，用买的机场的酸酸乳试了下。。。功成。。。</p>
+<p>妈的，自己的线路能烂成这样，也是奇迹啊。。。当然有可能是因为自己的只做了ss，被干扰的太厉害了？</p>
+<p>后来再次测试自己的服务器，还有连上了，速度很快，但switch的nat type竟然是D。。。呵呵了，一开始以为是v2ray构建ss的锅，后来发现不是这样滴。。。同样的建立的其他服务器有a有b的。唉真的古怪。但也就这样吧！</p>
+<p>补充1石锤：用软件中心的v2ray的游戏模式，switch的nat全是D，所以，应该是它的锅吧。。</p>
+<p>补充2：我的北京移动，感觉甚至能够干扰酸酸乳的http-simple了，本来为了减少延迟，没有用tls，然后玩儿喷射，5把掉了3把，换了tls的混淆，终于正常打了半小时，但。。。还是掉了一次，唉。</p>
+<p>以上。</p>
+<h2 id="其他参考链接"><a href="#其他参考链接" class="headerlink" title="其他参考链接"></a>其他参考链接</h2><ol>
+<li><a href="http://www.cnblogs.com/ayanmw/p/3264082.html">http://www.cnblogs.com/ayanmw/p/3264082.html</a></li>
+<li><a href="http://www.cnblogs.com/elvis0123/articles/2006771.html">http://www.cnblogs.com/elvis0123/articles/2006771.html</a></li>
+<li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html">http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html</a></li>
+<li><a href="http://www.cnblogs.com/zhourourou/p/5210477.html">http://www.cnblogs.com/zhourourou/p/5210477.html</a></li>
+<li><a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=3354745&amp;page=1">https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=3354745&amp;page=1</a></li>
+<li><a href="https://koolshare.cn/forum.php?mod=redirect&amp;goto=findpost&amp;ptid=166096&amp;pid=2114362">https://koolshare.cn/forum.php?mod=redirect&amp;goto=findpost&amp;ptid=166096&amp;pid=2114362</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>win10</tag>
+        <tag>hyper-v</tag>
+        <tag>lede</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>p20 pro以及其他异形屏使用windows远程桌面rdp鼠标定位不准错位的临时解决</title>
+    <url>/p20-pro-rdp-mouse-pointer-wrong-position/</url>
+    <content><![CDATA[<p>p20 pro什么都好，但有件事一直困扰着我，那就是在window remote desktop app下连接远程pc，鼠标在画面中的位置和点击位置不一致，且横屏状态下，越靠近右侧，漂移幅度越大。</p>
+<p>具体表现举例，想要关闭窗口，鼠标需要在最小化按钮附近才能点到关闭按钮。</p>
+<p>推断是因为刘海屏拉伸所导致的，但是关闭刘海屏幕显示，关闭软件拉伸都没有解决问题。</p>
+<p>在这个即将发售，我准备去强p30 pro的日子，说说怎么解决这个问题吧。。。</p>
+<span id="more"></span>
+
+<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>偶然机会，在google market搜了下rdp，在评论中看到了这个解决方案，其中提到他是在酷安的评论里看到的，我去膜拜点了个赞，真的是从心底感谢啊。因为我发现，店里的<br>p30 pro还存在这个问题的，都影响我换手机的动力啦，哈哈哈。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>很简单：</p>
+<ol>
+<li>开启屏幕自动旋转</li>
+<li>打开RD Client</li>
+<li>让APP自动旋转为横屏</li>
+<li>选择合适的分辨率</li>
+<li>请开始你的表演 :smile:</li>
+</ol>
+<p>以上。</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>p20pro</tag>
+        <tag>rdp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>fdisk与df显示磁盘大小不一致的解决办法</title>
+    <url>/diff-result-fdisk-df/</url>
+    <content><![CDATA[<p>昨天重装了一个vps，用了ubuntu18.04，踩了一下午的netplan坑，又发现，磁盘空间货不对板。google一下找到了解决方案。</p>
+<span id="more"></span>
+
+<p>很简单，这个问题一般是因为文件系统和分区大小不一致导致的。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">resize2fs /dev/sda1</span><br></pre></td></tr></table></figure>
+
+<p>即可解决问题。</p>
+<p><code>resize2fs</code>使文件系统<code>filesystem</code>与<code>partition</code>保持一致从而提升空间。</p>
+<p>ref: <a href="https://unix.stackexchange.com/questions/10776/why-are-partition-size-and-df-output-different">Why are partition size and df output different?</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>php优化设置</title>
+    <url>/php-optimize-setting/</url>
+    <content><![CDATA[<p>之前折腾个人的小破站，搜集了不少各路“优化”设置，放在这里，以备不时之需啦。</p>
+<span id="more"></span>
+
+<p>[toc]</p>
+<h1 id="unix-socket还是tcp-sock？"><a href="#unix-socket还是tcp-sock？" class="headerlink" title="unix socket还是tcp sock？"></a>unix socket还是tcp sock？</h1><h2 id="TCP-socket"><a href="#TCP-socket" class="headerlink" title="TCP socket"></a>TCP socket</h2><ol>
+<li><p>编辑/etc/nginx/sites-available/default：</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">	  index index.php index.html index.htm;</span><br><span class="line">	  include /etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">	  fastcgi_index index.php;</span><br><span class="line">	  include fastcgi_params;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑/etc/php5/fpm/pool.d/<a href="http://www.conf中的参数listen：">www.conf中的参数listen：</a></p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listen=127.0.0.1:9000</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="unix-socket"><a href="#unix-socket" class="headerlink" title="unix socket"></a>unix socket</h2><ol>
+<li><p>创建socket接口位置</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo touch /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chown www-data:www-data /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chmod 666 /dev/shm/fpm-cgi.sock</span><br></pre></td></tr></table></figure>
+
+<p> dev/shm目录是所谓的tmpfs，是RAM可以直接使用的区域，读写速度会快一些。</p>
+</li>
+<li><p>编辑/etc/php5/fpm/pool.d/<a href="http://www.conf中的参数：">www.conf中的参数：</a></p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listen=/dev/shm/fpm-cgi.sock</span><br><span class="line"></span><br><span class="line">; Set listen(2) backlog. A value of &#x27;-1&#x27; means unlimited.</span><br><span class="line">; Default Value: 128 (-1 on FreeBSD and OpenBSD) </span><br><span class="line">; 内存积压，默认是128，并发高了之后就会报错,根据自己内存设置</span><br><span class="line">listen.backlog = 128</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑/etc/nginx/sites-available/default：</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location~\.php$&#123;</span><br><span class="line">	  indexindex.phpindex.htmlindex.htm;</span><br><span class="line">	  include/etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_passunix:/dev/shm/fpm-cgi.sock;</span><br><span class="line">	  fastcgi_indexindex.php;</span><br><span class="line">	  includefastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改/etc/sysctl.conf配置，提高内核级别的并发连接数</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">	net.core.somaxconn = 2048</span><br><span class="line"></span><br><span class="line">	sudo sysctl -p</span><br><span class="line">	````</span><br><span class="line"></span><br><span class="line">5. 重启nginx和php-fpm</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 两种区别</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">从原理上来说，unix socket方式肯定要比tcp的方式快而且消耗资源少，因为socket之间在nginx和php-fpm的进程之间通信，而tcp需要经过本地回环驱动，还要申请临时端口和tcp相关资源。</span></span><br><span class="line">当然还是从原理上来说，unix socket会显得不是那么稳定，当并发连接数爆发时，会产生大量的长时缓存，在没有面向连接协议支撑的情况下，大数据包很有可能就直接出错并不会返回异常。而TCP这样的面向连接的协议，多少可以保证通信的正确性和完整性。</span><br><span class="line">当然以上主要是半懂不懂的理论分析加主观臆测，具体的差别还是要通过测试数据来说话，以后有空，会进行这方面的测试。从网上别人博客的测试数据，我的理论分析差不多是对的。至于你选择哪种方式，我只能说“鱼和熊掌不可兼得也”，通过高超的运维和配置技巧，在性能和稳定性上做一个平衡吧。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">楼主，你确定socket比tcp要好吗？我之前也是这么认为的，但是今天做压测的时候就发现tcp比socket稳定多了 同样的并发，超过某个数量的时候，socket就一直报：connect()to unix:/dev/shm/php55-socket failed (11: Resource temporarily unavailable。。。报错率大概是15%的样子，但是查看一些资料发现，tcp比socket这方面稳定，故改tcp，发现基本没有报错了。同样的并发下，起码出现502的几率相对减少，所以我还是改tcp了。</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> php-fpm进程数的优化 [php-fpm进程数设置多少合适](https://zhuanlan.zhihu.com/p/94627701)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 了解参数</span></span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">需要了解的参数是：pm、pm.max_children、pm.start_servers、pm.min_spare_servers、pm.max_spare_servers。</span><br><span class="line"></span><br><span class="line">pm：表示使用那种方式，有两个值可以选择，就是static（静态）或者dynamic（动态）。</span><br><span class="line"></span><br><span class="line">在更老一些的版本中，dynamic被称作apache-like。这个要注意看配置文件的说明。</span><br><span class="line"></span><br><span class="line">下面5个参数的意思分别为：</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">pm = dynamic 如何控制子进程，选项有static和dynamic    </span><br><span class="line">pm.max_children：静态方式下开启的php-fpm进程数量    </span><br><span class="line">pm.max_requests：php-fpm子进程能处理的最大请求数    </span><br><span class="line">pm.start_servers：动态方式下的起始php-fpm进程数量</span><br><span class="line">pm.min_spare_servers：动态方式下的最小php-fpm进程数</span><br><span class="line">pm.max_spare_servers：动态方式下的最大php-fpm进程数量</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>如果dm设置为 static，那么其实只有pm.max_children这个参数生效。系统会开启设置数量的php-fpm进程。</p>
+<p>如果dm设置为 dynamic，那么pm.max_children参数失效，后面3个参数生效。</p>
+<p>系统会在php-fpm运行开始 的时候启动pm.start_servers个php-fpm进程，</p>
+<p>然后根据系统的需求动态在pm.min_spare_servers和pm.max_spare_servers之间调整php-fpm进程数。</p>
+<p>在高并发场景（我们公司是一万并发测试）中，一般都是采用的static方式，因为一般来说我们的服务器都是有严格的业务分离，fpm服务器就是用来作为fpm服务器使用，除去还有一个nginx之外，不会去考虑有其他的服务器占用资源。</p>
+<p>在php的运行中，无非是两种场景</p>
+<ol>
+<li>大运算的场景，即 php程序需要用大量的cpu资源来进行数据计算之类的操作，在这种场景下，fpm进程可以设置为cpu数量的一倍或者两倍</li>
+<li>高io场景，php的使用场景中（最起码是本电商场景中）基本上属于高io，因为程序花了大量的时间在等待redis返回等待数据库返回。高io场景下，因为cpu大多处在wa状态下，所以可以尽量的加大fpm进程数，所以这个时候使用内存/30m是更为合理的</li>
+</ol>
+<p>经过我们自己真实压测，大量redis和mysql读写的io密集情况下，16G的内存，fpm我们设置为400个的时候qps比fpm 16个 32个要好不少</p>
+<h1 id="php-ini调优"><a href="#php-ini调优" class="headerlink" title="php.ini调优"></a>php.ini调优</h1><h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>php.ini中的 memory_limit设置用于设定单个 PHP 进程可以使用的系统内存最大值。</p>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file_uploads = 1</span><br><span class="line">upload_max_filesize = 10M</span><br><span class="line">max_file_uploads = 3</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，PHP允许在单次请求中上传20个文件，上传的文件最大为2MB，这里为单次请求最多只能上传3个文件，每个文件最大为10MB，这个值不要设置太大，否则会出现超时。</p>
+<p>如果非要上传大文件，Web 服务器的配置也要做相应调整。除了在 php.ini 中设置之外，还要调整 Nginx 虚拟主机配置中的 client_max_body_size 设置。</p>
+<h2 id="最长执行时间"><a href="#最长执行时间" class="headerlink" title="最长执行时间"></a>最长执行时间</h2><p>最长执行时间</p>
+<p>php.ini 文件中的 max_execution_time 用于设置单个 PHP 进程在终止之前最长可运行时间。这个设置默认是 30 秒，建议将其设置为 5 秒：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">max_execution_time = 5</span><br></pre></td></tr></table></figure>
+
+<p>在 PHP 脚本中可以调用 set_limit_time() 函数覆盖这个设置。</p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h1><ul>
+<li><p><a href="https://blog.csdn.net/pcyph/java/article/details/46513521">nginx和php-fpm通信使用unix socket还是TCP，及其配置</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/94627701">php-fpm进程数设置多少合适</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/dtfly520/article/details/76849855">php.ini 配置调优 —— 让 PHP 应用性能维持在更高水平</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>php</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为Github桌面客户端登录与添加代理</title>
+    <url>/github-desktop-proxy/</url>
+    <content><![CDATA[<h1 id="为github-dekstop客户端添加代理"><a href="#为github-dekstop客户端添加代理" class="headerlink" title="为github dekstop客户端添加代理"></a>为github dekstop客户端添加代理</h1><p>在<code>C:\users\用户名\</code>下找到<code>.gitconfig</code>文件，在其中添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[http]</span><br><span class="line">proxy = socks5://127.0.0.1:1080</span><br><span class="line">[https] </span><br><span class="line">proxy = socks5://127.0.0.1:1080</span><br><span class="line">[git]</span><br><span class="line">proxy = socks5://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
+
+<h1 id="github-desktop网页登录认证无反应"><a href="#github-desktop网页登录认证无反应" class="headerlink" title="github desktop网页登录认证无反应"></a>github desktop网页登录认证无反应</h1><p>经过搜索与测试，可以判定是反广告插件的锅，关了uBlock后即可登录了</p>
+<span id="more"></span>
+
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>又一个Win10安装hexo及主题的记录</title>
+    <url>/hexo-installation-and-next-themes/</url>
+    <content><![CDATA[<p>网上这样的垃圾帖子估计没上万，但上千总有的吧，为什么我又搞一篇出来？</p>
+<p>这个问题问的好，其他写类似主题的人中有不少也应该想过这个问题，最终还是决定要写自己的一篇。除了专门为了生产垃圾信息的<del>AI</del>人以外，剩下的，应该都是遇到了”奇怪的问题”，最终觉得还是有必要写出来记录下。</p>
+<p>这种想法在我过去六年接触Linux开始，体会是越来越深。Linux开源的系统赋予程序员么近乎无限的自由，但无助于解决碎片化的问题。特别是当涉及缺乏利益驱动的免费开源程序时，当“爱”用尽时，自然留下了烂摊子。</p>
+<p>即使不是烂摊子，那些相互之间的依赖，嵌套着的程序，对于最终使用者来说，在不同的环境下，还是会遇到开发者们感觉“匪夷所思”的问题。</p>
+<p>怎么办？</p>
+<p>写到这里再想想，可能所有教程都会遇到上边的问题吧，只是在Linux这个平台上，这这样的情况相对突出一些罢了。</p>
+<p>根本原因在于这种比较复杂麻烦的事，必须做，但不需要经常做，但只做一次最终肯定会忘，而忘记了必然有一天需要还的，怎么办？<strong>写个教程教未来的自己吧！着重记录原理，提及踩的坑，下次可以立即上手就好。</strong></p>
+<p>本着这样的精神，以下开始教程啦：</p>
+<span id="more"></span>
+
+<h1 id="1-hexo的运行基础"><a href="#1-hexo的运行基础" class="headerlink" title="1. hexo的运行基础"></a>1. hexo的运行基础</h1><p>hexo作为一个JS程序，想跑起来，根据官网，至少需要Node.js和Git，下载安装即可，我用的LTS版本。Node.js安装时还会安装chocolatey，记得机器科学上网，当然，即使科学了，用时也很长。为了节省时间，装好了赶紧蹭蹭首富的光吧。</p>
+<p>切换npm镜像地址的程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org install node-red-contrib-composer@latest #临时使用淘宝源</span><br><span class="line"></span><br><span class="line">npm config set registry https://registry.npm.taobao.org #全局配置切换到淘宝源</span><br><span class="line"></span><br><span class="line"># npm config set registry http://www.npmjs.org #全局配置切换到官方源</span><br><span class="line"></span><br><span class="line">npm info hexo-cli #检测是否切换到了淘宝源</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2. 安装hexo"></a>2. 安装hexo</h1><p>使用Node.js的包管理器安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意！是<em>hexo-cli</em>，不是hexo！！</strong></p>
+<p><code>-g</code>这个扩展表示把hexo安装成为全局程序，相应的还有如下几种选择：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install X -g</span><br><span class="line">安装模块到全局，不会在项目node_modules目录中保存模块包。</span><br><span class="line">不会将模块依赖写入devDependencies或dependencies 节点。</span><br><span class="line">运行 npm install 初始化项目时不会下载模块。</span><br><span class="line">具体想知道装在哪里，可以npm config ls，安装完成后也会显示位置。</span><br><span class="line"></span><br><span class="line">npm install X</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">不会修改package.json</span><br><span class="line">之后运行npm install命令时，不会自动安装X</span><br><span class="line"></span><br><span class="line">npm install X --save  同  npm install X -S</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">会在package.json的dependencies属性下添加X</span><br><span class="line">之后运行npm install命令时，会自动安装X到node_modules目录中</span><br><span class="line">之后运行npm install --production或者注明NODE_ENV变量值为production时，会自动安装msbuild到node_modules目录中,即是在线上环境运行时会将包安装</span><br><span class="line"></span><br><span class="line">npm install X –save-dev  同  npm install X -D</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">会在package.json的devDependencies属性下添加X</span><br><span class="line">之后运行npm install命令时，会自动安装X到node_modules目录中</span><br><span class="line">之后运行npm install –production或者注明NODE_ENV变量值为production时，不会自动安装X到node_modules目录中</span><br><span class="line"></span><br><span class="line">使用原则:</span><br><span class="line">devDependencies 节点下的模块是我们在开发时需要用的，比如项目中使用的 gulp ，压缩css、js的模块。这些模块在我们的项目部署后是不需要的，所以我们可以使用--save-dev的形式安装。像 express 这些模块是项目运行必备的，应该安装在 dependencies 节点下，所以我们应该使用--save的形式安装。</span><br><span class="line"></span><br><span class="line">总结为一句话：运行时需要用到的包使用––save，否则使用––save-dev。</span><br><span class="line"></span><br><span class="line">作者：JuanitaLee</span><br><span class="line">链接：https://www.jianshu.com/p/920c1a6e999c</span><br><span class="line">来源：简书</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-初始化hexo"><a href="#3-初始化hexo" class="headerlink" title="3. 初始化hexo"></a>3. 初始化hexo</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo init &lt;folder&gt; # 创建网站目录，并从github上pull模板下来</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install # 根据模板的package，安装各种模块</span><br></pre></td></tr></table></figure>
+
+<p>安装好后，会提示你<code>xx packages are looking for funding</code>。这里没有其他意思，真的是字面上的意思，有xx个包的开发者正在寻求资金支持，输入<code>npm fund</code>就可找到详细的链接了，如果有意愿和余力，当然是鼓励支持呀！</p>
+<p>如果不想看到这段话。。。就运行<code>npm install --no-fund</code></p>
+<h1 id="4-安装主题"><a href="#4-安装主题" class="headerlink" title="4. 安装主题"></a>4. 安装主题</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -S hexo-theme-next@latest # 安装next主题</span><br><span class="line"><span class="meta">#</span><span class="bash"> npm install -S hexo-theme-icarus <span class="comment"># 安装icarus主题</span></span></span><br></pre></td></tr></table></figure>
+
+<p>创建<del><code>_config.icarus.yml</code>和</del><code>_config.next.yml</code>配置文件</p>
+<p><code>_config.yml</code>是站点设置，<code>_config.xx.yml</code>是对应的主题设置。</p>
+<h1 id="5-建立tags、categories、404页面"><a href="#5-建立tags、categories、404页面" class="headerlink" title="5. 建立tags、categories、404页面"></a>5. 建立tags、categories、404页面</h1><p>Next主题设置页面中明确提示了：</p>
+<blockquote>
+<p>Except <code>home</code> and <code>archives</code>, all custom pages under <code>menu</code> section need to be created manually. See <a href="https://theme-next.js.org/docs/theme-settings/custom-pages.html">«Custom Page Support»</a>.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new page 404</span><br><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+<h1 id="6-换gitignore"><a href="#6-换gitignore" class="headerlink" title="6.换gitignore"></a>6.换gitignore</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Hexo init</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># General</span><br><span class="line">.DS_Store</span><br><span class="line">.AppleDouble</span><br><span class="line">.LSOverride</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Thumbnails</span><br><span class="line">._*</span><br><span class="line"></span><br><span class="line"># Files that might appear in the root of a volume</span><br><span class="line">.DocumentRevisions-V100</span><br><span class="line">.fseventsd</span><br><span class="line">.Spotlight-V100</span><br><span class="line">.TemporaryItems</span><br><span class="line">.Trashes</span><br><span class="line">.VolumeIcon.icns</span><br><span class="line">.com.apple.timemachine.donotpresent</span><br><span class="line"></span><br><span class="line"># Directories potentially created on remote AFP share</span><br><span class="line">.AppleDB</span><br><span class="line">.AppleDesktop</span><br><span class="line">Network Trash Folder</span><br><span class="line">Temporary Items</span><br><span class="line">.apdisk</span><br><span class="line"></span><br><span class="line"># Windows thumbnail cache files</span><br><span class="line">Thumbs.db</span><br><span class="line">ehthumbs.db</span><br><span class="line">ehthumbs_vista.db</span><br><span class="line"></span><br><span class="line"># Dump file</span><br><span class="line">*.stackdump</span><br><span class="line"></span><br><span class="line"># Folder config file</span><br><span class="line">Desktop.ini</span><br><span class="line"></span><br><span class="line"># Recycle Bin used on file shares</span><br><span class="line">$RECYCLE.BIN/</span><br><span class="line"></span><br><span class="line"># Windows Installer files</span><br><span class="line">*.cab</span><br><span class="line">*.msi</span><br><span class="line">*.msm</span><br><span class="line">*.msp</span><br><span class="line"></span><br><span class="line"># Windows shortcuts</span><br><span class="line">*.lnk</span><br><span class="line"></span><br><span class="line">*~</span><br><span class="line"></span><br><span class="line"># temporary files which can be created if a process still has a handle open of a deleted file</span><br><span class="line">.fuse_hidden*</span><br><span class="line"></span><br><span class="line"># KDE directory preferences</span><br><span class="line">.directory</span><br><span class="line"></span><br><span class="line"># Linux trash folder which might appear on any partition or disk</span><br><span class="line">.Trash-*</span><br><span class="line"></span><br><span class="line"># .nfs files are created when an open file is removed but is still being accessed</span><br><span class="line">.nfs*</span><br><span class="line"></span><br><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line">yarn-debug.log*</span><br><span class="line">yarn-error.log*</span><br><span class="line"></span><br><span class="line"># Runtime data</span><br><span class="line">pids</span><br><span class="line">*.pid</span><br><span class="line">*.seed</span><br><span class="line">*.pid.lock</span><br><span class="line"></span><br><span class="line"># Directory for instrumented libs generated by jscoverage/JSCover</span><br><span class="line">lib-cov</span><br><span class="line"></span><br><span class="line"># Coverage directory used by tools like istanbul</span><br><span class="line">coverage</span><br><span class="line"></span><br><span class="line"># nyc test coverage</span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"># Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)</span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"># Bower dependency directory (https://bower.io/)</span><br><span class="line">bower_components</span><br><span class="line"></span><br><span class="line"># node-waf configuration</span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"># Compiled binary addons (https://nodejs.org/api/addons.html)</span><br><span class="line">build/Release</span><br><span class="line"></span><br><span class="line"># Dependency directories</span><br><span class="line">node_modules/</span><br><span class="line">jspm_packages/</span><br><span class="line"></span><br><span class="line"># Typescript v1 declaration files</span><br><span class="line">typings/</span><br><span class="line"></span><br><span class="line"># Optional npm cache directory</span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"># Optional eslint cache</span><br><span class="line">.eslintcache</span><br><span class="line"></span><br><span class="line"># Optional REPL history</span><br><span class="line">.node_repl_history</span><br><span class="line"></span><br><span class="line"># Output of &#x27;npm pack&#x27;</span><br><span class="line">*.tgz</span><br><span class="line"></span><br><span class="line"># Yarn Integrity file</span><br><span class="line">.yarn-integrity</span><br><span class="line"></span><br><span class="line"># dotenv environment variables file</span><br><span class="line">.env</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.vscode/*</span><br><span class="line">!.vscode/settings.json</span><br><span class="line">!.vscode/tasks.json</span><br><span class="line">!.vscode/launch.json</span><br><span class="line">!.vscode/extensions.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*.gem</span><br><span class="line">*.rbc</span><br><span class="line">/.config</span><br><span class="line">/coverage/</span><br><span class="line">/InstalledFiles</span><br><span class="line">/pkg/</span><br><span class="line">/spec/reports/</span><br><span class="line">/spec/examples.txt</span><br><span class="line">/test/tmp/</span><br><span class="line">/test/version_tmp/</span><br><span class="line">/tmp/</span><br><span class="line"></span><br><span class="line"># Used by dotenv library to load environment variables.</span><br><span class="line"># .env</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion:</span><br><span class="line">.dat*</span><br><span class="line">.repl_history</span><br><span class="line">build/</span><br><span class="line">*.bridgesupport</span><br><span class="line">build-iPhoneOS/</span><br><span class="line">build-iPhoneSimulator/</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion (use of CocoaPods):</span><br><span class="line">#</span><br><span class="line"># We recommend against adding the Pods directory to your .gitignore. However</span><br><span class="line"># you should judge for yourself, the pros and cons are mentioned at:</span><br><span class="line"># https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control</span><br><span class="line">#</span><br><span class="line"># vendor/Pods/</span><br><span class="line"></span><br><span class="line">## Documentation cache and generated files:</span><br><span class="line">/.yardoc/</span><br><span class="line">/_yardoc/</span><br><span class="line">/doc/</span><br><span class="line">/rdoc/</span><br><span class="line"></span><br><span class="line">## Environment normalization:</span><br><span class="line">/.bundle/</span><br><span class="line">/vendor/bundle</span><br><span class="line">/lib/bundler/man/</span><br><span class="line"></span><br><span class="line"># for a library or gem, you might want to ignore these files since the code is</span><br><span class="line"># intended to run in multiple environments; otherwise, check them in:</span><br><span class="line"># Gemfile.lock</span><br><span class="line"># .ruby-version</span><br><span class="line"># .ruby-gemset</span><br><span class="line"></span><br><span class="line"># unless supporting rvm &lt; 1.11.0 or doing something fancy, ignore this:</span><br><span class="line">.rvmrc</span><br><span class="line"></span><br><span class="line"># jekyll</span><br><span class="line">Gemfile.lock</span><br><span class="line">package-lock.json</span><br><span class="line">_site/</span><br><span class="line">.sass-cache/</span><br><span class="line">.jekyll-metadata</span><br><span class="line"></span><br><span class="line">_drafts/</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-推送源码至github"><a href="#7-推送源码至github" class="headerlink" title="7.推送源码至github"></a>7.推送源码至github</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-阅读时长-≈-NaN-aN"><a href="#8-阅读时长-≈-NaN-aN" class="headerlink" title="8. 阅读时长 ≈ NaN:aN"></a>8. 阅读时长 ≈ NaN:aN</h1><p>按照教程开启阅读时长及字数统计后，如果不显示正确信息，那么记得清楚数据：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>个人Git&amp;Github基本操作</title>
+    <url>/personal-git-hub-basic-commands/</url>
+    <content><![CDATA[<p>毕竟不是程序员，git这种东西，心血来潮才会用，用来用去都是些非常基础的操作，搜索啥的太麻烦，索性在自己记录下，以后复制粘贴喽。</p>
+<p>如果你看到了这里，那么希望以下内容也能对你有用哈。</p>
+<span id="more"></span>
+
+<h1 id="默认pub-key名称"><a href="#默认pub-key名称" class="headerlink" title="默认pub-key名称"></a>默认pub-key名称</h1><p>By default, the filenames of the public keys are one of the following:</p>
+<ul>
+<li><em>id_rsa.pub</em></li>
+<li><em>id_ecdsa.pub</em></li>
+<li><em>id_ed25519.pub</em></li>
+</ul>
+<h1 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH-Key"></a>生成SSH-Key</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="测试SSH"><a href="#测试SSH" class="headerlink" title="测试SSH"></a>测试SSH</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Permissions-for-“xxx”-are-too-open"><a href="#Permissions-for-“xxx”-are-too-open" class="headerlink" title="Permissions for “xxx” are too open"></a>Permissions for “xxx” are too open</h2><p>解决方法：</p>
+<p>xxx文件-&gt;属性-&gt;安全-&gt;高级-&gt;所有者改成当前操作用户-&gt;权限条目删除所有并添加当前操作用户，另，禁用继承？</p>
+<h1 id="添加到远程仓库"><a href="#添加到远程仓库" class="headerlink" title="添加到远程仓库"></a>添加到远程仓库</h1><p>1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init 仓库名称（必须与github创建的仓库名称一样）</span><br></pre></td></tr></table></figure>
+
+<p>2、切换到创建的本地仓库（cd 命令）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd 仓库名称</span><br></pre></td></tr></table></figure>
+
+<p>3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 文件夹名称</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 具体文件名称</span><br></pre></td></tr></table></figure>
+
+<p>4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;备注信息&quot;</span><br></pre></td></tr></table></figure>
+
+<p>5、 添加远程仓库（git remote add origin 命令）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin 仓库克隆SSh地址</span><br></pre></td></tr></table></figure>
+
+<p>6、将分支推送到GitHub（git push 命令）</p>
+<p>首次推送</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master # -u用来设定默认推送，反向操作为 git branch --unset-upstream</span><br></pre></td></tr></table></figure>
+
+<p>非首次推送</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+
+
+<p>ref：</p>
+<p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
+<p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
+]]></content>
+      <tags>
+        <tag>error</tag>
+        <tag>win10</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+</search>
