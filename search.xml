@@ -828,4 +828,40 @@
         <tag>git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>win10下qbittorrent、flexget和ART全自动盒子配置</title>
+    <url>/win10-qbittorrent-flexget-autoremove-torrents/</url>
+    <content><![CDATA[<p>之前写过一篇《<a href="/qbittorrent-flexget-autoremove-torrents/">qbittorrent、flexget和AMT配合使用，全自动的盒子配置</a>》介绍了qb，flexget和art的搭配使用，不用linux盒子已经很久了，反倒家里的windows上一直在跑着刷中。恰好老家的机器硬盘挂了，换了硬盘，重装了系统，就借此契机分享下在windows10 LTSC中如何搭建全自动盒子吧。</p>
+<span id="more"></span>
+
+<p>如我预见，干这类重装的事，总是会遇见鬼的，这次刚开始，鬼就出现了。</p>
+<h1 id="安装qb、python、flexget以及autoremove-torrents"><a href="#安装qb、python、flexget以及autoremove-torrents" class="headerlink" title="安装qb、python、flexget以及autoremove-torrents"></a>安装qb、python、flexget以及autoremove-torrents</h1><p>qb和python当然是官网下安装包咯。然后pip安装flexget和art。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install flexget autoremove-torrents</span><br></pre></td></tr></table></figure>
+<h2 id="遇鬼"><a href="#遇鬼" class="headerlink" title="遇鬼"></a>遇鬼</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flexget check</span><br><span class="line"></span><br><span class="line">Plugin `flexget.plugins.daemon.web_server` failed to import dependencies Traceback (most recent call last):</span><br><span class="line">。。。</span><br><span class="line">。。。</span><br><span class="line">ImportError: DLL load failed while importing _brotli: 找不到指定的模块。</span><br></pre></td></tr></table></figure>
+
+<p>然后加开始了一上午的搜索，与plugin error相关的线索实在是太少了，没啥卵用。突发奇想，是不是python版本太高，兼容有问题？从3.9.5降到3.8.10也不行。换之前常用的电脑测试，flexget是可以正常运行的。陷入僵局。</p>
+<p>下午再次运行测试，终于看到了那句“DLL load failed while importing”，难道是DLL缺失？我用的官网镜像哎。。。</p>
+<p>搜了一圈，发现各路大神复制DLL解决问题的神操作，准备顶着头皮冲一下，这是，看到一个小伙儿说安装运行库啥的没用。没用？没用？？哼哼，旧电脑和新装的系统，能有啥区别？去程序里看看呗？果然各种运行库都在。那就下一个呗。</p>
+<p>建议各位搜索<strong>最新支持的 Visual C++ 下载</strong>，20mb，一切搞定！！找到出路的感觉真爽。</p>
+<h2 id="flexget和autoremove-torrents配置"><a href="#flexget和autoremove-torrents配置" class="headerlink" title="flexget和autoremove-torrents配置"></a>flexget和autoremove-torrents配置</h2><p>参阅之前的文章哈《<a href="/qbittorrent-flexget-autoremove-torrents/">qbittorrent、flexget和AMT配合使用，全自动的盒子配置</a>》</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="测试flexget运行"><a href="#测试flexget运行" class="headerlink" title="测试flexget运行"></a>测试flexget运行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flexget --test --loglevel debug execute</span><br></pre></td></tr></table></figure>
+
+<p>看看是不是符合你的预期？</p>
+<h2 id="测试AMT运行"><a href="#测试AMT运行" class="headerlink" title="测试AMT运行"></a>测试AMT运行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">autoremove-torrents --view</span><br></pre></td></tr></table></figure>
+
+<p>看看是不是符合你的预期？</p>
+<h1 id="设置自动运行"><a href="#设置自动运行" class="headerlink" title="设置自动运行"></a>设置自动运行</h1><p>使用win10自带的计划任务即可，</p>
+<p>需要<strong>特别提示</strong>的，pip安装的程序的路径在：</p>
+<p><code>C:\Users\YourUserName\AppData\Local\Programs\Python\PythonXX\Scripts</code>下</p>
+<h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>win10</tag>
+        <tag>qbittorrent</tag>
+        <tag>flexget</tag>
+        <tag>autoremove-torrents</tag>
+      </tags>
+  </entry>
 </search>
