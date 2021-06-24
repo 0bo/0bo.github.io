@@ -383,10 +383,10 @@
   <entry>
     <title>qbittorrent、flexget和AMT配合使用，全自动的盒子配置</title>
     <url>/qbittorrent-flexget-autoremove-torrents/</url>
-    <content><![CDATA[<p>qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission<br>因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会<br>脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎<br>能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。</p>
-<p>qbittorrent的另一个致命问题是，其webui不支持rss，可想而知对于盒子用户而言这是多么不可理喻<br>的事情，但为了qb的高效率，还是忍了。。。由于懒的学习flexget，一直以来都是通过安装rutorrent<br>来充当rss下载器，然后qb监控ru的.session种子文件夹来实现自动下载。后来，我的这个方法受到了<br>严重挑战，一是不知道为何，qb在我的vps上难以修改watch folder，多番测试，结果都很玄学，可能与<br>配置文件的权限、是否先启动qb完成同意协议的过程并生成配置文件、浏览器缓存等等有关，试了好多次<br>后，最终放弃;二是ru实在太卡了，即使只负责下载种子，作为一个强迫症患者，删除种子的时候都会卡死，<br>是可忍孰不可忍，叔叔能忍，婶婶不能忍，那就ByeBye啦！</p>
-<p>被逼无奈，最终捡起flexget，然后开启了新世界的大门！这玩意儿真的是非常便捷强大，比在rutorrent<br>里写正则表达过滤方便太多了！！</p>
-<p>最后要介绍的PT贴吧大神做的autoremove-torrents，真的是神器，最终实现了全自动无人值守的盒子配置。<br>下面进入正题吧：</p>
+    <content><![CDATA[<p>qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。</p>
+<p>qbittorrent的另一个致命问题是，其webui不支持rss，可想而知对于盒子用户而言这是多么不可理喻的事情，但为了qb的高效率，还是忍了。。。由于懒的学习flexget，一直以来都是通过安装rutorrent来充当rss下载器，然后qb监控ru的.session种子文件夹来实现自动下载。后来，我的这个方法受到了严重挑战，一是不知道为何，qb在我的vps上难以修改watch folder，多番测试，结果都很玄学，可能与<br>配置文件的权限、是否先启动qb完成同意协议的过程并生成配置文件、浏览器缓存等等有关，试了好多次后，最终放弃；二是ru实在太卡了，即使只负责下载种子，作为一个强迫症患者，删除种子的时候都会卡死，是可忍孰不可忍，叔叔能忍，婶婶不能忍，那就ByeBye啦！</p>
+<p>被逼无奈，最终捡起flexget，然后开启了新世界的大门！这玩意儿真的是非常便捷强大，比在rutorrent里写正则表达过滤方便太多了！！</p>
+<p>最后要介绍的PT贴吧大神做的autoremove-torrents，真的是神器，最终实现了全自动无人值守的盒子配置。下面进入正题吧：</p>
 <span id="more"></span>
 <p>（本文所有命令均在Ubuntu 16.04 x64下运行，理论上讲18.04也可以，14.04主要是apt和<br>apt-get的区别,均在root用户下，/root/目录下运行）</p>
 <h2 id="安装qbittorrent"><a href="#安装qbittorrent" class="headerlink" title="安装qbittorrent"></a>安装qbittorrent</h2><h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt install software-properties-common python-software-properties</span><br><span class="line">add-apt-repository ppa:qbittorrent-team/qbittorrent-stable</span><br><span class="line">apt update &amp;&amp; apt install qbittorrent-nox</span><br></pre></td></tr></table></figure>
