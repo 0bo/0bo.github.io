@@ -771,6 +771,16 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
 <h1 id="9-hexo-action以及git-deploy"><a href="#9-hexo-action以及git-deploy" class="headerlink" title="9. hexo-action以及git deploy"></a>9. hexo-action以及git deploy</h1><p>使用hexo-action自动部署到github pages，注意要提前在<code>_config.yml</code>中设置deploy的相关内容，包括安装部署插件<code>npm i hexo-deployer-git --save</code></p>
 <p>刚部署完，可能无法直接访问没有<code>index.html</code>的网站，据说等待5分钟可以。。。我还在等待中</p>
+<h1 id="10-hexo-word-counter中的post图标选项"><a href="#10-hexo-word-counter中的post图标选项" class="headerlink" title="10. hexo-word-counter中的post图标选项"></a>10. hexo-word-counter中的post图标选项</h1><p><code>hexo-word-counter</code>插件说明中提到<code>item_text_post</code>选项，实际测试设置无效，且next-theme的配置说明里也没有这个选项。</p>
+<p>找到了next-theme的<a href="https://t.me/theme_next_cn">telegram群</a>，群内大佬指点，应该修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  item_text: false</span><br></pre></td></tr></table></figure>
+
+<p>即可。</p>
+<h1 id="11-hexo-文章创建时间与更新时间"><a href="#11-hexo-文章创建时间与更新时间" class="headerlink" title="11.hexo 文章创建时间与更新时间"></a>11.hexo 文章创建时间与更新时间</h1><p>在<code>_config.yml</code>下设置<code>updated_option: &#39;date&#39;</code></p>
+<p>在<code>_config.next.yml</code>下设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  updated_at:</span><br><span class="line">    enable: true</span><br><span class="line">    another_day: true</span><br></pre></td></tr></table></figure>
+
+<p>然后在文章头中设置<code>updated</code>项，依次防止文件修改时间干扰最终显示。</p>
 ]]></content>
       <categories>
         <category>Tutorial</category>
