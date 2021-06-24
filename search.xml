@@ -772,6 +772,9 @@
 <h1 id="9-hexo-action以及git-deploy"><a href="#9-hexo-action以及git-deploy" class="headerlink" title="9. hexo-action以及git deploy"></a>9. hexo-action以及git deploy</h1><p>使用hexo-action自动部署到github pages，注意要提前在<code>_config.yml</code>中设置deploy的相关内容，包括安装部署插件<code>npm i hexo-deployer-git --save</code></p>
 <p>刚部署完，可能无法直接访问没有<code>index.html</code>的网站，据说等待5分钟可以。。。我还在等待中</p>
 ]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
   </entry>
   <entry>
     <title>个人Git&amp;Github基本操作</title>
@@ -822,6 +825,9 @@
 <p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
 <p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
 ]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
       <tags>
         <tag>error</tag>
         <tag>win10</tag>
