@@ -781,6 +781,8 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  updated_at:</span><br><span class="line">    enable: true</span><br><span class="line">    another_day: true</span><br></pre></td></tr></table></figure>
 
 <p>然后在文章头中设置<code>updated</code>项，依次防止文件修改时间干扰最终显示。</p>
+<h1 id="12-hexo-自动部署"><a href="#12-hexo-自动部署" class="headerlink" title="12.hexo 自动部署"></a>12.hexo 自动部署</h1><p>参考<a href="https://github.com/sma11black/hexo-action">hexo-action</a></p>
+<p>注意，文中要求在<code>xx.github.io</code>中配置的<code>public key</code>应该可以用整个GitHub账户中的那个<code>key</code>，可以偷懒。。。有一定能的危险性。</p>
 ]]></content>
       <categories>
         <category>Tutorial</category>
