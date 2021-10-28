@@ -21,30 +21,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"rvi.cc","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="debian8 x64 编译 qbittorrent 3.3.11. 根据教程Compiling-qBittorrent-on-Debian-and-Ubuntu和 Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-(15.04-and-newer)进行操作，最终提示：  error while loading">
+<meta name="description" content="近期又开始折腾了。入手了一个京云小盒子，准备放回老家刷PT。盒子只有2G内存，装完win10 LTSC只剩下400M内存，太危险，没办法，还是用linux吧。我的NAS最基本的就是plex+qb，但毕竟远程操作，及时知道硬盘状态很重要，家里用的stablebit scanner只能在windows下使用，就开始琢磨linux下的方案啦。一如既往，踩够了坑，在整理记录下，希望能对看到的你有所帮助。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决">
-<meta property="og:url" content="https://rvi.cc/qbittorrent-libtorrent-rasterbar-so-7/index.html">
+<meta property="og:title" content="msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件">
+<meta property="og:url" content="https://rvi.cc/msmtp-smartmontools-auto-monitoring-mail/index.html">
 <meta property="og:site_name" content="RVI">
-<meta property="og:description" content="debian8 x64 编译 qbittorrent 3.3.11. 根据教程Compiling-qBittorrent-on-Debian-and-Ubuntu和 Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-(15.04-and-newer)进行操作，最终提示：  error while loading">
+<meta property="og:description" content="近期又开始折腾了。入手了一个京云小盒子，准备放回老家刷PT。盒子只有2G内存，装完win10 LTSC只剩下400M内存，太危险，没办法，还是用linux吧。我的NAS最基本的就是plex+qb，但毕竟远程操作，及时知道硬盘状态很重要，家里用的stablebit scanner只能在windows下使用，就开始琢磨linux下的方案啦。一如既往，踩够了坑，在整理记录下，希望能对看到的你有所帮助。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-01-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2018-01-22T16:00:00.000Z">
+<meta property="article:published_time" content="2021-10-28T07:19:22.000Z">
+<meta property="article:modified_time" content="2021-10-28T07:19:22.000Z">
 <meta property="article:author" content="Colin">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="debian">
-<meta property="article:tag" content="qbittorrent">
+<meta property="article:tag" content="ubuntu, msmtp, smartmontools,hard_driver">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://rvi.cc/qbittorrent-libtorrent-rasterbar-so-7/">
+<link rel="canonical" href="https://rvi.cc/msmtp-smartmontools-auto-monitoring-mail/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rvi.cc/qbittorrent-libtorrent-rasterbar-so-7/","path":"qbittorrent-libtorrent-rasterbar-so-7/","title":"debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://rvi.cc/msmtp-smartmontools-auto-monitoring-mail/","path":"msmtp-smartmontools-auto-monitoring-mail/","title":"msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决 | RVI</title>
+<title>msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件 | RVI</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDSVLMHFZ3"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-HDSVLMHFZ3","only_pageview":false}</script>
@@ -143,7 +141,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -156,6 +154,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-msmtp"><span class="nav-number">1.</span> <span class="nav-text">1.msmtp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1%E5%AE%89%E8%A3%85msmtp"><span class="nav-number">1.1.</span> <span class="nav-text">1.1安装msmtp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2%E9%85%8D%E7%BD%AEmsmtp"><span class="nav-number">1.2.</span> <span class="nav-text">1.2配置msmtp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-smartmontools"><span class="nav-number">2.</span> <span class="nav-text">2.smartmontools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E5%AE%89%E8%A3%85smartmontools"><span class="nav-number">2.1.</span> <span class="nav-text">2.1安装smartmontools</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">3.参考链接</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -228,7 +227,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://rvi.cc/qbittorrent-libtorrent-rasterbar-so-7/">
+    <link itemprop="mainEntityOfPage" href="https://rvi.cc/msmtp-smartmontools-auto-monitoring-mail/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/myavatar.gif">
@@ -241,7 +240,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决
+          msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件
         </h1>
 
         <div class="post-meta-container">
@@ -252,16 +251,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-23T00:00:00+08:00">2018-01-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ECM/" itemprop="url" rel="index"><span itemprop="name">ECM</span></a>
-        </span>
+      <time title="创建时间：2021-10-28 15:19:22" itemprop="dateCreated datePublished" datetime="2021-10-28T15:19:22+08:00">2021-10-28</time>
     </span>
 
   
@@ -277,14 +267,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>1.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -295,44 +285,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>debian8 x64 编译 qbittorrent 3.3.11.</p>
-<p>根据教程<a target="_blank" rel="noopener" href="https://github.com/qbittorrent/qBittorrent/wiki/Compiling-qBittorrent-on-Debian-and-Ubuntu">Compiling-qBittorrent-on-Debian-and-Ubuntu</a>和 <a target="_blank" rel="noopener" href="https://github.com/qbittorrent/qBittorrent/wiki/Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-(15.04-and-newer">Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-(15.04-and-newer)</a>进行操作，最终提示：</p>
-<blockquote>
-<p>error while loading shared libraries: libtorrent-rasterbar.so.7: cannot open shared object file: No such file or directory</blockquote></p>
-</blockquote>
-<p>解决方法 参考：<a target="_blank" rel="noopener" href="http://blog.csdn.net/layrong/article/details/38388703">http://blog.csdn.net/layrong/article/details/38388703</a></p>
-<p>这种问题的原因有两个：</p>
+        <p>近期又开始折腾了。入手了一个京云小盒子，准备放回老家刷PT。盒子只有2G内存，装完win10 LTSC只剩下400M内存，太危险，没办法，还是用linux吧。我的NAS最基本的就是plex+qb，但毕竟远程操作，及时知道硬盘状态很重要，家里用的stablebit scanner只能在windows下使用，就开始琢磨linux下的方案啦。一如既往，踩够了坑，在整理记录下，希望能对看到的你有所帮助。</p>
 <span id="more"></span>
 
+
+<h1 id="1-msmtp"><a href="#1-msmtp" class="headerlink" title="1.msmtp"></a>1.msmtp</h1><h2 id="1-1安装msmtp"><a href="#1-1安装msmtp" class="headerlink" title="1.1安装msmtp"></a>1.1安装msmtp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install bsd-mailx msmtp msmtp-mta</span><br></pre></td></tr></table></figure>
+
+<p><code>bsd-mailx</code>这个是本次踩的最大的坑，最小化安装的ubuntu没有自带邮件系统，是没有所有的邮件系统，既没有mail这个命令，也没又系统内置的邮箱，即是说，smartclt即使发送给用户也是收不到的，更不用说向外部发送邮件了。自然<code>msmtp-mta</code>创建的<code>sendmail</code>软链接也就成了无根之水。</p>
+<h2 id="1-2配置msmtp"><a href="#1-2配置msmtp" class="headerlink" title="1.2配置msmtp"></a>1.2配置msmtp</h2><p>全局配置文件在<code>/etc/smartd.conf</code>下，具体配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># Set default values for all following accounts.</span><br><span class="line">defaults</span><br><span class="line">auth           on</span><br><span class="line">tls            on</span><br><span class="line">tls_trust_file /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">logfile        /home/star/.msmtp.log</span><br><span class="line">#tls_starttls   off</span><br><span class="line">#tls_certcheck  off</span><br><span class="line"></span><br><span class="line"># Yandex</span><br><span class="line">account        yandex</span><br><span class="line">host           smtp.yandex.com</span><br><span class="line">port           465</span><br><span class="line">from           xxx@yandex.com</span><br><span class="line">user           xxx</span><br><span class="line">password       xxx</span><br><span class="line"></span><br><span class="line"># Hotmail</span><br><span class="line">account        hotmail</span><br><span class="line">host           smtp-mail.outlook.com</span><br><span class="line">port           587</span><br><span class="line">from           xxx@hotmail.com</span><br><span class="line">user           xxx@hotmail.com</span><br><span class="line">password       xxxx</span><br><span class="line"></span><br><span class="line"># Set a default account</span><br><span class="line">account default : hotmail</span><br></pre></td></tr></table></figure>
+
+<p>这里踩的坑是外发邮箱的选择，一开始选了yandex，但这个邮箱的smtp不支持starttls，可以通过<code>tls_starttls   off</code>并设置端口为465解决予以解决，提示证书错可以通过<code>tls_certcheck  off</code>，更恶心的来了，yandex还会监控你的邮件内容，太过简单的内容会被认为是垃圾邮件而拒绝投递。无奈换了hotmail，豁然开朗！所有问题都不是问题了，所以，有时候，选择啊，比努力更重要XD。</p>
+<h1 id="2-smartmontools"><a href="#2-smartmontools" class="headerlink" title="2.smartmontools"></a>2.smartmontools</h1><h2 id="2-1安装smartmontools"><a href="#2-1安装smartmontools" class="headerlink" title="2.1安装smartmontools"></a>2.1安装smartmontools</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install smartmontools</span><br></pre></td></tr></table></figure>
+
+<p>配置文件在<code>/etc/startd.conf</code>，配置重点有两个，</p>
 <ol>
-<li>一个是操作系统里确实没有包含该共享库(lib*.so.*文件)或者共享库版本不对, 遇到这种情况那就去网上下载并安装上即可.</li>
-<li>另外一个原因就是已经安装了该共享库, 但执行需要调用该共享库的程序的时候, 程序按照默认共享库路径找不到该共享库文件.  所以安装共享库后要注意共享库路径设置问题, 如下:</li>
+<li><p>#掉<code>DEVICESCAN</code>开头的命令，否则其下的命令都不会执行</p>
+</li>
+<li><p>最上边加入一行<code>/dev/sda -H -m xxx@hotmail.com</code></p>
+</li>
 </ol>
-<ul>
-<li><p>如果共享库文件安装到了/lib或/usr/lib目录下, 那么需执行一下ldconfig命令。这个命令的用途, 主要是在默认搜寻目录(/lib和/usr/lib)以及动态库配置文件/etc/ld.so.conf内所列的目录下, 搜索出可共享的动态链接库(格式如lib*.so*), 进而创建出动态装入程序(ld.so)所需的连接和缓存文件. 缓存文件默认为/etc/ld.so.cache, 此文件保存已排好序的动态链接库名字列表.</p>
-</li>
-<li><p>如果共享库文件安装到了/usr/local/lib(很多开源的共享库都会安装到该目录下)或其它”非/lib或/usr/lib”目录下, 那么在执行ldconfig命令前, 还要把新共享库目录加入到共享库配置文件/etc/ld.so.conf中, 如下:</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/ld.so.conf</span><br><span class="line">include ld.so.conf.d/*.conf</span><br><span class="line"># echo &quot;/usr/local/lib&quot; &gt;&gt; /etc/ld.so.conf</span><br><span class="line"># ldconfig</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果共享库文件安装到了其它”非/lib或/usr/lib” 目录下,  但是又不想在/etc/ld.so.conf中加路径(或者是没有权限加路径). 那可以export一个全局变量LD_LIBRARY_PATH, 然后运行程序的时候就会去这个目录中找共享库.</li>
-</ul>
-<p>export LD_LIBRARY_PATH=/usr/local/mysql/lib:$LD_LIBRARY_PATH</p>
-<p>一般来讲这只是一种临时的解决方案, 在没有权限或临时需要的时候使用.</p>
-<ul>
-<li>如果程序需要的库文件比系统目前存在的村文件版本低，可以做一个链接<br>比如：<blockquote>
-<p>error while loading shared libraries: libncurses.so.4: cannot open shared<br>object file: No such file or directory</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls /usr/lib/libncu*</span><br><span class="line">/usr/lib/libncurses.a   /usr/lib/libncurses.so.5</span><br><span class="line">/usr/lib/libncurses.so  /usr/lib/libncurses.so.5.3</span><br></pre></td></tr></table></figure>
-<p>可见虽然没有<code>libncurses.so.4</code>，但有<code>libncurses.so.5</code>，是可以向下兼容的<br>建一个链接就好了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s  /usr/lib/libncurses.so.5.3  /usr/lib/libncurses.so.4</span><br></pre></td></tr></table></figure>
-<p>我使用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
-<p>即解决。</p>
-<p>此外，如编译安装，在/etc/systemd/system/qbittorrent.service文件中的地址因该是：/usr/local/bin</p>
+<p>想测试可以在命令后加<code>-M test</code>,然后<code>sudo systemctl restart startd</code>重启服务，看看会不会收到邮件。</p>
+<p>如前文提到的，这一步卡了很久，msmtp发送，smartd的配置看起来也很正常，就是发布出去邮件。搜索了很久，受一篇文章启发，利用<code>grep &quot;smartd&quot; /var/log/syslog*</code>查询日志，发现提示大意是没有mail命令啥的，意识到可能是有些前置问题没解决。。。</p>
+<p>再然后，发现安装bsd-mail即可解决，每个用户也有了自己的系统邮箱，输入mail即可查阅，这也是为什么smartd配置文档里<code>-m</code>后跟的不是邮件地址而是用户名的原因。</p>
+<p>另外，配置文件里的建议设置里写的是<code>/dev/sda -H -m root -c 0 -u 0</code>，-c和-u设置为零意思是不检测<code>pending sectors</code>和<code>uncorrectable sectors</code>。。。不知道文档作者是有什么特别的想法。。。至少我看到这俩提示了，还不赶快换硬盘，作死么？</p>
+<h1 id="3-参考链接"><a href="#3-参考链接" class="headerlink" title="3.参考链接"></a>3.参考链接</h1><p>1.<a target="_blank" rel="noopener" href="https://www.smartmontools.org/browser/trunk/smartmontools/smartd.conf.5.in?order=name">smartd.conf.5.in</a></p>
+<p>2.<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Msmtp">msmtp - ArchWiki (archlinux.org)</a></p>
+<p>3.<a target="_blank" rel="noopener" href="https://blog.csdn.net/oMrApollo/article/details/72478000">( msmtp+mutt发送TLS邮件异常处理_Maxi的专栏-CSDN博客</a></p>
+<p>4.<a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-configure-smartd-and-be-notified-of-hard-disk-problems-via-email">How to configure smartd and be notified of hard disk problems via email - Linux Tutorials - Learn Linux Configuration</a></p>
+<p>5.<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/623325/how-to-check-all-s-m-a-r-t-logs-location">14.04 - How to check all S.M.A.R.T. logs location - Ask Ubuntu</a></p>
+<p>6.<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/640296/configuring-mail-command-to-use-msmtp">Configuring mail command to use msmtp - Unix &amp; Linux Stack Exchange</a>–提及bsd-mailx</p>
+<p>7.<a target="_blank" rel="noopener" href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
 
     </div>
 
@@ -350,7 +333,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://rvi.cc/qbittorrent-libtorrent-rasterbar-so-7/" title="debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决">https://rvi.cc/qbittorrent-libtorrent-rasterbar-so-7/</a>
+      <a href="https://rvi.cc/msmtp-smartmontools-auto-monitoring-mail/" title="msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件">https://rvi.cc/msmtp-smartmontools-auto-monitoring-mail/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -359,23 +342,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/linux/" rel="tag"># linux</a>
-              <a href="/tags/debian/" rel="tag"># debian</a>
-              <a href="/tags/qbittorrent/" rel="tag"># qbittorrent</a>
+              <a href="/tags/ubuntu-msmtp-smartmontools-hard-driver/" rel="tag"># ubuntu, msmtp, smartmontools,hard_driver</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/who-will-you-call/" rel="prev" title="你会打电话给谁？">
-                  <i class="fa fa-chevron-left"></i> 你会打电话给谁？
+                <a href="/win10-qbittorrent-flexget-autoremove-torrents/" rel="prev" title="win10下qbittorrent、flexget和ART全自动盒子配置">
+                  <i class="fa fa-chevron-left"></i> win10下qbittorrent、flexget和ART全自动盒子配置
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/0xc0000205-android-shared-folder/" rel="next" title="android电视盒子无法打开win10共享文件夹">
-                  android电视盒子无法打开win10共享文件夹 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
