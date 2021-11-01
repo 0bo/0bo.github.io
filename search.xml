@@ -917,8 +917,14 @@
 <p>6.<a href="https://unix.stackexchange.com/questions/640296/configuring-mail-command-to-use-msmtp">Configuring mail command to use msmtp - Unix &amp; Linux Stack Exchange</a>–提及bsd-mailx</p>
 <p>7.<a href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
 ]]></content>
+      <categories>
+        <category>tutorial</category>
+      </categories>
       <tags>
-        <tag>ubuntu, msmtp, smartmontools,hard_driver</tag>
+        <tag>ubuntu</tag>
+        <tag>msmtps</tag>
+        <tag>martmontools</tag>
+        <tag>harddriver</tag>
       </tags>
   </entry>
 </search>
