@@ -376,8 +376,8 @@
         <category>ECM</category>
       </categories>
       <tags>
-        <tag>hard-driver</tag>
-        <tag>auto-sleep</tag>
+        <tag>harddriver</tag>
+        <tag>AutoSleep</tag>
       </tags>
   </entry>
   <entry>
@@ -918,13 +918,13 @@
 <p>7.<a href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
 ]]></content>
       <categories>
-        <category>tutorial</category>
+        <category>Tutorial</category>
       </categories>
       <tags>
+        <tag>harddriver</tag>
         <tag>ubuntu</tag>
         <tag>msmtps</tag>
         <tag>martmontools</tag>
-        <tag>harddriver</tag>
       </tags>
   </entry>
 </search>
