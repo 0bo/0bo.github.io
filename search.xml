@@ -415,19 +415,13 @@
 <h3 id="测试flexget运行"><a href="#测试flexget运行" class="headerlink" title="测试flexget运行"></a>测试flexget运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flexget --test  --loglevel debug execute</span><br></pre></td></tr></table></figure>
 
 <p>看看是不是符合你的预期？</p>
-<h3 id="flexget以daemon运行"><a href="#flexget以daemon运行" class="headerlink" title="flexget以daemon运行"></a>flexget以daemon运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flexget daemon start -d</span><br></pre></td></tr></table></figure>
+<h3 id="创建flexget系统服务运行"><a href="#创建flexget系统服务运行" class="headerlink" title="创建flexget系统服务运行"></a>创建flexget系统服务运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Flexget Daemon</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=xx</span><br><span class="line">Group=xx</span><br><span class="line">UMask=000</span><br><span class="line">WorkingDirectory=/etc/flexget</span><br><span class="line">ExecStart=/usr/local/bin/flexget daemon start</span><br><span class="line">ExecStop=/usr/local/bin/flexget daemon stop</span><br><span class="line">ExecReload=/usr/local/bin/flexget daemon reload</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<h3 id="flexget以daemon开机自启动"><a href="#flexget以daemon开机自启动" class="headerlink" title="flexget以daemon开机自启动"></a>flexget以daemon开机自启动</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>其他使用与qb一致。</p>
+<h2 id="安装autoremove-torrents"><a href="#安装autoremove-torrents" class="headerlink" title="安装autoremove-torrents"></a>安装autoremove-torrents</h2><p>软件来自<a href="https://tieba.baidu.com/p/5617157829?red_tag=0564171599">贴吧大神 @蛋糕机Mac</a><br><del>2018年12月31号，最新版本1.2.4，但是我发现有重复统计的bug，就一直在用1.1了。</del></p>
+<h3 id="pip安装-1"><a href="#pip安装-1" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install autoremove-torrents</span><br></pre></td></tr></table></figure>
 
-<p>在exit0之前填入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flexget daemon start -d</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="安装autoremove-torrents"><a href="#安装autoremove-torrents" class="headerlink" title="安装autoremove-torrents"></a>安装autoremove-torrents</h2><p>软件来自<a href="https://tieba.baidu.com/p/5617157829?red_tag=0564171599">贴吧大神 @蛋糕机Mac</a><br>2018年12月31号，最新版本1.2.4，但是我发现有重复统计的bug，就一直在用1.1了。</p>
-<h3 id="下载并解压"><a href="#下载并解压" class="headerlink" title="下载并解压"></a>下载并解压</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://github.com/jerrymakesjelly/autoremove-torrents/archive/v1.1.0.tar.gz</span><br><span class="line">tar zxf v1.1.0.tar.gz</span><br><span class="line">cd autoremove-torrents-1.1.0</span><br><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure>
-
-<h3 id="在-root-下建立config-yml"><a href="#在-root-下建立config-yml" class="headerlink" title="在/root/下建立config.yml"></a>在/root/下建立config.yml</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano config.yml</span><br></pre></td></tr></table></figure>
+<h3 id="在运行目录下建立config-yml"><a href="#在运行目录下建立config-yml" class="headerlink" title="在运行目录下建立config.yml"></a>在运行目录下建立config.yml</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano config.yml</span><br></pre></td></tr></table></figure>
 
 <p>填入如下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">my_task: </span><br><span class="line">  client: qbittorrent</span><br><span class="line">  host: http://127.0.0.1:8080</span><br><span class="line">  username: XXX</span><br><span class="line">  password: XXX</span><br><span class="line">  strategies:</span><br><span class="line">    s1:</span><br><span class="line">      all_categories: true</span><br><span class="line">      #seeding_time: 1209600</span><br><span class="line">      seed_size:</span><br><span class="line">        limit: 1020</span><br><span class="line">        action: remove-old-seeds</span><br><span class="line">  delete_data: true</span><br></pre></td></tr></table></figure>
@@ -436,7 +430,7 @@
 <h3 id="测试AMT运行"><a href="#测试AMT运行" class="headerlink" title="测试AMT运行"></a>测试AMT运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">autoremove-torrents --view</span><br></pre></td></tr></table></figure>
 
 <p>看看是不是符合你的预期？</p>
-<h3 id="自动运行"><a href="#自动运行" class="headerlink" title="自动运行"></a>自动运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">*/15 * * * * /usr/local/bin/autoremove-torrents --conf=/root/config.yml ##切记按照这个写，原作者的那个bin文件位置不对</span><br></pre></td></tr></table></figure>
+<h3 id="自动运行"><a href="#自动运行" class="headerlink" title="自动运行"></a>自动运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">*/15 * * * * /home/xx/.local/bin/autoremove-torrents --conf=/home/xx/config.yml ##切记按照个人的bin和配置文件位置写</span><br></pre></td></tr></table></figure>
 
 <p>每十五分钟运行一次，看看有没有符合条件需要删除的种子。</p>
 <h2 id="监控qb和flexget的情况"><a href="#监控qb和flexget的情况" class="headerlink" title="监控qb和flexget的情况"></a>监控qb和flexget的情况</h2><h3 id="qb监控脚本"><a href="#qb监控脚本" class="headerlink" title="qb监控脚本"></a>qb监控脚本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano listen-qb.sh</span><br></pre></td></tr></table></figure>
@@ -784,6 +778,7 @@
 <p>然后在文章头中设置<code>updated</code>项，以此防止文件修改时间干扰最终显示。</p>
 <h1 id="12-hexo-自动部署"><a href="#12-hexo-自动部署" class="headerlink" title="12.hexo 自动部署"></a>12.hexo 自动部署</h1><p>参考<a href="https://github.com/sma11black/hexo-action">hexo-action</a></p>
 <p>注意，不要使用GitHub账户中的那个<code>key</code>，而且添加时候也会提醒。。。偷不到懒的。。。</p>
+<h1 id="13-powershell下使用hexo命令提示"><a href="#13-powershell下使用hexo命令提示" class="headerlink" title="13.powershell下使用hexo命令提示"></a>13.powershell下使用hexo命令提示</h1><p><code>Set-ExecutionPolicy RemoteSigned</code></p>
 ]]></content>
       <categories>
         <category>Tutorial</category>
@@ -926,6 +921,101 @@
         <tag>ubuntu</tag>
         <tag>msmtps</tag>
         <tag>martmontools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows10下利用docker安装nextcloud及相关踩坑</title>
+    <url>/nextcloud-docker-windows/</url>
+    <content><![CDATA[<p>终于在家里的windows NAS里用docker装好了nextcloud，写出来纪念下吧！</p>
+<span id="more"></span>
+
+<h1 id="一、安装docker-desktop"><a href="#一、安装docker-desktop" class="headerlink" title="一、安装docker desktop"></a>一、安装docker desktop</h1><p>在window程序和功能，开启wsl支持，下载官网客户端安装。</p>
+<h2 id="（一）更新国内源"><a href="#（一）更新国内源" class="headerlink" title="（一）更新国内源"></a>（一）更新国内源</h2><p>不得不说，阿里还是！快！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot; : [</span><br><span class="line">    &quot;https://xxx.mirror.aliyuncs.com&quot;,</span><br><span class="line">    &quot;https://registry.docker-cn.com&quot;,</span><br><span class="line">    &quot;http://hub-mirror.c.163.com&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;insecure-registries&quot; : [</span><br><span class="line">    &quot;registry.docker-cn.com&quot;,</span><br><span class="line">  ],</span><br><span class="line">  &quot;debug&quot; : true,</span><br><span class="line">  &quot;experimental&quot; : true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="（二）开启wsl集成！！在WSL2中启动docker"><a href="#（二）开启wsl集成！！在WSL2中启动docker" class="headerlink" title="（二）开启wsl集成！！在WSL2中启动docker"></a>（二）开启wsl集成！！在WSL2中启动docker</h2><p>这一步应该是在windows10上正确使用docker最重要的一步了。运行在wsl2下的docker desktop实际上是在使用hyper-v虚拟机，如果直接用GUI配合windows下的compose进行操作，那么在挂载windows目录时，如果这个目录用于多个image交互，可能导致权限及通信等各类错误。</p>
+<p>在单独安装的wsl的系统下，比如ubuntu中执行docker命令，实质上还是调用docker desktop，但是相当于在一个linux环境下调用，避免了许多报错，也可以方便的更改权限设置。</p>
+<p>具体步骤：</p>
+<ol>
+<li><p>之前安装docker的时候应该已经启用过WSL了。</p>
+</li>
+<li><p>安装windows10下的ubunu。</p>
+</li>
+<li><p>在docker desktop中<code>setting-resources-WSLIntegration</code>中启用ubuntu</p>
+</li>
+<li><p>在ubuntu中使用docker</p>
+</li>
+</ol>
+<p>此时可使用<code>/mnt/c</code>的挂载方式。</p>
+<h2 id="（三）docker-compose-yml设置"><a href="#（三）docker-compose-yml设置" class="headerlink" title="（三）docker-compose.yml设置"></a>（三）docker-compose.yml设置</h2><p>使用官方github中的example即可，家用内网强烈建议使用insecure-postgres-fpm，性能最佳。朋友们。。。至少换掉apache啊。。1202年了。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version: &#x27;3&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  db:</span><br><span class="line">    image: postgres:alpine</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - db:/var/lib/postgresql/data</span><br><span class="line">    env_file:</span><br><span class="line">      - db.env</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    image: redis:alpine</span><br><span class="line">    restart: always</span><br><span class="line"></span><br><span class="line">  app:</span><br><span class="line">    image: nextcloud:fpm-alpine</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - nextcloud:/var/www/html</span><br><span class="line">    environment:</span><br><span class="line">      - POSTGRES_HOST=db</span><br><span class="line">      - REDIS_HOST=redis</span><br><span class="line">    env_file:</span><br><span class="line">      - db.env</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">      - redis</span><br><span class="line"></span><br><span class="line">  web:</span><br><span class="line">    build: ./web</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">      - 127.0.0.1:8080:80 #只能本地使用，外网需改为80:80</span><br><span class="line">    volumes:</span><br><span class="line">      - nextcloud:/var/www/html:ro</span><br><span class="line">    depends_on:</span><br><span class="line">      - app</span><br><span class="line"></span><br><span class="line">  cron:</span><br><span class="line">    image: nextcloud:fpm-alpine</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - nextcloud:/var/www/html</span><br><span class="line">    entrypoint: /cron.sh</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">      - redis</span><br><span class="line"></span><br><span class="line">volumes:</span><br><span class="line">  db:</span><br><span class="line">  nextcloud:</span><br></pre></td></tr></table></figure>
+
+<p>初次启动后，可以将数据文件复制到其他盘符，再挂载回去，这样数据库使用系统的固态硬盘，数据则可以使用大容量的机械硬盘。app-volume下增加：</p>
+<p><code>/mnt/d/nextclouddata:/var/www/html/data</code></p>
+<p><em><strong>启动nextcloud时需等待3-10mins，期间会有502错误</strong></em></p>
+<h1 id="二、各种踩坑"><a href="#二、各种踩坑" class="headerlink" title="二、各种踩坑"></a>二、各种踩坑</h1><h2 id="（一）申请免费的ssl证书及内网的使用"><a href="#（一）申请免费的ssl证书及内网的使用" class="headerlink" title="（一）申请免费的ssl证书及内网的使用"></a>（一）申请免费的ssl证书及内网的使用</h2><p>内网使用let’s encrypt没有研究怎么实现，有路由器介入的情况下，即使有公网ip也会比较麻烦吧。所以就用一年期的免费ssl证书咯。时至今日，貌似只有阿里腾讯还提供比较便捷的免费服务。如果你有其他好的选择请告知。</p>
+<p>使用时可以用官方带有nginx-proxy的样例，但设置比较繁琐，同时一般的国内ISP都会屏蔽公网ip的80和443，折腾了很久，最终还是放弃。。。</p>
+<p>有几点在这里记录下：</p>
+<h3 id="（1）取消HSTS-严格模式"><a href="#（1）取消HSTS-严格模式" class="headerlink" title="（1）取消HSTS(严格模式)"></a>（1）取消HSTS(严格模式)</h3><p>在<code>docker-compose.yml</code>的proxy容器下增加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">environment:  </span><br><span class="line">  - HSTS=off</span><br></pre></td></tr></table></figure>
+
+<p>本来是为了解决android客户端提示<code>严格模式-禁止http连接</code>的，但并没有解决，不过关掉hsts也挺好，这功能是安全，也很麻烦，想让HSTS失效的唯二办法，等待和清楚浏览器缓存。。。</p>
+<p>不要直接该proxy的配置文件。。。么有用。。</p>
+<h3 id="（2）证书的使用"><a href="#（2）证书的使用" class="headerlink" title="（2）证书的使用"></a>（2）证书的使用</h3><p>nginx-proxy使用的crt格式的证书，用aliyun生成的apahce证书中的pulic和chain合并，public在前，换行粘贴chain。</p>
+<h2 id="（二）windows下挂在本地路径的写法"><a href="#（二）windows下挂在本地路径的写法" class="headerlink" title="（二）windows下挂在本地路径的写法"></a>（二）windows下挂在本地路径的写法</h2><p>2021.11在windows10 21H1，docker desktop v4.1.1下，经过多轮测试，对于windows下的volumes写法主要有两种：</p>
+<p>1.<code>/c/Users/user/xxx:/var/nginx/html</code></p>
+<p>2.<code>C:\Users\user\xxx:/var/nginx/html</code></p>
+<p>3.<code>//var/run/docker.sock:/tmp/docker.sock:ro</code>在windows下使用反代时的<code>.sock</code>文件写法，否则proxy跑不起来一直重启，当然，这一条在最终的compose中完美避开了。<strong>在ubuntu中执行docker compose可以不用修改，直接用样例的格式即可</strong></p>
+<p>另外，测试了可以<strong>不</strong>在环境变量或<code>.env</code>、<code>docker-compose.yml</code>文件中增加<code>COMPOSE_CONVERT_WINDOWS_PATHS=1</code>，可能是新版本自己进化了。。</p>
+<p>还有，指向文件夹前，先创建那个文件夹。</p>
+<h2 id="（三）windows下打开volume"><a href="#（三）windows下打开volume" class="headerlink" title="（三）windows下打开volume"></a>（三）windows下打开volume</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\</span><br></pre></td></tr></table></figure>
+
+<h2 id="（四）解决数据目录权限0770提示及http连接问题"><a href="#（四）解决数据目录权限0770提示及http连接问题" class="headerlink" title="（四）解决数据目录权限0770提示及http连接问题"></a>（四）解决数据目录权限0770提示及http连接问题</h2><p>外置数据后编辑config.yml解决 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;check_data_directory_permissions&#x27; =&gt; false,</span><br><span class="line">&#x27;overwriteprotocol&#x27; =&gt; &#x27;http&#x27;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="（五）Too-many-redirect登录失败，提示多次失败"><a href="#（五）Too-many-redirect登录失败，提示多次失败" class="headerlink" title="（五）Too many redirect登录失败，提示多次失败"></a>（五）Too many redirect登录失败，提示多次失败</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">进入postgres容器</span><br><span class="line">psql -U nextcloud</span><br><span class="line">输入db.env中的nextcloud密码</span><br><span class="line">show tables;</span><br><span class="line">查看有哪些tables</span><br><span class="line">select * form oc_bruteforce_attempts;</span><br><span class="line">查看什么IP地址被Ban了</span><br><span class="line">DELETE FROM oc_bruteforce_attempts WHERE ip = &#x27;xxx.xx.x.x&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="（六）本地连接登录及增加其他域名"><a href="#（六）本地连接登录及增加其他域名" class="headerlink" title="（六）本地连接登录及增加其他域名"></a>（六）本地连接登录及增加其他域名</h2><p>在config.php中找到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;trusted_domains&#x27; =&gt;</span><br><span class="line">	array (</span><br><span class="line">		0 =&gt; &#x27;localhost&#x27;,</span><br><span class="line">		1 =&gt; &#x27;server1.example.com&#x27;,</span><br><span class="line">		2 =&gt; &#x27;192.168.1.50&#x27;,</span><br><span class="line">		3 =&gt; &#x27;[fe80::1:50]&#x27;,</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+
+<p>增加本地ip即可。</p>
+<h2 id="（七）限制preview生成图片的大小"><a href="#（七）限制preview生成图片的大小" class="headerlink" title="（七）限制preview生成图片的大小"></a>（七）限制preview生成图片的大小</h2><p>nextcloud默认的preview很庞大，不要浪费空间，改一下吧。在config.php中加入：</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;preview_max_x&#x27; =&gt; 1080,</span><br><span class="line">&#x27;preview_max_y&#x27; =&gt; 1920,</span><br></pre></td></tr></table></figure>
+
+<h2 id="（八）docker-container中运行occ命令"><a href="#（八）docker-container中运行occ命令" class="headerlink" title="（八）docker container中运行occ命令"></a>（八）docker container中运行occ命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker exec --user www-data &lt;nextcloud-container-name&gt; php occ &lt;your-command&gt;</span><br><span class="line">docker exec --user www-data nextcloud-app-1 php occ files:scan --all</span><br><span class="line">files:scan --all #添加本地文件</span><br><span class="line">files:cleanup</span><br><span class="line">files:scan-app-data #删除preview文件后执行</span><br><span class="line">config:app:set preview jpeg_quality --value=&quot;60&quot; #设置jpeg质量</span><br></pre></td></tr></table></figure>
+
+<h2 id="（九）备份nextcloud时的必选项目"><a href="#（九）备份nextcloud时的必选项目" class="headerlink" title="（九）备份nextcloud时的必选项目"></a>（九）备份nextcloud时的必选项目</h2><ol>
+<li>The config folder</li>
+<li>The data folder</li>
+<li>The theme folder</li>
+<li>The database</li>
+</ol>
+<h1 id="（三）参考链接"><a href="#（三）参考链接" class="headerlink" title="（三）参考链接"></a>（三）参考链接</h1><ul>
+<li><a href="https://www.jianshu.com/p/405fe33b9032">Docker中国源 - 简书 (jianshu.com)</a></li>
+<li><a href="https://kebingzao.com/2019/02/25/docker-volume/">Docker Volume - 目录挂载以及文件共享 | Zach Ke’s Notes (kebingzao.com)</a></li>
+<li><a href="https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml">docker/docker-compose.yml at master · nextcloud/docker (github.com)</a></li>
+<li><a href="https://stackoverflow.com/questions/41334021/volume-binding-using-docker-compose-on-windows">Volume binding using docker compose on Windows - Stack Overflow</a></li>
+<li><a href="https://github.com/docker/for-win/issues/2151#issuecomment-662343075">Volumes mounted from a Linux WSL instance don’t resolve in container · Issue #2151 · docker/for-win (github.com)</a></li>
+<li><a href="https://stackoverflow.com/questions/36765138/bind-to-docker-socket-on-windows">Bind to docker socket on Windows - Stack Overflow</a></li>
+<li><a href="https://github.com/wahyd4/aria2-ariang-x-docker-compose#%E4%BD%BF%E7%94%A8-nextcloud-%E5%AE%89%E8%A3%85">wahyd4/aria2-ariang-x-docker-compose: Docker compose files for Aria2+ AriaNg+ filerun/ Nextcloud/ h5ai + Plex. 图形化BT，磁力，离线下载，文件管理，播放，投屏 (github.com)</a></li>
+<li><a href="https://bynss.com/linux/343532.html">使用Nginx在Ubuntu 20.04上安装NextCloud（LEMP堆栈） - 月灯依旧 (bynss.com)</a></li>
+<li><a href="https://stackoverflow.com/questions/43181654/locating-data-volumes-in-docker-desktop-windows">Locating data volumes in Docker Desktop (Windows) - Stack Overflow</a></li>
+<li><a href="https://github.com/nginx-proxy/nginx-proxy">nginx-proxy/nginx-proxy: Automated nginx proxy for Docker containers using docker-gen (github.com)</a></li>
+<li><a href="https://github.com/nextcloud/docker/issues/1270#issuecomment-961684856">Strict mode: no http connection allowed</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/89790081">Docker下Nextcloud的Trusted domains添加 - 知乎 (zhihu.com)</a></li>
+<li><a href="https://help.nextcloud.com/t/can-i-move-files-direct-to-nextcloud/33594/3">Can I move files direct to Nextcloud? - 🚧 Installation - Nextcloud community</a></li>
+<li><a href="https://github.com/nextcloud/docker/issues/1003">Cannot write to data directory with check_data_directory_permissions set to false · Issue #1003 · nextcloud/docker (github.com)</a></li>
+<li><a href="https://www.how2shout.com/how-to/how-to-install-nextcloud-on-ubuntu-20-04-lts-wsl-windows-10.html">How to install NextCloud on Ubuntu 20.04 LTS WSL Windows 10 (how2shout.com)</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>docker</tag>
+        <tag>nextcloud</tag>
+        <tag>ECM</tag>
       </tags>
   </entry>
 </search>

@@ -29,7 +29,7 @@
 <meta property="og:description" content="qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。 qbittorr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-12-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2018-12-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-17T03:29:22.000Z">
 <meta property="article:author" content="Colin">
 <meta property="article:tag" content="qbittorrent">
 <meta property="article:tag" content="flexget">
@@ -156,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85qbittorrent"><span class="nav-number">1.</span> <span class="nav-text">安装qbittorrent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%BA%90"><span class="nav-number">1.1.</span> <span class="nav-text">添加源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="nav-number">1.2.</span> <span class="nav-text">设置自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85flexget"><span class="nav-number">2.</span> <span class="nav-text">安装flexget</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">pip安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A1%AB%E5%86%99flexget%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">填写flexget配置文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95flexget%E8%BF%90%E8%A1%8C"><span class="nav-number">2.3.</span> <span class="nav-text">测试flexget运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexget%E4%BB%A5daemon%E8%BF%90%E8%A1%8C"><span class="nav-number">2.4.</span> <span class="nav-text">flexget以daemon运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexget%E4%BB%A5daemon%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="nav-number">2.5.</span> <span class="nav-text">flexget以daemon开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85autoremove-torrents"><span class="nav-number">3.</span> <span class="nav-text">安装autoremove-torrents</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E8%A7%A3%E5%8E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-root-%E4%B8%8B%E5%BB%BA%E7%AB%8Bconfig-yml"><span class="nav-number">3.2.</span> <span class="nav-text">在&#x2F;root&#x2F;下建立config.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95AMT%E8%BF%90%E8%A1%8C"><span class="nav-number">3.3.</span> <span class="nav-text">测试AMT运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C"><span class="nav-number">3.4.</span> <span class="nav-text">自动运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7qb%E5%92%8Cflexget%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">4.</span> <span class="nav-text">监控qb和flexget的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#qb%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC"><span class="nav-number">4.1.</span> <span class="nav-text">qb监控脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexget%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">flexget监控脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90"><span class="nav-number">4.3.</span> <span class="nav-text">修改权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C"><span class="nav-number">4.4.</span> <span class="nav-text">定时运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8A"><span class="nav-number">5.</span> <span class="nav-text">以上</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85qbittorrent"><span class="nav-number">1.</span> <span class="nav-text">安装qbittorrent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%BA%90"><span class="nav-number">1.1.</span> <span class="nav-text">添加源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="nav-number">1.2.</span> <span class="nav-text">设置自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85flexget"><span class="nav-number">2.</span> <span class="nav-text">安装flexget</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">pip安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A1%AB%E5%86%99flexget%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">填写flexget配置文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95flexget%E8%BF%90%E8%A1%8C"><span class="nav-number">2.3.</span> <span class="nav-text">测试flexget运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAflexget%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C"><span class="nav-number">2.4.</span> <span class="nav-text">创建flexget系统服务运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85autoremove-torrents"><span class="nav-number">3.</span> <span class="nav-text">安装autoremove-torrents</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip%E5%AE%89%E8%A3%85-1"><span class="nav-number">3.1.</span> <span class="nav-text">pip安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%BB%BA%E7%AB%8Bconfig-yml"><span class="nav-number">3.2.</span> <span class="nav-text">在运行目录下建立config.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95AMT%E8%BF%90%E8%A1%8C"><span class="nav-number">3.3.</span> <span class="nav-text">测试AMT运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C"><span class="nav-number">3.4.</span> <span class="nav-text">自动运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7qb%E5%92%8Cflexget%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">4.</span> <span class="nav-text">监控qb和flexget的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#qb%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC"><span class="nav-number">4.1.</span> <span class="nav-text">qb监控脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexget%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">flexget监控脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90"><span class="nav-number">4.3.</span> <span class="nav-text">修改权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C"><span class="nav-number">4.4.</span> <span class="nav-text">定时运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8A"><span class="nav-number">5.</span> <span class="nav-text">以上</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,7 +182,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -255,6 +255,13 @@
 
       <time title="创建时间：2018-12-31 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-31T00:00:00+08:00">2018-12-31</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-17 11:29:22" itemprop="dateModified" datetime="2021-11-17T11:29:22+08:00">2021-11-17</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -278,7 +285,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -328,19 +335,13 @@
 <h3 id="测试flexget运行"><a href="#测试flexget运行" class="headerlink" title="测试flexget运行"></a>测试flexget运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flexget --test  --loglevel debug execute</span><br></pre></td></tr></table></figure>
 
 <p>看看是不是符合你的预期？</p>
-<h3 id="flexget以daemon运行"><a href="#flexget以daemon运行" class="headerlink" title="flexget以daemon运行"></a>flexget以daemon运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flexget daemon start -d</span><br></pre></td></tr></table></figure>
+<h3 id="创建flexget系统服务运行"><a href="#创建flexget系统服务运行" class="headerlink" title="创建flexget系统服务运行"></a>创建flexget系统服务运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Flexget Daemon</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=xx</span><br><span class="line">Group=xx</span><br><span class="line">UMask=000</span><br><span class="line">WorkingDirectory=/etc/flexget</span><br><span class="line">ExecStart=/usr/local/bin/flexget daemon start</span><br><span class="line">ExecStop=/usr/local/bin/flexget daemon stop</span><br><span class="line">ExecReload=/usr/local/bin/flexget daemon reload</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<h3 id="flexget以daemon开机自启动"><a href="#flexget以daemon开机自启动" class="headerlink" title="flexget以daemon开机自启动"></a>flexget以daemon开机自启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>其他使用与qb一致。</p>
+<h2 id="安装autoremove-torrents"><a href="#安装autoremove-torrents" class="headerlink" title="安装autoremove-torrents"></a>安装autoremove-torrents</h2><p>软件来自<a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/5617157829?red_tag=0564171599">贴吧大神 @蛋糕机Mac</a><br><del>2018年12月31号，最新版本1.2.4，但是我发现有重复统计的bug，就一直在用1.1了。</del></p>
+<h3 id="pip安装-1"><a href="#pip安装-1" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install autoremove-torrents</span><br></pre></td></tr></table></figure>
 
-<p>在exit0之前填入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flexget daemon start -d</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="安装autoremove-torrents"><a href="#安装autoremove-torrents" class="headerlink" title="安装autoremove-torrents"></a>安装autoremove-torrents</h2><p>软件来自<a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/5617157829?red_tag=0564171599">贴吧大神 @蛋糕机Mac</a><br>2018年12月31号，最新版本1.2.4，但是我发现有重复统计的bug，就一直在用1.1了。</p>
-<h3 id="下载并解压"><a href="#下载并解压" class="headerlink" title="下载并解压"></a>下载并解压</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/jerrymakesjelly/autoremove-torrents/archive/v1.1.0.tar.gz</span><br><span class="line">tar zxf v1.1.0.tar.gz</span><br><span class="line">cd autoremove-torrents-1.1.0</span><br><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure>
-
-<h3 id="在-root-下建立config-yml"><a href="#在-root-下建立config-yml" class="headerlink" title="在/root/下建立config.yml"></a>在/root/下建立config.yml</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano config.yml</span><br></pre></td></tr></table></figure>
+<h3 id="在运行目录下建立config-yml"><a href="#在运行目录下建立config-yml" class="headerlink" title="在运行目录下建立config.yml"></a>在运行目录下建立config.yml</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano config.yml</span><br></pre></td></tr></table></figure>
 
 <p>填入如下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">my_task: </span><br><span class="line">  client: qbittorrent</span><br><span class="line">  host: http://127.0.0.1:8080</span><br><span class="line">  username: XXX</span><br><span class="line">  password: XXX</span><br><span class="line">  strategies:</span><br><span class="line">    s1:</span><br><span class="line">      all_categories: true</span><br><span class="line">      #seeding_time: 1209600</span><br><span class="line">      seed_size:</span><br><span class="line">        limit: 1020</span><br><span class="line">        action: remove-old-seeds</span><br><span class="line">  delete_data: true</span><br></pre></td></tr></table></figure>
@@ -349,7 +350,7 @@
 <h3 id="测试AMT运行"><a href="#测试AMT运行" class="headerlink" title="测试AMT运行"></a>测试AMT运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoremove-torrents --view</span><br></pre></td></tr></table></figure>
 
 <p>看看是不是符合你的预期？</p>
-<h3 id="自动运行"><a href="#自动运行" class="headerlink" title="自动运行"></a>自动运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">*/15 * * * * /usr/local/bin/autoremove-torrents --conf=/root/config.yml ##切记按照这个写，原作者的那个bin文件位置不对</span><br></pre></td></tr></table></figure>
+<h3 id="自动运行"><a href="#自动运行" class="headerlink" title="自动运行"></a>自动运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">*/15 * * * * /home/xx/.local/bin/autoremove-torrents --conf=/home/xx/config.yml ##切记按照个人的bin和配置文件位置写</span><br></pre></td></tr></table></figure>
 
 <p>每十五分钟运行一次，看看有没有符合条件需要删除的种子。</p>
 <h2 id="监控qb和flexget的情况"><a href="#监控qb和flexget的情况" class="headerlink" title="监控qb和flexget的情况"></a>监控qb和flexget的情况</h2><h3 id="qb监控脚本"><a href="#qb监控脚本" class="headerlink" title="qb监控脚本"></a>qb监控脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano listen-qb.sh</span><br></pre></td></tr></table></figure>
@@ -447,14 +448,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">20k</span>
+    <span title="站点总字数">23k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37 分钟</span>
+    <span title="站点阅读时长">42 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
