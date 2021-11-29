@@ -889,9 +889,22 @@
 
 <p><code>bsd-mailx</code>这个是本次踩的最大的坑，最小化安装的ubuntu没有自带邮件系统，是没有所有的邮件系统，既没有mail这个命令，也没又系统内置的邮箱，即是说，smartclt即使发送给用户也是收不到的，更不用说向外部发送邮件了。自然<code>msmtp-mta</code>创建的<code>sendmail</code>软链接也就成了无根之水。</p>
 <h2 id="1-2配置msmtp"><a href="#1-2配置msmtp" class="headerlink" title="1.2配置msmtp"></a>1.2配置msmtp</h2><p>全局配置文件在<code>/etc/msmtprc</code>下，具体配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Set default values for all following accounts.</span><br><span class="line">defaults</span><br><span class="line">auth           on</span><br><span class="line">tls            on</span><br><span class="line">tls_trust_file /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">logfile        /home/star/.msmtp.log</span><br><span class="line">#tls_starttls   off</span><br><span class="line">#tls_certcheck  off</span><br><span class="line"></span><br><span class="line"># Yandex</span><br><span class="line">account        yandex</span><br><span class="line">host           smtp.yandex.com</span><br><span class="line">port           465</span><br><span class="line">from           xxx@yandex.com</span><br><span class="line">user           xxx</span><br><span class="line">password       xxx</span><br><span class="line"></span><br><span class="line"># Hotmail</span><br><span class="line">account        hotmail</span><br><span class="line">host           smtp-mail.outlook.com</span><br><span class="line">port           587</span><br><span class="line">from           xxx@hotmail.com</span><br><span class="line">user           xxx@hotmail.com</span><br><span class="line">password       xxxx</span><br><span class="line"></span><br><span class="line"># Set a default account</span><br><span class="line">account default : hotmail</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Set default values for all following accounts.</span><br><span class="line">defaults</span><br><span class="line">auth           on</span><br><span class="line">tls            on</span><br><span class="line">tls_trust_file /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">logfile        /home/xxx/.msmtp.log</span><br><span class="line">#tls_starttls   off</span><br><span class="line">#tls_certcheck  off</span><br><span class="line"></span><br><span class="line"># Yandex</span><br><span class="line">account        yandex</span><br><span class="line">host           smtp.yandex.com</span><br><span class="line">port           465</span><br><span class="line">from           xxx@yandex.com</span><br><span class="line">user           xxx</span><br><span class="line">password       xxx</span><br><span class="line"></span><br><span class="line"># Hotmail</span><br><span class="line">account        hotmail</span><br><span class="line">host           smtp-mail.outlook.com</span><br><span class="line">port           587</span><br><span class="line">from           xxx@hotmail.com</span><br><span class="line">user           xxx@hotmail.com</span><br><span class="line">password       xxxx</span><br><span class="line"></span><br><span class="line"># Set a default account</span><br><span class="line">account default : hotmail</span><br></pre></td></tr></table></figure>
 
 <p>这里踩的坑是外发邮箱的选择，一开始选了yandex，但这个邮箱的smtp不支持starttls，可以通过<code>tls_starttls   off</code>并设置端口为465解决予以解决，提示证书错可以通过<code>tls_certcheck  off</code>，更恶心的来了，yandex还会监控你的邮件内容，太过简单的内容会被认为是垃圾邮件而拒绝投递。无奈换了hotmail，豁然开朗！所有问题都不是问题了，所以，有时候，选择啊，比努力更重要XD。</p>
+<h2 id="1-3解决crontab任务持续报错的问题"><a href="#1-3解决crontab任务持续报错的问题" class="headerlink" title="1.3解决crontab任务持续报错的问题"></a>1.3解决crontab任务持续报错的问题</h2><p>这里设置的msmtp是为了让smartmontools发送错误信息，但crontab任务默认会将执行的结果发送给当用户（见<code>crontab -e</code>时最上边的那一串提示，<code>Output of the crontab jobs (including errors) is sent through email to the user the crontab file belongs to (unless redirected).</code>），因为账户里没有本地账户，会蹦出来好多错误日志，写入<code>/home/xxx/.msmtp.log</code>，不够美型。。</p>
+<p>解决方法:</p>
+<p>执行crontab任务时加上输出后缀即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0 2 * * * /home/backup.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>The <strong>&gt;/dev/null</strong> tells the cron to send all output (STDOUT) to /dev/null</p>
+</li>
+<li><p>The <strong>2&gt;$1</strong> tells the cron to send all errors (STDERR) to same as (STDOUT)</p>
+</li>
+</ul>
+<p>世界清净了！</p>
+<h2 id="1-4有的crontab想发送至本地账户怎么办？"><a href="#1-4有的crontab想发送至本地账户怎么办？" class="headerlink" title="1.4有的crontab想发送至本地账户怎么办？"></a>1.4有的crontab想发送至本地账户怎么办？</h2><p>摸索中。。。</p>
 <h1 id="2-smartmontools"><a href="#2-smartmontools" class="headerlink" title="2.smartmontools"></a>2.smartmontools</h1><h2 id="2-1安装smartmontools"><a href="#2-1安装smartmontools" class="headerlink" title="2.1安装smartmontools"></a>2.1安装smartmontools</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install smartmontools</span><br></pre></td></tr></table></figure>
 
 <p>配置文件在<code>/etc/smartd.conf</code>，配置重点有两个，</p>
@@ -912,6 +925,9 @@
 <p>5.<a href="https://askubuntu.com/questions/623325/how-to-check-all-s-m-a-r-t-logs-location">14.04 - How to check all S.M.A.R.T. logs location - Ask Ubuntu</a></p>
 <p>6.<a href="https://unix.stackexchange.com/questions/640296/configuring-mail-command-to-use-msmtp">Configuring mail command to use msmtp - Unix &amp; Linux Stack Exchange</a>–提及bsd-mailx</p>
 <p>7.<a href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
+<p>8.<a href="https://tecadmin.net/disable-crontab-output-email-notifications/">How To Disable Crontab Output and Email Notifications - TecAdmin</a></p>
+<p>9.<a href="https://www.cnblogs.com/tinywan/p/6025468.html">Shell脚本———— /dev/null 2&gt;&amp;1详解 - Tinywan - 博客园 (cnblogs.com)</a></p>
+<p>10.<a href="https://websistent.com/msmtp-cron/">How to Configure MSMTP for Cron - Jesin’s Blog (websistent.com)</a></p>
 ]]></content>
       <categories>
         <category>Tutorial</category>
@@ -1016,6 +1032,40 @@
         <tag>windows</tag>
         <tag>nextcloud</tag>
         <tag>ECM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简单在ubuntu下使用fail2ban</title>
+    <url>/ubuntu-fail2ban/</url>
+    <content><![CDATA[<h1 id="安装fail2ban"><a href="#安装fail2ban" class="headerlink" title="安装fail2ban"></a>安装fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install fail2ban</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl status fail2ban #查看状态</span><br><span class="line">sudo systemctl start fail2ban  #启动</span><br><span class="line">sudo systemctl enable fail2ban #开机启动</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置fail2ban"><a href="#设置fail2ban" class="headerlink" title="设置fail2ban"></a>设置fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fail2ban按以下顺序读取配置文件。 每个.local文件都会覆盖.conf文件中的设置：</span><br><span class="line"></span><br><span class="line">/etc/fail2ban/jail.conf</span><br><span class="line">/etc/fail2ban/jail.d/*.conf</span><br><span class="line">/etc/fail2ban/jail.local</span><br><span class="line">/etc/fail2ban/jail.d/*.local</span><br></pre></td></tr></table></figure>
+
+<p>我的办法时直接编辑<code>/etc/fail2ban/jail.local</code>，其中的条目会覆盖jail.conf中的对应默认设置:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">bantime = 4w    #ban一个月</span><br><span class="line">findtime = 24h  #24小时区间检测</span><br><span class="line">maxretry = 3    #区间检测内最多做三次</span><br><span class="line"></span><br><span class="line">## ssh监控时默认开启的 </span><br></pre></td></tr></table></figure>
+
+<p>排除本地ip使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在[DEFAULT]下增加ignoreip = 127.0.0.1/8 ::1 123.123.123.123 192.168.1.0/24</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用fail2ban-client"><a href="#使用fail2ban-client" class="headerlink" title="使用fail2ban-client"></a>使用fail2ban-client</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo fail2ban-client status sshd                  #检查Jails状况</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd unbanip 23.34.45.56 #取消IP权限</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd banip 23.34.45.56   #禁止IP</span><br><span class="line"></span><br><span class="line">sudo iptables --list -n                           </span><br><span class="line"># 由于fail2ban的&quot;ssh-iptables&quot;监狱使用iptables来阻塞问题IP地址，你可以通过以下方式来检测当前iptables来验证禁止规则</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看fail2ban-log"><a href="#查看fail2ban-log" class="headerlink" title="查看fail2ban.log"></a>查看fail2ban.log</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tail /var/log/fail2ban.log #查看最近的fail2ban执行情况</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref:"></a>ref:</h1><p><a href="https://www.myfreax.com/install-configure-fail2ban-on-ubuntu-20-04/">如何在Ubuntu 20.04上安装和配置Fail2ban (myfreax.com)</a></p>
+<p><a href="https://app.sanii.cn/?p=275">Linux防止ssh暴力破解常用方案 | SAnBlog (sanii.cn)</a></p>
+<p><a href="https://blog.csdn.net/weixin_43507959/article/details/102763985">ubuntu使用fail2ban防御ssh暴力破解_SitVen-CSDN博客</a></p>
+<p><a href="https://www.onitroad.com/jc/linux/linux/security/fail2ban.html">fail2ban安装和配置-之路教程 (onitroad.com)</a></p>
+]]></content>
+      <categories>
+        <category>Tutorials</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>fail2ban</tag>
       </tags>
   </entry>
 </search>
