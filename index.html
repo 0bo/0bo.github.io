@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -255,7 +255,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Tutorials/" itemprop="url" rel="index"><span itemprop="name">Tutorials</span></a>
+          <a href="/categories/Tutorial/" itemprop="url" rel="index"><span itemprop="name">Tutorial</span></a>
         </span>
     </span>
 
@@ -265,7 +265,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>272</span>
+      <span>318</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -283,29 +283,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="安装fail2ban"><a href="#安装fail2ban" class="headerlink" title="安装fail2ban"></a>安装fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install fail2ban</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status fail2ban #查看状态</span><br><span class="line">sudo systemctl start fail2ban  #启动</span><br><span class="line">sudo systemctl enable fail2ban #开机启动</span><br></pre></td></tr></table></figure>
-
-<h1 id="设置fail2ban"><a href="#设置fail2ban" class="headerlink" title="设置fail2ban"></a>设置fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Fail2ban按以下顺序读取配置文件。 每个.local文件都会覆盖.conf文件中的设置：</span><br><span class="line"></span><br><span class="line">/etc/fail2ban/jail.conf</span><br><span class="line">/etc/fail2ban/jail.d/*.conf</span><br><span class="line">/etc/fail2ban/jail.local</span><br><span class="line">/etc/fail2ban/jail.d/*.local</span><br></pre></td></tr></table></figure>
-
-<p>我的办法时直接编辑<code>/etc/fail2ban/jail.local</code>，其中的条目会覆盖jail.conf中的对应默认设置:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">bantime = 4w    #ban一个月</span><br><span class="line">findtime = 24h  #24小时区间检测</span><br><span class="line">maxretry = 3    #区间检测内最多做三次</span><br><span class="line"></span><br><span class="line">## ssh监控时默认开启的 </span><br></pre></td></tr></table></figure>
-
-<p>排除本地ip使用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在[DEFAULT]下增加ignoreip = 127.0.0.1/8 ::1 123.123.123.123 192.168.1.0/24</span><br></pre></td></tr></table></figure>
-
-<h1 id="使用fail2ban-client"><a href="#使用fail2ban-client" class="headerlink" title="使用fail2ban-client"></a>使用fail2ban-client</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo fail2ban-client status sshd                  #检查Jails状况</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd unbanip 23.34.45.56 #取消IP权限</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd banip 23.34.45.56   #禁止IP</span><br><span class="line"></span><br><span class="line">sudo iptables --list -n                           </span><br><span class="line"># 由于fail2ban的&quot;ssh-iptables&quot;监狱使用iptables来阻塞问题IP地址，你可以通过以下方式来检测当前iptables来验证禁止规则</span><br></pre></td></tr></table></figure>
-
-<h1 id="查看fail2ban-log"><a href="#查看fail2ban-log" class="headerlink" title="查看fail2ban.log"></a>查看fail2ban.log</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail /var/log/fail2ban.log #查看最近的fail2ban执行情况</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref:"></a>ref:</h1><p><a target="_blank" rel="noopener" href="https://www.myfreax.com/install-configure-fail2ban-on-ubuntu-20-04/">如何在Ubuntu 20.04上安装和配置Fail2ban (myfreax.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://app.sanii.cn/?p=275">Linux防止ssh暴力破解常用方案 | SAnBlog (sanii.cn)</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43507959/article/details/102763985">ubuntu使用fail2ban防御ssh暴力破解_SitVen-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.onitroad.com/jc/linux/linux/security/fail2ban.html">fail2ban安装和配置-之路教程 (onitroad.com)</a></p>
-
+          <p>这世道，家用动态ip都能被扫描暴力破解…没办法，研究了一下fail2ban的用法，记录一下。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/ubuntu-fail2ban/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

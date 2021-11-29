@@ -936,7 +936,7 @@
         <tag>harddriver</tag>
         <tag>ubuntu</tag>
         <tag>msmtps</tag>
-        <tag>martmontools</tag>
+        <tag>smartmontools</tag>
       </tags>
   </entry>
   <entry>
@@ -1037,14 +1037,18 @@
   <entry>
     <title>简单在ubuntu下使用fail2ban</title>
     <url>/ubuntu-fail2ban/</url>
-    <content><![CDATA[<h1 id="安装fail2ban"><a href="#安装fail2ban" class="headerlink" title="安装fail2ban"></a>安装fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install fail2ban</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>这世道，家用动态ip都能被扫描暴力破解…没办法，研究了一下fail2ban的用法，记录一下。</p>
+<span id="more"></span>
+
+
+<h1 id="安装fail2ban"><a href="#安装fail2ban" class="headerlink" title="安装fail2ban"></a>安装fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install fail2ban</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl status fail2ban #查看状态</span><br><span class="line">sudo systemctl start fail2ban  #启动</span><br><span class="line">sudo systemctl enable fail2ban #开机启动</span><br></pre></td></tr></table></figure>
 
 <h1 id="设置fail2ban"><a href="#设置fail2ban" class="headerlink" title="设置fail2ban"></a>设置fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fail2ban按以下顺序读取配置文件。 每个.local文件都会覆盖.conf文件中的设置：</span><br><span class="line"></span><br><span class="line">/etc/fail2ban/jail.conf</span><br><span class="line">/etc/fail2ban/jail.d/*.conf</span><br><span class="line">/etc/fail2ban/jail.local</span><br><span class="line">/etc/fail2ban/jail.d/*.local</span><br></pre></td></tr></table></figure>
 
 <p>我的办法时直接编辑<code>/etc/fail2ban/jail.local</code>，其中的条目会覆盖jail.conf中的对应默认设置:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">bantime = 4w    #ban一个月</span><br><span class="line">findtime = 24h  #24小时区间检测</span><br><span class="line">maxretry = 3    #区间检测内最多做三次</span><br><span class="line"></span><br><span class="line">## ssh监控时默认开启的 </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">bantime = 4w    #ban一个月</span><br><span class="line">findtime = 24h  #24小时区间检测</span><br><span class="line">maxretry = 3    #区间检测内最多可以错三次</span><br><span class="line"></span><br><span class="line">## ssh监控时默认开启的 </span><br></pre></td></tr></table></figure>
 
 <p>排除本地ip使用：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在[DEFAULT]下增加ignoreip = 127.0.0.1/8 ::1 123.123.123.123 192.168.1.0/24</span><br></pre></td></tr></table></figure>
@@ -1061,7 +1065,7 @@
 <p><a href="https://www.onitroad.com/jc/linux/linux/security/fail2ban.html">fail2ban安装和配置-之路教程 (onitroad.com)</a></p>
 ]]></content>
       <categories>
-        <category>Tutorials</category>
+        <category>Tutorial</category>
       </categories>
       <tags>
         <tag>ubuntu</tag>
