@@ -219,6 +219,7 @@ body {
 }
 body {
   background: var(--body-bg-color);
+  box-sizing: border-box;
   color: var(--text-color);
   font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1em;
@@ -680,6 +681,9 @@ figure.highlight .gutter pre {
 figure.highlight .code pre {
   padding-left: 10px;
   width: 100%;
+}
+figure.highlight .marked {
+  background: rgba(0,0,0,0.3);
 }
 pre .caption,
 pre figcaption {
@@ -1338,6 +1342,7 @@ pre code {
   font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1.375em;
   font-weight: normal;
+  line-height: 1.5;
   margin: 0;
 }
 .site-subtitle {
@@ -1539,7 +1544,7 @@ pre code {
     transition: visibility 0.4s, opacity 0.4s;
     visibility: hidden;
     width: 100%;
-    z-index: 1100;
+    z-index: 10;
   }
   .sidebar-active .sidebar-dimmer {
     opacity: 0.7;
@@ -1602,7 +1607,7 @@ pre code {
   cursor: pointer;
   opacity: 0.6;
   position: fixed;
-  z-index: 1300;
+  z-index: 30;
   right: 30px;
 }
 @media (max-width: 991px) {
@@ -1838,7 +1843,7 @@ pre code {
   text-align: center;
   top: 0;
   width: 100%;
-  z-index: 1500;
+  z-index: 50;
 }
 .back-to-top {
   font-size: 12px;
@@ -1851,7 +1856,7 @@ pre code {
   cursor: pointer;
   opacity: 0.6;
   position: fixed;
-  z-index: 1300;
+  z-index: 30;
   right: 30px;
   width: 24px;
 }
@@ -2670,7 +2675,7 @@ ul.breadcrumb li:last-child {
   transition: visibility 0.4s, background 0.4s;
   visibility: hidden;
   width: 100%;
-  z-index: 1400;
+  z-index: 40;
 }
 .search-active .search-pop-overlay {
   background: rgba(0,0,0,0.3);
@@ -2713,6 +2718,11 @@ ul.breadcrumb li:last-child {
   border-top-right-radius: 5px;
   display: flex;
   padding: 5px;
+}
+@media (prefers-color-scheme: dark) {
+  .search-popup .search-header {
+    background: #666;
+  }
 }
 .search-popup input.search-input {
   background: transparent;
