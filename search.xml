@@ -393,7 +393,7 @@
 <h3 id="设置自启动"><a href="#设置自启动" class="headerlink" title="设置自启动"></a>设置自启动</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano /etc/systemd/system/qbittorrent.service</span><br></pre></td></tr></table></figure>
 
 <p>填入如下内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=qBittorrent Daemon Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=root</span><br><span class="line">ExecStart=/usr/bin/qbittorrent-nox</span><br><span class="line">ExecStop=/usr/bin/killall -w qbittorrent-nox</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=qBittorrent Daemon Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=你的用户</span><br><span class="line">ExecStart=/usr/bin/qbittorrent-nox</span><br><span class="line">ExecStop=/usr/bin/killall -w qbittorrent-nox</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
 <p>使用方法：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable qbittorrent  #开启自启动</span><br><span class="line">systemctl start qbittorrent   #启动qb</span><br><span class="line">systemctl stop qbittorrent    #停止qb</span><br><span class="line">systemctl restart qbittorrent #重启qb</span><br></pre></td></tr></table></figure>
@@ -415,9 +415,11 @@
 <h3 id="测试flexget运行"><a href="#测试flexget运行" class="headerlink" title="测试flexget运行"></a>测试flexget运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flexget --test  --loglevel debug execute</span><br></pre></td></tr></table></figure>
 
 <p>看看是不是符合你的预期？</p>
-<h3 id="创建flexget系统服务运行"><a href="#创建flexget系统服务运行" class="headerlink" title="创建flexget系统服务运行"></a>创建flexget系统服务运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Flexget Daemon</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=xx</span><br><span class="line">Group=xx</span><br><span class="line">UMask=000</span><br><span class="line">WorkingDirectory=/etc/flexget</span><br><span class="line">ExecStart=/usr/local/bin/flexget daemon start</span><br><span class="line">ExecStop=/usr/local/bin/flexget daemon stop</span><br><span class="line">ExecReload=/usr/local/bin/flexget daemon reload</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<h3 id="创建flexget系统服务运行"><a href="#创建flexget系统服务运行" class="headerlink" title="创建flexget系统服务运行"></a>创建flexget系统服务运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Flexget Daemon</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=xx</span><br><span class="line">Group=xx</span><br><span class="line">UMask=000</span><br><span class="line">WorkingDirectory=/etc/flexget</span><br><span class="line">ExecStart=/usr/local/bin/flexget daemon start</span><br><span class="line">ExecStop=/usr/local/bin/flexget daemon stop</span><br><span class="line">ExecReload=/usr/local/bin/flexget daemon reload</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=5  ##间隔5s重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
 <p>其他使用与qb一致。</p>
+<h1 id="重载sysemd文件"><a href="#重载sysemd文件" class="headerlink" title="重载sysemd文件"></a>重载sysemd文件</h1><p>编辑QB和flexget的systemd文件后，可以重载一下相关文件：</p>
+<p><code>sudo systemctl daemon-reload</code></p>
 <h2 id="安装autoremove-torrents"><a href="#安装autoremove-torrents" class="headerlink" title="安装autoremove-torrents"></a>安装autoremove-torrents</h2><p>软件来自<a href="https://tieba.baidu.com/p/5617157829?red_tag=0564171599">贴吧大神 @蛋糕机Mac</a><br><del>2018年12月31号，最新版本1.2.4，但是我发现有重复统计的bug，就一直在用1.1了。</del></p>
 <h3 id="pip安装-1"><a href="#pip安装-1" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install autoremove-torrents</span><br></pre></td></tr></table></figure>
 
@@ -433,26 +435,28 @@
 <h3 id="自动运行"><a href="#自动运行" class="headerlink" title="自动运行"></a>自动运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">*/15 * * * * /home/xx/.local/bin/autoremove-torrents --conf=/home/xx/config.yml ##切记按照个人的bin和配置文件位置写</span><br></pre></td></tr></table></figure>
 
 <p>每十五分钟运行一次，看看有没有符合条件需要删除的种子。</p>
-<h2 id="监控qb和flexget的情况"><a href="#监控qb和flexget的情况" class="headerlink" title="监控qb和flexget的情况"></a>监控qb和flexget的情况</h2><h3 id="qb监控脚本"><a href="#qb监控脚本" class="headerlink" title="qb监控脚本"></a>qb监控脚本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano listen-qb.sh</span><br></pre></td></tr></table></figure>
+<h2 id="监控qb和flexget的情况"><a href="#监控qb和flexget的情况" class="headerlink" title="监控qb和flexget的情况"></a><del>监控qb和flexget的情况</del></h2><h3 id="qb监控脚本"><a href="#qb监控脚本" class="headerlink" title="qb监控脚本"></a><del>qb监控脚本</del></h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano listen-qb.sh</span><br></pre></td></tr></table></figure>
 
-<p>填入：</p>
+<p><del>填入：</del></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pgrep qbittorrent &amp;&gt; /dev/null</span><br><span class="line">if [ $? -gt 0 ]</span><br><span class="line">then</span><br><span class="line">echo &quot;`date` qbittorrent is stop&quot;</span><br><span class="line">systemctl start qbittorrent</span><br><span class="line">else</span><br><span class="line">echo &quot;`date` qbittorrent running&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
-<h3 id="flexget监控脚本"><a href="#flexget监控脚本" class="headerlink" title="flexget监控脚本"></a>flexget监控脚本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano listen-flex.sh</span><br></pre></td></tr></table></figure>
+<h3 id="flexget监控脚本"><a href="#flexget监控脚本" class="headerlink" title="flexget监控脚本"></a><del>flexget监控脚本</del></h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano listen-flex.sh</span><br></pre></td></tr></table></figure>
 
-<p>填入：</p>
+<p><del>填入：</del></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pgrep flexget &amp;&gt; /dev/null</span><br><span class="line">if [ $? -gt 0 ]</span><br><span class="line">then</span><br><span class="line">echo &quot;`date` flexget is stop&quot;</span><br><span class="line">flexget daemon start -d</span><br><span class="line">else</span><br><span class="line">echo &quot;`date` flexget is running&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
-<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod 777 listen-qb.sh</span><br><span class="line">chmod 777 listen-flex.sh</span><br></pre></td></tr></table></figure>
+<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a><del>修改权限</del></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod 777 listen-qb.sh</span><br><span class="line">chmod 777 listen-flex.sh</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="定时运行"><a href="#定时运行" class="headerlink" title="定时运行"></a>定时运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<h3 id="定时运行"><a href="#定时运行" class="headerlink" title="定时运行"></a><del>定时运行</del></h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
 
-<p>加入如下两行</p>
+<p><del>加入如下两行</del></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*/5 * * * * /root/listen-qb.sh</span><br><span class="line">*/5 * * * * /root/listen-flex.sh</span><br></pre></td></tr></table></figure>
 
-<p>每五分钟自动检测qb和flex是否再运行，没有则启动。</p>
-<h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
+<p><del>每五分钟自动检测qb和flex是否再运行，没有则启动。</del></p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>2022-1-16：使用systemd来实现自动重启。</p>
+<p>2021-12-21：使用pip安装art。</p>
+]]></content>
       <categories>
         <category>Tutorial</category>
       </categories>
