@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://starv.eu/qr.html</loc>
+    
+    <lastmod>2023-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/404.html</loc>
+    
+    <lastmod>2023-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://starv.eu/personal-git-hub-basic-commands/</loc>
     
     <lastmod>2023-09-12</lastmod>
@@ -47,15 +65,6 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/qr.html</loc>
-    
-    <lastmod>2022-11-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://starv.eu/hyper-v-lede-side-router/</loc>
     
     <lastmod>2022-11-29</lastmod>
@@ -86,15 +95,6 @@
     <loc>https://starv.eu/nextcloud-docker-windows/</loc>
     
     <lastmod>2021-11-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/404.html</loc>
-    
-    <lastmod>2021-11-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -313,14 +313,14 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/tags/git/</loc>
+    <loc>https://starv.eu/tags/win10/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://starv.eu/tags/win10/</loc>
+    <loc>https://starv.eu/tags/git/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -544,6 +544,20 @@
   </url>
   
   <url>
+    <loc>https://starv.eu/tags/msmtps/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/tags/smartmontools/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://starv.eu/tags/docker/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -559,20 +573,6 @@
   
   <url>
     <loc>https://starv.eu/tags/ECM/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/tags/msmtps/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/tags/smartmontools/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

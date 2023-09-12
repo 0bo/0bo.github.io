@@ -660,27 +660,6 @@
       </tags>
   </entry>
   <entry>
-    <title>fdisk与df显示磁盘大小不一致的解决办法</title>
-    <url>/diff-result-fdisk-df/</url>
-    <content><![CDATA[<p>昨天重装了一个vps，用了ubuntu18.04，踩了一下午的netplan坑，又发现，磁盘空间货不对板。google一下找到了解决方案。</p>
-<span id="more"></span>
-
-<p>很简单，这个问题一般是因为文件系统和分区大小不一致导致的。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">resize2fs /dev/sda1</span><br></pre></td></tr></table></figure>
-
-<p>即可解决问题。</p>
-<p><code>resize2fs</code>使文件系统<code>filesystem</code>与<code>partition</code>保持一致从而提升空间。</p>
-<p>ref: <a href="https://unix.stackexchange.com/questions/10776/why-are-partition-size-and-df-output-different">Why are partition size and df output different?</a></p>
-]]></content>
-      <categories>
-        <category>Tutorial</category>
-      </categories>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>p20 pro以及其他异形屏使用windows远程桌面rdp鼠标定位不准错位的临时解决</title>
     <url>/p20-pro-rdp-mouse-pointer-wrong-position/</url>
     <content><![CDATA[<p>p20 pro什么都好，但有件事一直困扰着我，那就是在window remote desktop app下连接远程pc，鼠标在画面中的位置和点击位置不一致，且横屏状态下，越靠近右侧，漂移幅度越大。</p>
@@ -709,60 +688,24 @@
       </tags>
   </entry>
   <entry>
-    <title>个人Git&amp;Github基本操作</title>
-    <url>/personal-git-hub-basic-commands/</url>
-    <content><![CDATA[<p>毕竟不是程序员，git这种东西，心血来潮才会用，用来用去都是些非常基础的操作，搜索啥的太麻烦，索性在自己记录下，以后复制粘贴喽。</p>
-<p>如果你看到了这里，那么希望以下内容也能对你有用哈。</p>
+    <title>fdisk与df显示磁盘大小不一致的解决办法</title>
+    <url>/diff-result-fdisk-df/</url>
+    <content><![CDATA[<p>昨天重装了一个vps，用了ubuntu18.04，踩了一下午的netplan坑，又发现，磁盘空间货不对板。google一下找到了解决方案。</p>
 <span id="more"></span>
 
-<h1 id="默认pub-key名称"><a href="#默认pub-key名称" class="headerlink" title="默认pub-key名称"></a>默认pub-key名称</h1><p>By default, the filenames of the public keys are one of the following:</p>
-<ul>
-<li><em>id_rsa.pub</em></li>
-<li><em>id_ecdsa.pub</em></li>
-<li><em>id_ed25519.pub</em></li>
-</ul>
-<h1 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH-Key"></a>生成SSH-Key</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+<p>很简单，这个问题一般是因为文件系统和分区大小不一致导致的。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">resize2fs /dev/sda1</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="测试SSH"><a href="#测试SSH" class="headerlink" title="测试SSH"></a>测试SSH</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
-<h2 id="Permissions-for-“xxx”-are-too-open"><a href="#Permissions-for-“xxx”-are-too-open" class="headerlink" title="Permissions for “xxx” are too open"></a>Permissions for “xxx” are too open</h2><p>解决方法：</p>
-<p>xxx文件-&gt;属性-&gt;安全-&gt;高级-&gt;所有者改成当前操作用户-&gt;权限条目删除所有并添加当前操作用户，另，禁用继承？</p>
-<h1 id="添加到远程仓库"><a href="#添加到远程仓库" class="headerlink" title="添加到远程仓库"></a>添加到远程仓库</h1><h2 id="1、创建本地仓库（必须与github上面创建的仓库名称一样）（git-init-命令）"><a href="#1、创建本地仓库（必须与github上面创建的仓库名称一样）（git-init-命令）" class="headerlink" title="1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）"></a>1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init 仓库名称（必须与github创建的仓库名称一样）</span><br></pre></td></tr></table></figure>
-
-<h2 id="2、切换到创建的本地仓库（cd-命令）"><a href="#2、切换到创建的本地仓库（cd-命令）" class="headerlink" title="2、切换到创建的本地仓库（cd 命令）"></a>2、切换到创建的本地仓库（cd 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd 仓库名称</span><br></pre></td></tr></table></figure>
-
-<h2 id="3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git-add-命令）"><a href="#3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git-add-命令）" class="headerlink" title="3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）"></a>3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 文件夹名称</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 具体文件名称</span><br></pre></td></tr></table></figure>
-
-<h2 id="4、将缓存提交到本地仓库并且备注信息（git-commit-m-命令）"><a href="#4、将缓存提交到本地仓库并且备注信息（git-commit-m-命令）" class="headerlink" title="4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）"></a>4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;备注信息&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="5、-添加远程仓库（git-remote-add-origin-命令）"><a href="#5、-添加远程仓库（git-remote-add-origin-命令）" class="headerlink" title="5、 添加远程仓库（git remote add origin 命令）"></a>5、 添加远程仓库（git remote add origin 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin 仓库克隆SSh地址</span><br></pre></td></tr></table></figure>
-
-<h2 id="6、将分支推送到GitHub（git-push-命令）"><a href="#6、将分支推送到GitHub（git-push-命令）" class="headerlink" title="6、将分支推送到GitHub（git push 命令）"></a>6、将分支推送到GitHub（git push 命令）</h2><p>首次推送</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master # -u用来设定默认推送，反向操作为 git branch --unset-upstream</span><br></pre></td></tr></table></figure>
-
-<p>非首次推送</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-<h1 id="VS-code每次打开github仓库时总是弹出页面要求登录"><a href="#VS-code每次打开github仓库时总是弹出页面要求登录" class="headerlink" title="VS code每次打开github仓库时总是弹出页面要求登录"></a>VS code每次打开github仓库时总是弹出页面要求登录</h1><p>网上的那些教程让你<code>git config --global credential.helper store</code>不解决根本问题，有个<a href="https://stackoverflow.com/a/34627954/22544109">回答</a>写得很好，但不解决根本问题。</p>
-<blockquote>
-<p>You can do a temporary trick to cache the authorization</p>
-</blockquote>
-<p>原因我也找到了：在vscode里开启了<code>auto-fetch</code>，同时这个仓库还使用https的链接</p>
-<p>解决方法：设置github的ssh认证方式，然后把仓库链接改为<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#109;</a>这种形式的。一劳永逸啊。</p>
-<p>ref：</p>
-<p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
-<p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
-<p><a href="https://stackoverflow.com/a/52298381/22544109">https://stackoverflow.com/a/52298381/22544109</a></p>
+<p>即可解决问题。</p>
+<p><code>resize2fs</code>使文件系统<code>filesystem</code>与<code>partition</code>保持一致从而提升空间。</p>
+<p>ref: <a href="https://unix.stackexchange.com/questions/10776/why-are-partition-size-and-df-output-different">Why are partition size and df output different?</a></p>
 ]]></content>
       <categories>
         <category>Tutorial</category>
       </categories>
       <tags>
-        <tag>git</tag>
-        <tag>win10</tag>
-        <tag>error</tag>
+        <tag>ubuntu</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -893,7 +836,11 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new page 404</span><br><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
 <h1 id="6-换gitignore"><a href="#6-换gitignore" class="headerlink" title="6.换gitignore"></a>6.换gitignore</h1><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line"># Hexo init</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line"></span><br><span class="line"># General</span><br><span class="line">.DS_Store</span><br><span class="line">.AppleDouble</span><br><span class="line">.LSOverride</span><br><span class="line"></span><br><span class="line"># Thumbnails</span><br><span class="line">._*</span><br><span class="line"></span><br><span class="line"># Files that might appear in the root of a volume</span><br><span class="line">.DocumentRevisions-V100</span><br><span class="line">.fseventsd</span><br><span class="line">.Spotlight-V100</span><br><span class="line">.TemporaryItems</span><br><span class="line">.Trashes</span><br><span class="line">.VolumeIcon.icns</span><br><span class="line">.com.apple.timemachine.donotpresent</span><br><span class="line"></span><br><span class="line"># Directories potentially created on remote AFP share</span><br><span class="line">.AppleDB</span><br><span class="line">.AppleDesktop</span><br><span class="line">Network Trash Folder</span><br><span class="line">Temporary Items</span><br><span class="line">.apdisk</span><br><span class="line"></span><br><span class="line"># Windows thumbnail cache files</span><br><span class="line">Thumbs.db</span><br><span class="line">ehthumbs.db</span><br><span class="line">ehthumbs_vista.db</span><br><span class="line"></span><br><span class="line"># Dump file</span><br><span class="line">*.stackdump</span><br><span class="line"></span><br><span class="line"># Folder config file</span><br><span class="line">Desktop.ini</span><br><span class="line"></span><br><span class="line"># Recycle Bin used on file shares</span><br><span class="line">$RECYCLE.BIN/</span><br><span class="line"></span><br><span class="line"># Windows Installer files</span><br><span class="line">*.cab</span><br><span class="line">*.msi</span><br><span class="line">*.msm</span><br><span class="line">*.msp</span><br><span class="line"></span><br><span class="line"># Windows shortcuts</span><br><span class="line">*.lnk</span><br><span class="line"></span><br><span class="line">*~</span><br><span class="line"></span><br><span class="line"># temporary files which can be created if a process still has a handle open of a deleted file</span><br><span class="line">.fuse_hidden*</span><br><span class="line"></span><br><span class="line"># KDE directory preferences</span><br><span class="line">.directory</span><br><span class="line"></span><br><span class="line"># Linux trash folder which might appear on any partition or disk</span><br><span class="line">.Trash-*</span><br><span class="line"></span><br><span class="line"># .nfs files are created when an open file is removed but is still being accessed</span><br><span class="line">.nfs*</span><br><span class="line"></span><br><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line">yarn-debug.log*</span><br><span class="line">yarn-error.log*</span><br><span class="line"></span><br><span class="line"># Runtime data</span><br><span class="line">pids</span><br><span class="line">*.pid</span><br><span class="line">*.seed</span><br><span class="line">*.pid.lock</span><br><span class="line"></span><br><span class="line"># Directory for instrumented libs generated by jscoverage/JSCover</span><br><span class="line">lib-cov</span><br><span class="line"></span><br><span class="line"># Coverage directory used by tools like istanbul</span><br><span class="line">coverage</span><br><span class="line"></span><br><span class="line"># nyc test coverage</span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"># Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)</span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"># Bower dependency directory (https://bower.io/)</span><br><span class="line">bower_components</span><br><span class="line"></span><br><span class="line"># node-waf configuration</span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"># Compiled binary addons (https://nodejs.org/api/addons.html)</span><br><span class="line">build/Release</span><br><span class="line"></span><br><span class="line"># Dependency directories</span><br><span class="line">node_modules/</span><br><span class="line">jspm_packages/</span><br><span class="line"></span><br><span class="line"># Typescript v1 declaration files</span><br><span class="line">typings/</span><br><span class="line"></span><br><span class="line"># Optional npm cache directory</span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"># Optional eslint cache</span><br><span class="line">.eslintcache</span><br><span class="line"></span><br><span class="line"># Optional REPL history</span><br><span class="line">.node_repl_history</span><br><span class="line"></span><br><span class="line"># Output of &#x27;npm pack&#x27;</span><br><span class="line">*.tgz</span><br><span class="line"></span><br><span class="line"># Yarn Integrity file</span><br><span class="line">.yarn-integrity</span><br><span class="line"></span><br><span class="line"># dotenv environment variables file</span><br><span class="line">.env</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.vscode/*</span><br><span class="line">!.vscode/settings.json</span><br><span class="line">!.vscode/tasks.json</span><br><span class="line">!.vscode/launch.json</span><br><span class="line">!.vscode/extensions.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*.gem</span><br><span class="line">*.rbc</span><br><span class="line">/.config</span><br><span class="line">/coverage/</span><br><span class="line">/InstalledFiles</span><br><span class="line">/pkg/</span><br><span class="line">/spec/reports/</span><br><span class="line">/spec/examples.txt</span><br><span class="line">/test/tmp/</span><br><span class="line">/test/version_tmp/</span><br><span class="line">/tmp/</span><br><span class="line"></span><br><span class="line"># Used by dotenv library to load environment variables.</span><br><span class="line"># .env</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion:</span><br><span class="line">.dat*</span><br><span class="line">.repl_history</span><br><span class="line">build/</span><br><span class="line">*.bridgesupport</span><br><span class="line">build-iPhoneOS/</span><br><span class="line">build-iPhoneSimulator/</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion (use of CocoaPods):</span><br><span class="line">#</span><br><span class="line"># We recommend against adding the Pods directory to your .gitignore. However</span><br><span class="line"># you should judge for yourself, the pros and cons are mentioned at:</span><br><span class="line"># https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control</span><br><span class="line">#</span><br><span class="line"># vendor/Pods/</span><br><span class="line"></span><br><span class="line">## Documentation cache and generated files:</span><br><span class="line">/.yardoc/</span><br><span class="line">/_yardoc/</span><br><span class="line">/doc/</span><br><span class="line">/rdoc/</span><br><span class="line"></span><br><span class="line">## Environment normalization:</span><br><span class="line">/.bundle/</span><br><span class="line">/vendor/bundle</span><br><span class="line">/lib/bundler/man/</span><br><span class="line"></span><br><span class="line"># for a library or gem, you might want to ignore these files since the code is</span><br><span class="line"># intended to run in multiple environments; otherwise, check them in:</span><br><span class="line"># Gemfile.lock</span><br><span class="line"># .ruby-version</span><br><span class="line"># .ruby-gemset</span><br><span class="line"></span><br><span class="line"># unless supporting rvm &lt; 1.11.0 or doing something fancy, ignore this:</span><br><span class="line">.rvmrc</span><br><span class="line"></span><br><span class="line"># jekyll</span><br><span class="line">Gemfile.lock</span><br><span class="line">package-lock.json</span><br><span class="line">_site/</span><br><span class="line">.sass-cache/</span><br><span class="line">.jekyll-metadata</span><br><span class="line"></span><br><span class="line">_drafts/</span><br></pre></td></tr></table></figure>
 
-<h1 id="7-更新hexo及主题的nodejs程序"><a href="#7-更新hexo及主题的nodejs程序" class="headerlink" title="7.更新hexo及主题的nodejs程序"></a>7.更新hexo及主题的nodejs程序</h1><p>在项目文件夹下运行<code>npm update -S</code>即可。</p>
+<h1 id="7-更新hexo及主题的nodejs程序"><a href="#7-更新hexo及主题的nodejs程序" class="headerlink" title="7.更新hexo及主题的nodejs程序"></a>7.更新hexo及主题的nodejs程序</h1><p><del>在项目文件夹下运行<code>npm update -S</code>即可。</del></p>
+<p>安装<code>npm install -g npm-check</code></p>
+<p>然后运行<code>npm-check</code>检查哪些包需要更新</p>
+<p>最后<code>npm-check -u</code>交互式升级包，升级后package.json也会同步更新。出了问题，就一个一个更新看看哪里有问题了。</p>
+<p>其他可参考<a href="https://novnan.github.io/Hexo/update_hexo/">Hexo版本升级指南 | novnan’s notes</a></p>
 <h1 id="8-部署"><a href="#8-部署" class="headerlink" title="8. 部署"></a>8. 部署</h1><p>这里介绍两种部署到github的方式，还可以选择部署到vercel</p>
 <h2 id="8-1-hexo-deployer"><a href="#8-1-hexo-deployer" class="headerlink" title="8.1 hexo deployer"></a>8.1 hexo deployer</h2><p>先要安装插件’npm install hexo-deployer-git –save’，然后在<code>_config.yml</code>中设置deploy的相关内容，<a href="https://hexo.io/docs/one-command-deployment">具体参见</a>。</p>
 <hr>
@@ -902,7 +849,7 @@
 <p>我在本地使用hexo deploy时也是同样的问题，但多了一个提示，说使用用户名和密码的验证方式很早就禁止了。在为本地计算机配置git ssh，将repo地址改为ssh的写法后，一切顺利。</p>
 <h2 id="8-2-hexo-action"><a href="#8-2-hexo-action" class="headerlink" title="8.2 hexo-action"></a>8.2 hexo-action</h2><p>参考<a href="https://github.com/sma11black/hexo-action">hexo-action</a>，利用github action来将网页发布到github pages.</p>
 <p>注意，不要使用GitHub账户的那个<code>key</code>，单独设置一个，而且添加时候也会提醒。。。偷不到懒的。。。</p>
-<p><strong>config里的deploy插件是必须的</strong>，另外注意<code>9.1</code>中提到的git地址的写法，也就是<a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;">&#103;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;</a>:xxx</p>
+<p><strong>config里的deploy插件是必须的</strong>，另外注意<code>9.1</code>中提到的git地址的写法，也就是<a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;</a>:xxx</p>
 <h2 id="8-3-vercel"><a href="#8-3-vercel" class="headerlink" title="8.3 vercel"></a>8.3 vercel</h2><p>直接在vercel的网站上配置即可。</p>
 <p>项目settings里有选择node.js版本的选项，最近的更新在这里卡了好久，本地更新自己的nodejs没用的。。。</p>
 <h1 id="9-阅读时长-≈-NaN-aN"><a href="#9-阅读时长-≈-NaN-aN" class="headerlink" title="9. 阅读时长 ≈ NaN:aN"></a>9. 阅读时长 ≈ NaN:aN</h1><p>按照教程开启阅读时长及字数统计后，如果不显示正确信息，那么记得清除数据：</p>
@@ -912,7 +859,6 @@
 <p>找到了next-theme的<a href="https://t.me/theme_next_cn">telegram群</a>，群内大佬指点，应该修改：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  item_text: false</span><br></pre></td></tr></table></figure>
 
-<p>即可。</p>
 <h1 id="11-hexo-文章创建时间与更新时间"><a href="#11-hexo-文章创建时间与更新时间" class="headerlink" title="11.hexo 文章创建时间与更新时间"></a>11.hexo 文章创建时间与更新时间</h1><p>在<code>_config.yml</code>下设置<code>updated_option: &#39;date&#39;</code></p>
 <p>在<code>_config.next.yml</code>下设置：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  updated_at:</span><br><span class="line">    enable: true</span><br><span class="line">    another_day: true</span><br></pre></td></tr></table></figure>
@@ -929,6 +875,63 @@
       <categories>
         <category>Tutorial</category>
       </categories>
+  </entry>
+  <entry>
+    <title>个人Git&amp;Github基本操作</title>
+    <url>/personal-git-hub-basic-commands/</url>
+    <content><![CDATA[<p>毕竟不是程序员，git这种东西，心血来潮才会用，用来用去都是些非常基础的操作，搜索啥的太麻烦，索性在自己记录下，以后复制粘贴喽。</p>
+<p>如果你看到了这里，那么希望以下内容也能对你有用哈。</p>
+<span id="more"></span>
+
+<h1 id="默认pub-key名称"><a href="#默认pub-key名称" class="headerlink" title="默认pub-key名称"></a>默认pub-key名称</h1><p>By default, the filenames of the public keys are one of the following:</p>
+<ul>
+<li><em>id_rsa.pub</em></li>
+<li><em>id_ecdsa.pub</em></li>
+<li><em>id_ed25519.pub</em></li>
+</ul>
+<h1 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH-Key"></a>生成SSH-Key</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="测试SSH"><a href="#测试SSH" class="headerlink" title="测试SSH"></a>测试SSH</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Permissions-for-“xxx”-are-too-open"><a href="#Permissions-for-“xxx”-are-too-open" class="headerlink" title="Permissions for “xxx” are too open"></a>Permissions for “xxx” are too open</h2><p>解决方法：</p>
+<p>xxx文件-&gt;属性-&gt;安全-&gt;高级-&gt;所有者改成当前操作用户-&gt;权限条目删除所有并添加当前操作用户，另，禁用继承？</p>
+<h1 id="添加到远程仓库"><a href="#添加到远程仓库" class="headerlink" title="添加到远程仓库"></a>添加到远程仓库</h1><h2 id="1、创建本地仓库（必须与github上面创建的仓库名称一样）（git-init-命令）"><a href="#1、创建本地仓库（必须与github上面创建的仓库名称一样）（git-init-命令）" class="headerlink" title="1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）"></a>1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init 仓库名称（必须与github创建的仓库名称一样）</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、切换到创建的本地仓库（cd-命令）"><a href="#2、切换到创建的本地仓库（cd-命令）" class="headerlink" title="2、切换到创建的本地仓库（cd 命令）"></a>2、切换到创建的本地仓库（cd 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd 仓库名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git-add-命令）"><a href="#3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git-add-命令）" class="headerlink" title="3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）"></a>3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 文件夹名称</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 具体文件名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、将缓存提交到本地仓库并且备注信息（git-commit-m-命令）"><a href="#4、将缓存提交到本地仓库并且备注信息（git-commit-m-命令）" class="headerlink" title="4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）"></a>4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;备注信息&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、-添加远程仓库（git-remote-add-origin-命令）"><a href="#5、-添加远程仓库（git-remote-add-origin-命令）" class="headerlink" title="5、 添加远程仓库（git remote add origin 命令）"></a>5、 添加远程仓库（git remote add origin 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin 仓库克隆SSh地址</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、将分支推送到GitHub（git-push-命令）"><a href="#6、将分支推送到GitHub（git-push-命令）" class="headerlink" title="6、将分支推送到GitHub（git push 命令）"></a>6、将分支推送到GitHub（git push 命令）</h2><p>首次推送</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master # -u用来设定默认推送，反向操作为 git branch --unset-upstream</span><br></pre></td></tr></table></figure>
+
+<p>非首次推送</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<h1 id="VS-code每次打开github仓库时总是弹出页面要求登录"><a href="#VS-code每次打开github仓库时总是弹出页面要求登录" class="headerlink" title="VS code每次打开github仓库时总是弹出页面要求登录"></a>VS code每次打开github仓库时总是弹出页面要求登录</h1><p>网上的那些教程让你<code>git config --global credential.helper store</code>不解决根本问题，有个<a href="https://stackoverflow.com/a/34627954/22544109">回答</a>写得很好，但不解决根本问题。</p>
+<blockquote>
+<p>You can do a temporary trick to cache the authorization</p>
+</blockquote>
+<p>原因我也找到了：在vscode里开启了<code>auto-fetch</code>，同时这个仓库还使用https的链接</p>
+<p>解决方法：设置github的ssh认证方式，然后把仓库链接改为<a href="mailto:&#x67;&#x69;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#109;">&#x67;&#x69;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#109;</a>这种形式的。一劳永逸啊。</p>
+<p>ref：</p>
+<p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
+<p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
+<p><a href="https://stackoverflow.com/a/52298381/22544109">https://stackoverflow.com/a/52298381/22544109</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>win10</tag>
+        <tag>git</tag>
+        <tag>error</tag>
+      </tags>
   </entry>
   <entry>
     <title>win10下qbittorrent、flexget和ART全自动盒子配置</title>
@@ -964,6 +967,67 @@
         <tag>qbittorrent</tag>
         <tag>flexget</tag>
         <tag>autoremove-torrents</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件</title>
+    <url>/msmtp-smartmontools-auto-monitoring-mail/</url>
+    <content><![CDATA[<p>近期又开始折腾了。入手了一个京云小盒子，准备放回老家刷PT。盒子只有2G内存，装完win10 LTSC只剩下400M内存，太危险，没办法，还是用linux吧。我的NAS最基本的就是plex+qb，但毕竟远程操作，及时知道硬盘状态很重要，家里用的stablebit scanner只能在windows下使用，就开始琢磨linux下的方案啦。一如既往，踩够了坑，在整理记录下，希望能对看到的你有所帮助。</p>
+<span id="more"></span>
+
+
+<h1 id="1-msmtp"><a href="#1-msmtp" class="headerlink" title="1.msmtp"></a>1.msmtp</h1><h2 id="1-1安装msmtp"><a href="#1-1安装msmtp" class="headerlink" title="1.1安装msmtp"></a>1.1安装msmtp</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install bsd-mailx msmtp msmtp-mta</span><br></pre></td></tr></table></figure>
+
+<p><code>bsd-mailx</code>这个是本次踩的最大的坑，最小化安装的ubuntu没有自带邮件系统，是没有所有的邮件系统，既没有mail这个命令，也没又系统内置的邮箱，即是说，smartclt即使发送给用户也是收不到的，更不用说向外部发送邮件了。自然<code>msmtp-mta</code>创建的<code>sendmail</code>软链接也就成了无根之水。</p>
+<h2 id="1-2配置msmtp"><a href="#1-2配置msmtp" class="headerlink" title="1.2配置msmtp"></a>1.2配置msmtp</h2><p>全局配置文件在<code>/etc/msmtprc</code>下，具体配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Set default values for all following accounts.</span><br><span class="line">defaults</span><br><span class="line">auth           on</span><br><span class="line">tls            on</span><br><span class="line">tls_trust_file /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">logfile        /home/xxx/.msmtp.log</span><br><span class="line">#tls_starttls   off</span><br><span class="line">#tls_certcheck  off</span><br><span class="line"></span><br><span class="line"># Yandex</span><br><span class="line">account        yandex</span><br><span class="line">host           smtp.yandex.com</span><br><span class="line">port           465</span><br><span class="line">from           xxx@yandex.com</span><br><span class="line">user           xxx</span><br><span class="line">password       xxx</span><br><span class="line"></span><br><span class="line"># Hotmail</span><br><span class="line">account        hotmail</span><br><span class="line">host           smtp-mail.outlook.com</span><br><span class="line">port           587</span><br><span class="line">from           xxx@hotmail.com</span><br><span class="line">user           xxx@hotmail.com</span><br><span class="line">password       xxxx</span><br><span class="line"></span><br><span class="line"># Set a default account</span><br><span class="line">account default : hotmail</span><br></pre></td></tr></table></figure>
+
+<p>这里踩的坑是外发邮箱的选择，一开始选了yandex，但这个邮箱的smtp不支持starttls，可以通过<code>tls_starttls   off</code>并设置端口为465解决予以解决，提示证书错可以通过<code>tls_certcheck  off</code>，更恶心的来了，yandex还会监控你的邮件内容，太过简单的内容会被认为是垃圾邮件而拒绝投递。无奈换了hotmail，豁然开朗！所有问题都不是问题了，所以，有时候，选择啊，比努力更重要XD。</p>
+<h2 id="1-3解决crontab任务持续报错的问题"><a href="#1-3解决crontab任务持续报错的问题" class="headerlink" title="1.3解决crontab任务持续报错的问题"></a>1.3解决crontab任务持续报错的问题</h2><p>这里设置的msmtp是为了让smartmontools发送错误信息，但crontab任务默认会将执行的结果发送给当用户（见<code>crontab -e</code>时最上边的那一串提示，<code>Output of the crontab jobs (including errors) is sent through email to the user the crontab file belongs to (unless redirected).</code>），因为没有本地邮件账户，会蹦出来好多错误日志，写入<code>/home/xxx/.msmtp.log</code>，不够美型。。</p>
+<p>解决方法:</p>
+<p>执行crontab任务时加上输出后缀即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0 2 * * * /home/backup.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>The <strong>&gt;&#x2F;dev&#x2F;null</strong> tells the cron to send all output (STDOUT) to &#x2F;dev&#x2F;null</p>
+</li>
+<li><p>The <strong>2&gt;$1</strong> tells the cron to send all errors (STDERR) to same as (STDOUT)</p>
+</li>
+</ul>
+<p>世界清净了！</p>
+<h2 id="1-4有的crontab想发送至本地账户怎么办？"><a href="#1-4有的crontab想发送至本地账户怎么办？" class="headerlink" title="1.4有的crontab想发送至本地账户怎么办？"></a>1.4有的crontab想发送至本地账户怎么办？</h2><p>摸索中。。。</p>
+<h1 id="2-smartmontools"><a href="#2-smartmontools" class="headerlink" title="2.smartmontools"></a>2.smartmontools</h1><h2 id="2-1安装smartmontools"><a href="#2-1安装smartmontools" class="headerlink" title="2.1安装smartmontools"></a>2.1安装smartmontools</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install smartmontools</span><br></pre></td></tr></table></figure>
+
+<p>配置文件在<code>/etc/smartd.conf</code>，配置重点有两个，</p>
+<ol>
+<li><p>#掉<code>DEVICESCAN</code>开头的命令，否则其下的命令都不会执行</p>
+</li>
+<li><p>最上边加入一行<code>/dev/sda -H -m xxx@hotmail.com</code></p>
+</li>
+</ol>
+<p>想测试可以在命令后加<code>-M test</code>,然后<code>sudo systemctl restart smartd</code>重启服务，看看会不会收到邮件。</p>
+<p>如前文提到的，这一步卡了很久，msmtp发送，smartd的配置看起来也很正常，就是发布出去邮件。搜索了很久，受一篇文章启发，利用<code>grep &quot;smartd&quot; /var/log/syslog*</code>查询日志，发现提示大意是没有mail命令啥的，意识到可能是有些前置问题没解决。。。</p>
+<p>再然后，发现安装bsd-mail即可解决，每个用户也有了自己的系统邮箱，输入mail即可查阅，这也是为什么smartd配置文档里<code>-m</code>后跟的不是邮件地址而是用户名的原因。</p>
+<p>另外，配置文件里的建议设置里写的是<code>/dev/sda -H -m root -c 0 -u 0</code>，-c和-u设置为零意思是不检测<code>pending sectors</code>和<code>uncorrectable sectors</code>。。。不知道文档作者是有什么特别的想法。。。至少我看到这俩提示了，还不赶快换硬盘，作死么？</p>
+<h1 id="3-参考链接"><a href="#3-参考链接" class="headerlink" title="3.参考链接"></a>3.参考链接</h1><p>1.<a href="https://www.smartmontools.org/browser/trunk/smartmontools/smartd.conf.5.in?order=name">smartd.conf.5.in</a></p>
+<p>2.<a href="https://wiki.archlinux.org/title/Msmtp">msmtp - ArchWiki (archlinux.org)</a></p>
+<p>3.<a href="https://blog.csdn.net/oMrApollo/article/details/72478000">( msmtp+mutt发送TLS邮件异常处理_Maxi的专栏-CSDN博客</a></p>
+<p>4.<a href="https://linuxconfig.org/how-to-configure-smartd-and-be-notified-of-hard-disk-problems-via-email">How to configure smartd and be notified of hard disk problems via email - Linux Tutorials - Learn Linux Configuration</a></p>
+<p>5.<a href="https://askubuntu.com/questions/623325/how-to-check-all-s-m-a-r-t-logs-location">14.04 - How to check all S.M.A.R.T. logs location - Ask Ubuntu</a></p>
+<p>6.<a href="https://unix.stackexchange.com/questions/640296/configuring-mail-command-to-use-msmtp">Configuring mail command to use msmtp - Unix &amp; Linux Stack Exchange</a>–提及bsd-mailx</p>
+<p>7.<a href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
+<p>8.<a href="https://tecadmin.net/disable-crontab-output-email-notifications/">How To Disable Crontab Output and Email Notifications - TecAdmin</a></p>
+<p>9.<a href="https://www.cnblogs.com/tinywan/p/6025468.html">Shell脚本———— &#x2F;dev&#x2F;null 2&gt;&amp;1详解 - Tinywan - 博客园 (cnblogs.com)</a></p>
+<p>10.<a href="https://websistent.com/msmtp-cron/">How to Configure MSMTP for Cron - Jesin’s Blog (websistent.com)</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>harddriver</tag>
+        <tag>msmtps</tag>
+        <tag>smartmontools</tag>
       </tags>
   </entry>
   <entry>
@@ -1059,67 +1123,6 @@
         <tag>docker</tag>
         <tag>nextcloud</tag>
         <tag>ECM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件</title>
-    <url>/msmtp-smartmontools-auto-monitoring-mail/</url>
-    <content><![CDATA[<p>近期又开始折腾了。入手了一个京云小盒子，准备放回老家刷PT。盒子只有2G内存，装完win10 LTSC只剩下400M内存，太危险，没办法，还是用linux吧。我的NAS最基本的就是plex+qb，但毕竟远程操作，及时知道硬盘状态很重要，家里用的stablebit scanner只能在windows下使用，就开始琢磨linux下的方案啦。一如既往，踩够了坑，在整理记录下，希望能对看到的你有所帮助。</p>
-<span id="more"></span>
-
-
-<h1 id="1-msmtp"><a href="#1-msmtp" class="headerlink" title="1.msmtp"></a>1.msmtp</h1><h2 id="1-1安装msmtp"><a href="#1-1安装msmtp" class="headerlink" title="1.1安装msmtp"></a>1.1安装msmtp</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install bsd-mailx msmtp msmtp-mta</span><br></pre></td></tr></table></figure>
-
-<p><code>bsd-mailx</code>这个是本次踩的最大的坑，最小化安装的ubuntu没有自带邮件系统，是没有所有的邮件系统，既没有mail这个命令，也没又系统内置的邮箱，即是说，smartclt即使发送给用户也是收不到的，更不用说向外部发送邮件了。自然<code>msmtp-mta</code>创建的<code>sendmail</code>软链接也就成了无根之水。</p>
-<h2 id="1-2配置msmtp"><a href="#1-2配置msmtp" class="headerlink" title="1.2配置msmtp"></a>1.2配置msmtp</h2><p>全局配置文件在<code>/etc/msmtprc</code>下，具体配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Set default values for all following accounts.</span><br><span class="line">defaults</span><br><span class="line">auth           on</span><br><span class="line">tls            on</span><br><span class="line">tls_trust_file /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">logfile        /home/xxx/.msmtp.log</span><br><span class="line">#tls_starttls   off</span><br><span class="line">#tls_certcheck  off</span><br><span class="line"></span><br><span class="line"># Yandex</span><br><span class="line">account        yandex</span><br><span class="line">host           smtp.yandex.com</span><br><span class="line">port           465</span><br><span class="line">from           xxx@yandex.com</span><br><span class="line">user           xxx</span><br><span class="line">password       xxx</span><br><span class="line"></span><br><span class="line"># Hotmail</span><br><span class="line">account        hotmail</span><br><span class="line">host           smtp-mail.outlook.com</span><br><span class="line">port           587</span><br><span class="line">from           xxx@hotmail.com</span><br><span class="line">user           xxx@hotmail.com</span><br><span class="line">password       xxxx</span><br><span class="line"></span><br><span class="line"># Set a default account</span><br><span class="line">account default : hotmail</span><br></pre></td></tr></table></figure>
-
-<p>这里踩的坑是外发邮箱的选择，一开始选了yandex，但这个邮箱的smtp不支持starttls，可以通过<code>tls_starttls   off</code>并设置端口为465解决予以解决，提示证书错可以通过<code>tls_certcheck  off</code>，更恶心的来了，yandex还会监控你的邮件内容，太过简单的内容会被认为是垃圾邮件而拒绝投递。无奈换了hotmail，豁然开朗！所有问题都不是问题了，所以，有时候，选择啊，比努力更重要XD。</p>
-<h2 id="1-3解决crontab任务持续报错的问题"><a href="#1-3解决crontab任务持续报错的问题" class="headerlink" title="1.3解决crontab任务持续报错的问题"></a>1.3解决crontab任务持续报错的问题</h2><p>这里设置的msmtp是为了让smartmontools发送错误信息，但crontab任务默认会将执行的结果发送给当用户（见<code>crontab -e</code>时最上边的那一串提示，<code>Output of the crontab jobs (including errors) is sent through email to the user the crontab file belongs to (unless redirected).</code>），因为没有本地邮件账户，会蹦出来好多错误日志，写入<code>/home/xxx/.msmtp.log</code>，不够美型。。</p>
-<p>解决方法:</p>
-<p>执行crontab任务时加上输出后缀即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0 2 * * * /home/backup.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>The <strong>&gt;&#x2F;dev&#x2F;null</strong> tells the cron to send all output (STDOUT) to &#x2F;dev&#x2F;null</p>
-</li>
-<li><p>The <strong>2&gt;$1</strong> tells the cron to send all errors (STDERR) to same as (STDOUT)</p>
-</li>
-</ul>
-<p>世界清净了！</p>
-<h2 id="1-4有的crontab想发送至本地账户怎么办？"><a href="#1-4有的crontab想发送至本地账户怎么办？" class="headerlink" title="1.4有的crontab想发送至本地账户怎么办？"></a>1.4有的crontab想发送至本地账户怎么办？</h2><p>摸索中。。。</p>
-<h1 id="2-smartmontools"><a href="#2-smartmontools" class="headerlink" title="2.smartmontools"></a>2.smartmontools</h1><h2 id="2-1安装smartmontools"><a href="#2-1安装smartmontools" class="headerlink" title="2.1安装smartmontools"></a>2.1安装smartmontools</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install smartmontools</span><br></pre></td></tr></table></figure>
-
-<p>配置文件在<code>/etc/smartd.conf</code>，配置重点有两个，</p>
-<ol>
-<li><p>#掉<code>DEVICESCAN</code>开头的命令，否则其下的命令都不会执行</p>
-</li>
-<li><p>最上边加入一行<code>/dev/sda -H -m xxx@hotmail.com</code></p>
-</li>
-</ol>
-<p>想测试可以在命令后加<code>-M test</code>,然后<code>sudo systemctl restart smartd</code>重启服务，看看会不会收到邮件。</p>
-<p>如前文提到的，这一步卡了很久，msmtp发送，smartd的配置看起来也很正常，就是发布出去邮件。搜索了很久，受一篇文章启发，利用<code>grep &quot;smartd&quot; /var/log/syslog*</code>查询日志，发现提示大意是没有mail命令啥的，意识到可能是有些前置问题没解决。。。</p>
-<p>再然后，发现安装bsd-mail即可解决，每个用户也有了自己的系统邮箱，输入mail即可查阅，这也是为什么smartd配置文档里<code>-m</code>后跟的不是邮件地址而是用户名的原因。</p>
-<p>另外，配置文件里的建议设置里写的是<code>/dev/sda -H -m root -c 0 -u 0</code>，-c和-u设置为零意思是不检测<code>pending sectors</code>和<code>uncorrectable sectors</code>。。。不知道文档作者是有什么特别的想法。。。至少我看到这俩提示了，还不赶快换硬盘，作死么？</p>
-<h1 id="3-参考链接"><a href="#3-参考链接" class="headerlink" title="3.参考链接"></a>3.参考链接</h1><p>1.<a href="https://www.smartmontools.org/browser/trunk/smartmontools/smartd.conf.5.in?order=name">smartd.conf.5.in</a></p>
-<p>2.<a href="https://wiki.archlinux.org/title/Msmtp">msmtp - ArchWiki (archlinux.org)</a></p>
-<p>3.<a href="https://blog.csdn.net/oMrApollo/article/details/72478000">( msmtp+mutt发送TLS邮件异常处理_Maxi的专栏-CSDN博客</a></p>
-<p>4.<a href="https://linuxconfig.org/how-to-configure-smartd-and-be-notified-of-hard-disk-problems-via-email">How to configure smartd and be notified of hard disk problems via email - Linux Tutorials - Learn Linux Configuration</a></p>
-<p>5.<a href="https://askubuntu.com/questions/623325/how-to-check-all-s-m-a-r-t-logs-location">14.04 - How to check all S.M.A.R.T. logs location - Ask Ubuntu</a></p>
-<p>6.<a href="https://unix.stackexchange.com/questions/640296/configuring-mail-command-to-use-msmtp">Configuring mail command to use msmtp - Unix &amp; Linux Stack Exchange</a>–提及bsd-mailx</p>
-<p>7.<a href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
-<p>8.<a href="https://tecadmin.net/disable-crontab-output-email-notifications/">How To Disable Crontab Output and Email Notifications - TecAdmin</a></p>
-<p>9.<a href="https://www.cnblogs.com/tinywan/p/6025468.html">Shell脚本———— &#x2F;dev&#x2F;null 2&gt;&amp;1详解 - Tinywan - 博客园 (cnblogs.com)</a></p>
-<p>10.<a href="https://websistent.com/msmtp-cron/">How to Configure MSMTP for Cron - Jesin’s Blog (websistent.com)</a></p>
-]]></content>
-      <categories>
-        <category>Tutorial</category>
-      </categories>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>harddriver</tag>
-        <tag>msmtps</tag>
-        <tag>smartmontools</tag>
       </tags>
   </entry>
   <entry>
