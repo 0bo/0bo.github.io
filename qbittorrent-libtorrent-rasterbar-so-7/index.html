@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -263,14 +263,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>1.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -294,16 +294,16 @@
 <li>另外一个原因就是已经安装了该共享库, 但执行需要调用该共享库的程序的时候, 程序按照默认共享库路径找不到该共享库文件.  所以安装共享库后要注意共享库路径设置问题, 如下:</li>
 </ol>
 <ul>
-<li><p>如果共享库文件安装到了/lib或/usr/lib目录下, 那么需执行一下ldconfig命令。这个命令的用途, 主要是在默认搜寻目录(/lib和/usr/lib)以及动态库配置文件/etc/ld.so.conf内所列的目录下, 搜索出可共享的动态链接库(格式如lib*.so*), 进而创建出动态装入程序(ld.so)所需的连接和缓存文件. 缓存文件默认为/etc/ld.so.cache, 此文件保存已排好序的动态链接库名字列表.</p>
+<li><p>如果共享库文件安装到了&#x2F;lib或&#x2F;usr&#x2F;lib目录下, 那么需执行一下ldconfig命令。这个命令的用途, 主要是在默认搜寻目录(&#x2F;lib和&#x2F;usr&#x2F;lib)以及动态库配置文件&#x2F;etc&#x2F;ld.so.conf内所列的目录下, 搜索出可共享的动态链接库(格式如lib*.so*), 进而创建出动态装入程序(ld.so)所需的连接和缓存文件. 缓存文件默认为&#x2F;etc&#x2F;ld.so.cache, 此文件保存已排好序的动态链接库名字列表.</p>
 </li>
-<li><p>如果共享库文件安装到了/usr/local/lib(很多开源的共享库都会安装到该目录下)或其它”非/lib或/usr/lib”目录下, 那么在执行ldconfig命令前, 还要把新共享库目录加入到共享库配置文件/etc/ld.so.conf中, 如下:</p>
+<li><p>如果共享库文件安装到了&#x2F;usr&#x2F;local&#x2F;lib(很多开源的共享库都会安装到该目录下)或其它”非&#x2F;lib或&#x2F;usr&#x2F;lib”目录下, 那么在执行ldconfig命令前, 还要把新共享库目录加入到共享库配置文件&#x2F;etc&#x2F;ld.so.conf中, 如下:</p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/ld.so.conf</span><br><span class="line">include ld.so.conf.d/*.conf</span><br><span class="line"># echo &quot;/usr/local/lib&quot; &gt;&gt; /etc/ld.so.conf</span><br><span class="line"># ldconfig</span><br></pre></td></tr></table></figure>
 <ul>
-<li>如果共享库文件安装到了其它”非/lib或/usr/lib” 目录下,  但是又不想在/etc/ld.so.conf中加路径(或者是没有权限加路径). 那可以export一个全局变量LD_LIBRARY_PATH, 然后运行程序的时候就会去这个目录中找共享库.</li>
+<li>如果共享库文件安装到了其它”非&#x2F;lib或&#x2F;usr&#x2F;lib” 目录下,  但是又不想在&#x2F;etc&#x2F;ld.so.conf中加路径(或者是没有权限加路径). 那可以export一个全局变量LD_LIBRARY_PATH, 然后运行程序的时候就会去这个目录中找共享库.</li>
 </ul>
-<p>export LD_LIBRARY_PATH=/usr/local/mysql/lib:$LD_LIBRARY_PATH</p>
+<p>export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;lib:$LD_LIBRARY_PATH</p>
 <p>一般来讲这只是一种临时的解决方案, 在没有权限或临时需要的时候使用.</p>
 <ul>
 <li>如果程序需要的库文件比系统目前存在的村文件版本低，可以做一个链接<br>比如：<blockquote>
@@ -317,7 +317,7 @@
 <p>我使用</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
 <p>即解决。</p>
-<p>此外，如编译安装，在/etc/systemd/system/qbittorrent.service文件中的地址因该是：/usr/local/bin</p>
+<p>此外，如编译安装，在&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;qbittorrent.service文件中的地址因该是：&#x2F;usr&#x2F;local&#x2F;bin</p>
 
     </div>
 
@@ -353,13 +353,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/0xc0000205-android-shared-folder/" rel="prev" title="android电视盒子无法打开win10共享文件夹">
-                  <i class="fa fa-angle-left"></i> android电视盒子无法打开win10共享文件夹
+                <a href="/who-will-you-call/" rel="prev" title="你会打电话给谁？">
+                  <i class="fa fa-angle-left"></i> 你会打电话给谁？
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/github-pages-local-environment/" rel="next" title="github pages本地环境配置">
-                  github pages本地环境配置 <i class="fa fa-angle-right"></i>
+                <a href="/0xc0000205-android-shared-folder/" rel="next" title="android电视盒子无法打开win10共享文件夹">
+                  android电视盒子无法打开win10共享文件夹 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -393,14 +393,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">35k</span>
+    <span title="站点总字数">36k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:03</span>
+    <span title="站点阅读时长">1:05</span>
   </span>
 </div>
 <div class="busuanzi-count">

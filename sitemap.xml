@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://starv.eu/personal-git-hub-basic-commands/</loc>
+    
+    <lastmod>2023-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/hexo-installation-and-next-themes/</loc>
+    
+    <lastmod>2023-09-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://starv.eu/about/index.html</loc>
     
     <lastmod>2022-12-01</lastmod>
@@ -119,24 +137,6 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/personal-git-hub-basic-commands/</loc>
-    
-    <lastmod>2021-06-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/hexo-installation-and-next-themes/</loc>
-    
-    <lastmod>2021-06-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://starv.eu/github-desktop-proxy/</loc>
     
     <lastmod>2020-08-10</lastmod>
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/qbittorrent-libtorrent-rasterbar-so-7/</loc>
+    <loc>https://starv.eu/0xc0000205-android-shared-folder/</loc>
     
     <lastmod>2018-01-22</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/0xc0000205-android-shared-folder/</loc>
+    <loc>https://starv.eu/qbittorrent-libtorrent-rasterbar-so-7/</loc>
     
     <lastmod>2018-01-22</lastmod>
     
@@ -369,13 +369,6 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/tags/nginx/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://starv.eu/tags/windows/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -397,6 +390,13 @@
   </url>
   
   <url>
+    <loc>https://starv.eu/tags/nginx/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://starv.eu/tags/x200/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -405,6 +405,20 @@
   
   <url>
     <loc>https://starv.eu/tags/wol/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/tags/android/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/tags/tvbox/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -440,20 +454,6 @@
   
   <url>
     <loc>https://starv.eu/tags/jekyll/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/tags/android/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/tags/tvbox/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -509,20 +509,6 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/tags/p20pro/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/tags/php/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://starv.eu/tags/hyper-v/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -544,21 +530,14 @@
   </url>
   
   <url>
-    <loc>https://starv.eu/tags/msmtps/</loc>
+    <loc>https://starv.eu/tags/p20pro/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://starv.eu/tags/smartmontools/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://starv.eu/tags/fail2ban/</loc>
+    <loc>https://starv.eu/tags/php/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -580,6 +559,27 @@
   
   <url>
     <loc>https://starv.eu/tags/ECM/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/tags/msmtps/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/tags/smartmontools/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://starv.eu/tags/fail2ban/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

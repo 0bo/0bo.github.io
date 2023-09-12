@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -301,7 +301,7 @@
 <blockquote>
 <p>PENWRT基于LINUX，来源于电脑系统。LAN和WAN是指不同的防火墙分区（就像WINDOWS链接一个网络后让你选是连接到什么网络一个意思，但LINUX的防火墙分区概念原早于WIN）。而防火墙分区和物理网口既有关系又有很大的区别。一个物理网口可以通过VLAN划分绑定不同的防火墙分区，一个防火墙分区可以绑定多个物理网口。在路由系统里会针对不同的防火墙分区有不同的规则，而你还可以把LAN同时当做一个虚拟网卡来进行IP地址设置以及其他管理。</p>
 <p>OPENWRT默认物理网口绑定到LAN区域（也就是桥接），而LAN区域默认拥有路由远程管理权限。但在单臂路由时，由于一个物理网口同时要收发WAN区域流量和LAN区域流量，所以物理网口（eth0）需要取消桥接LAN。在eth0取消桥接LAN后，由于LAN区域已经不再有实际物理网口绑定，原虚拟网卡LAN的地址自动赋值给物理网口eth0，所以并不妨碍我们远程管理路由。但硬路由LAN桥接的eth0网卡有四个子接口（eth0.1-eth0.4），在取消桥接LAN后系统无法给4个子网卡自动设置IP，网卡没有设置IP，所以我们就不能远程管理路由了</p>
-<p>旁路由其实并不是传统意义上的路由，可以看做传统意义的V-P：N服务器，他只是作为一个服务器存在，所以他的防火墙区域主要是LAN和Vp?n，而V-P/N区域都是基于软件的，接口都是虚拟的，所以一般不会和LAN区域所桥接的接口有什么冲突。</p>
+<p>旁路由其实并不是传统意义上的路由，可以看做传统意义的V-P：N服务器，他只是作为一个服务器存在，所以他的防火墙区域主要是LAN和Vp?n，而V-P&#x2F;N区域都是基于软件的，接口都是虚拟的，所以一般不会和LAN区域所桥接的接口有什么冲突。</p>
 <p>在不桥接LAN接口的情况下，所有的数据包都需要通过程序判断识别为是LAN还是WAN数据包，然后再进一步处理，这会一定程度加重CPU负担，所以可能会有卡顿现象（CPU性能越弱就越明显）。而使用VLAN标识后可以很好解决这种现象，让网络拓扑更清晰，这也是单臂路由推荐的方式，只是需要管理型交换机才能完成。</p>
 </blockquote>
 <blockquote>
@@ -313,7 +313,7 @@
 <blockquote>
 <p>说一下我对桥接模式的理解;<br>理论上,桥接就是二层交换机.设为桥接,就是说虚拟出来一个交换机,把这个网口挂上去. 所以设置成桥接后,可选多个网口,这样相当与在内部,多个网口直连到同一个交换机上.<br>取消桥接后,每个接口都可以理解成一个三层口,你只有直连这个三层口,配上ip才能访问. 其他口都是相互独立的.所以连不上了.</p>
 <p>但是为何做旁路由都在强调取消桥接呢? 有的人说不取消也没事.有的人却强调取消. 我也是实验中发现一个其中的原因.</p>
-<p>先说结论: 这里的桥接和普通意义交换机有不同.因为它会arp劫持. 劫持非桥接网段的其他网段ip. 你要细品.再细品,不信就试试看.<br>举个例子:<br>家用互联网.一般不做vlan划分,如果同一个网络中使用两个不同网段ip. 比如上网的是192.168.1.0/24 家里的监控不联网,摄像头硬盘录像机使用192.168.2.0/24.<br>肯定有人说为啥不单独走线,两个网段在同一个网络中,ip广播怎么办.这些都不是一般用户考虑的事情.本身设备也不多呀. 但是当挂上openwrt后.故事就这样开始了.<br>openwrt lan口开桥接模式.ip 192.168.1.2/24 ,然后并到主网络中. 好吗,你会发现摄像头登录不上了. 不信邪.尝试改本机的ip为192.168.2.0/24 直连摄像头.可提示ip冲突. (winxp 会无法设置ip,ip会空. win7以上系统可以设置.单会提示ip冲突. )换个ip同样如此.<br>去openwrt看一下,发现arp出现了问题. 电脑设置的ip地址会备绑定在一个随机的mac上.所以才会提示ip冲突. 我只好把它理解成arp劫持. 它的网桥就是默认开启了这个功能.<br>如果网络中只有这一个网段,我所谓.但是要有其他网段.必须要关闭桥接模式.</p>
+<p>先说结论: 这里的桥接和普通意义交换机有不同.因为它会arp劫持. 劫持非桥接网段的其他网段ip. 你要细品.再细品,不信就试试看.<br>举个例子:<br>家用互联网.一般不做vlan划分,如果同一个网络中使用两个不同网段ip. 比如上网的是192.168.1.0&#x2F;24 家里的监控不联网,摄像头硬盘录像机使用192.168.2.0&#x2F;24.<br>肯定有人说为啥不单独走线,两个网段在同一个网络中,ip广播怎么办.这些都不是一般用户考虑的事情.本身设备也不多呀. 但是当挂上openwrt后.故事就这样开始了.<br>openwrt lan口开桥接模式.ip 192.168.1.2&#x2F;24 ,然后并到主网络中. 好吗,你会发现摄像头登录不上了. 不信邪.尝试改本机的ip为192.168.2.0&#x2F;24 直连摄像头.可提示ip冲突. (winxp 会无法设置ip,ip会空. win7以上系统可以设置.单会提示ip冲突. )换个ip同样如此.<br>去openwrt看一下,发现arp出现了问题. 电脑设置的ip地址会备绑定在一个随机的mac上.所以才会提示ip冲突. 我只好把它理解成arp劫持. 它的网桥就是默认开启了这个功能.<br>如果网络中只有这一个网段,我所谓.但是要有其他网段.必须要关闭桥接模式.</p>
 </blockquote>
 <p>无法判断那个下边说的劫持是否为真，不过我有遇到过虚拟机里的openwrt没有关dhcp，还是一个不同的网段（192.168.0.x），会在内网中抢答给新接入的设备分配到非192.168.1.x的地址，导致不能工作。</p>
 <p><strong>结论：单口的路由，虚拟旁路有，关闭与否没关系。但，不过点一下的事么，解除绑定吧。</strong></p>
@@ -344,7 +344,7 @@
 <p>另一个想法是，其他设备实际上与这个oepnwrt在一个子网的，不开启的时候，即使网关改为openwrt，地址转化还是受到主路由的影响，所以会有奇怪的不通现象吧。</p>
 <p><strong>结论：还是要开的。。。</strong></p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
-<li><a target="_blank" rel="noopener" href="https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741">https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&t=1741">https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-4031598-1-1.html">lan物理设置中的桥接接口到底怎么用-软路由,x86系统,openwrt(x86),Router OS 等-恩山无线论坛 (right.com.cn)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-7817323-1-1.html">openwrt旁路由该如何设置？（动态伪装相关）-OPENWRT专版-恩山无线论坛 (right.com.cn)</a> </li>
 <li>[<a target="_blank" rel="noopener" href="https://openwrt.org/zh/docs/guide-developer/networking/network.interfaces">OpenWrt Wiki] Linux 网络接口(Network Interfaces)</a></li>
@@ -424,14 +424,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">35k</span>
+    <span title="站点总字数">36k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:03</span>
+    <span title="站点阅读时长">1:05</span>
   </span>
 </div>
 <div class="busuanzi-count">

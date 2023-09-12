@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -293,7 +293,7 @@
 <p>被逼无奈，最终捡起flexget，然后开启了新世界的大门！这玩意儿真的是非常便捷强大，比在rutorrent里写正则表达过滤方便太多了！！</p>
 <p>最后要介绍的PT贴吧大神做的autoremove-torrents，真的是神器，最终实现了全自动无人值守的盒子配置。下面进入正题吧：</p>
 <span id="more"></span>
-<p>（本文所有命令均在Ubuntu 16.04 x64下运行，理论上讲18.04也可以，14.04主要是apt和<br>apt-get的区别,均在root用户下，/root/目录下运行）</p>
+<p>（本文所有命令均在Ubuntu 16.04 x64下运行，理论上讲18.04也可以，14.04主要是apt和<br>apt-get的区别,均在root用户下，&#x2F;root&#x2F;目录下运行）</p>
 <h2 id="安装qbittorrent"><a href="#安装qbittorrent" class="headerlink" title="安装qbittorrent"></a>安装qbittorrent</h2><h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install software-properties-common python-software-properties</span><br><span class="line">add-apt-repository ppa:qbittorrent-team/qbittorrent-stable</span><br><span class="line">apt update &amp;&amp; apt install qbittorrent-nox</span><br></pre></td></tr></table></figure>
 <h3 id="设置自启动"><a href="#设置自启动" class="headerlink" title="设置自启动"></a>设置自启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/systemd/system/qbittorrent.service</span><br></pre></td></tr></table></figure>
 
@@ -303,7 +303,7 @@
 <p>使用方法：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable qbittorrent  #开启自启动</span><br><span class="line">systemctl start qbittorrent   #启动qb</span><br><span class="line">systemctl stop qbittorrent    #停止qb</span><br><span class="line">systemctl restart qbittorrent #重启qb</span><br></pre></td></tr></table></figure>
 
-<p>启动后应该可以在http://你的ip:8080/访问webui，用户名admin，密码adminadmin，登录后<br>切记修改用户名和密码！！！</p>
+<p>启动后应该可以在http:&#x2F;&#x2F;你的ip:8080&#x2F;访问webui，用户名admin，密码adminadmin，登录后<br>切记修改用户名和密码！！！</p>
 <h2 id="安装flexget"><a href="#安装flexget" class="headerlink" title="安装flexget"></a>安装flexget</h2><h3 id="pip安装"><a href="#pip安装" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install python3-setuptools python3-pip</span><br><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install flexget ##也可能是pip install，取决于你是否安装了python2.</span><br></pre></td></tr></table></figure>
 
 <h3 id="填写flexget配置文件："><a href="#填写flexget配置文件：" class="headerlink" title="填写flexget配置文件："></a>填写flexget配置文件：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir .flexget</span><br><span class="line">nano .flexget/config.yml</span><br></pre></td></tr></table></figure>
@@ -437,14 +437,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">35k</span>
+    <span title="站点总字数">36k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:03</span>
+    <span title="站点阅读时长">1:05</span>
   </span>
 </div>
 <div class="busuanzi-count">

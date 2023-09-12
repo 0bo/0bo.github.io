@@ -9,7 +9,7 @@
 <p>解决:</p>
 <span id="more"></span>
 
-<p>Debian/Ubuntu下运行：</p>
+<p>Debian&#x2F;Ubuntu下运行：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install php7.0-gd</span><br></pre></td></tr></table></figure>
 <p>#我用的php7.0，如果是其他版本，请自行修改</p>
 <p>CentOS下运行：</p>
@@ -65,7 +65,7 @@
 <p>就足以占个七七八八了，其他的都先别装，跟着教程走完自然就海阔天空啦！</p>
 <p>主要有两条命令：</p>
 <ol>
-<li>Prepare your external storage root overlay <em>copy files from existing /overlay into new root</em></li>
+<li>Prepare your external storage root overlay <em>copy files from existing &#x2F;overlay into new root</em></li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mount /dev/sda1 /mnt ; tar -C /overlay -cvf - . | tar -C /mnt -xf - ; umount /mnt</span><br></pre></td></tr></table></figure>
 <ol start="2">
@@ -89,6 +89,64 @@
       <tags>
         <tag>openwrt</tag>
         <tag>703n</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows下ftp服务器无法访问</title>
+    <url>/window-ftp-no-access/</url>
+    <content><![CDATA[<p>以前在win2003下的ftp在安装iis和FTP服务，设置后，即可使用。</p>
+<p>最近的新买了一台windows server 2008的，流程走完竟然不能访问。搜索了一下：</p>
+<span id="more"></span>
+
+<p>windows2003和windows2008服务器端安装IIS自带的FTP功能，如果防火墙关闭才可以通过FTP正常访问，打开FTP则不能访问，解决办法如下：</p>
+<ol>
+<li>在windows2003服务器端设置：</li>
+</ol>
+<p>控制面板 》系统和安全 》Windows 防火墙 》允许的程序”，在“允许另一个程序”中添加 “C:\WINDOWS\system32\inetsrv\inetinfo.exe”这个程序，添加完成即可</p>
+<ol start="2">
+<li>在windows 2008&#x2F;2012服务器端设置：</li>
+</ol>
+<p>控制面板 》系统和安全 》Windows 防火墙 》允许的程序”，在“允许另一个程序”中添加 “C:\Windows\System32\svchost.exe”这个程序，添加完成即可。</p>
+<p>步骤2应该是大部分问题之所在，win10也需要调整此处。</p>
+<p>参考：<a href="http://kkworms.blog.51cto.com/540865/558477">http://kkworms.blog.51cto.com/540865/558477</a></p>
+<p><a href="http://www.myhack58.com/Article/sort099/sort0100/2015/58873.htm">http://www.myhack58.com/Article/sort099/sort0100/2015/58873.htm</a></p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>ftp</tag>
+        <tag>firewall</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win10升级导致的键盘失灵和卡锁屏界面</title>
+    <url>/win10-upgrade-keyboard-login/</url>
+    <content><![CDATA[<ol>
+<li>升级win10后键盘失灵，必须重启才能使用。</li>
+</ol>
+<p>网上的部分解决方案说关闭电源管理中的快速启动，个人又想保留这一功能，后各种查询，解决方法如下：</p>
+<span id="more"></span>
+
+<p>注册表删除：</p>
+<p>[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\PECKbdProtector]</p>
+<p>文件删除windows&#x2F;system32&#x2F;driver&#x2F;peckp_x64.sys</p>
+<p>即可。</p>
+<ol start="2">
+<li>win10周年更新，卡锁屏界面的解决方案</li>
+</ol>
+<p>打开管理员的命令提示符，运行<br>if exist “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” (<br>takeown &#x2F;f “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” &#x2F;A<br>icacls “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” &#x2F;deny “NT AUTHORITY\SYSTEM:RX”<br>)</p>
+<p>就不会出现SYSTEM用户的ChsIME.exe了</p>
+<p>参考：<a href="http://bbs.pcbeta.com/viewthread-1706070-1-1.html">http://bbs.pcbeta.com/viewthread-1706070-1-1.html</a></p>
+<p>还有人说关掉个性化-锁屏界面-在登录屏幕上显示锁屏界面背景图片，这个没有是不知道了。还有人说跟快速启动有关。。。为啥老是快速启动背锅啊。。。</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>win10</tag>
+        <tag>error</tag>
       </tags>
   </entry>
   <entry>
@@ -126,80 +184,6 @@
       </tags>
   </entry>
   <entry>
-    <title>win10升级导致的键盘失灵和卡锁屏界面</title>
-    <url>/win10-upgrade-keyboard-login/</url>
-    <content><![CDATA[<ol>
-<li>升级win10后键盘失灵，必须重启才能使用。</li>
-</ol>
-<p>网上的部分解决方案说关闭电源管理中的快速启动，个人又想保留这一功能，后各种查询，解决方法如下：</p>
-<span id="more"></span>
-
-<p>注册表删除：</p>
-<p>[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\PECKbdProtector]</p>
-<p>文件删除windows/system32/driver/peckp_x64.sys</p>
-<p>即可。</p>
-<ol start="2">
-<li>win10周年更新，卡锁屏界面的解决方案</li>
-</ol>
-<p>打开管理员的命令提示符，运行<br>if exist “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” (<br>takeown /f “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” /A<br>icacls “%SystemRoot%\System32\InputMethod\CHS\ChsIME.exe” /deny “NT AUTHORITY\SYSTEM:RX”<br>)</p>
-<p>就不会出现SYSTEM用户的ChsIME.exe了</p>
-<p>参考：<a href="http://bbs.pcbeta.com/viewthread-1706070-1-1.html">http://bbs.pcbeta.com/viewthread-1706070-1-1.html</a></p>
-<p>还有人说关掉个性化-锁屏界面-在登录屏幕上显示锁屏界面背景图片，这个没有是不知道了。还有人说跟快速启动有关。。。为啥老是快速启动背锅啊。。。</p>
-]]></content>
-      <categories>
-        <category>ECM</category>
-      </categories>
-      <tags>
-        <tag>win10</tag>
-        <tag>error</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows下ftp服务器无法访问</title>
-    <url>/window-ftp-no-access/</url>
-    <content><![CDATA[<p>以前在win2003下的ftp在安装iis和FTP服务，设置后，即可使用。</p>
-<p>最近的新买了一台windows server 2008的，流程走完竟然不能访问。搜索了一下：</p>
-<span id="more"></span>
-
-<p>windows2003和windows2008服务器端安装IIS自带的FTP功能，如果防火墙关闭才可以通过FTP正常访问，打开FTP则不能访问，解决办法如下：</p>
-<ol>
-<li>在windows2003服务器端设置：</li>
-</ol>
-<p>控制面板 》系统和安全 》Windows 防火墙 》允许的程序”，在“允许另一个程序”中添加 “C:\WINDOWS\system32\inetsrv\inetinfo.exe”这个程序，添加完成即可</p>
-<ol start="2">
-<li>在windows 2008/2012服务器端设置：</li>
-</ol>
-<p>控制面板 》系统和安全 》Windows 防火墙 》允许的程序”，在“允许另一个程序”中添加 “C:\Windows\System32\svchost.exe”这个程序，添加完成即可。</p>
-<p>步骤2应该是大部分问题之所在，win10也需要调整此处。</p>
-<p>参考：<a href="http://kkworms.blog.51cto.com/540865/558477">http://kkworms.blog.51cto.com/540865/558477</a></p>
-<p><a href="http://www.myhack58.com/Article/sort099/sort0100/2015/58873.htm">http://www.myhack58.com/Article/sort099/sort0100/2015/58873.htm</a></p>
-]]></content>
-      <categories>
-        <category>ECM</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>ftp</tag>
-        <tag>firewall</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>你会打电话给谁？</title>
-    <url>/who-will-you-call/</url>
-    <content><![CDATA[<p>突然看到这么一个情景模拟。</p>
-<p>如果有个杀手用枪指着你的头，让你打电话，对方接电话了他就扣扳机，不接就放你走，你会发给谁？</p>
-<span id="more"></span>
-
-<p>我想了很久，觉得打给谁都有风险啊?</p>
-<p>也许打给我导师吧，不是因为有仇，而是她是挂我电话最多的那个人，有更多的机会救卿性命。</p>
-<p>说到仇恨，也许是自己阅历浅薄，没有刻骨铭心的仇恨，总觉得即使过去很讨厌的人，许多年没有联系了，也许我打电话，他们反倒会很大概率和蔼地接起电话，问问，寒暄一下。人也许不是神奇的动物，但时间一定是伟大的力量，人类或深痛或真挚的情感，都会随着时光消逝。</p>
-<p>所以，曾经刻骨铭心的感情，然后变得无话可说，最后就是相忘于世间，电话，我又是否会接呢？</p>
-]]></content>
-      <categories>
-        <category>Thinking</category>
-      </categories>
-  </entry>
-  <entry>
     <title>x200 wake on lan wol 远程启动</title>
     <url>/x200-WOL/</url>
     <content><![CDATA[<p>家里用闲置的x200建了服务器，各种爽，各种折腾。</p>
@@ -227,6 +211,63 @@
       </tags>
   </entry>
   <entry>
+    <title>你会打电话给谁？</title>
+    <url>/who-will-you-call/</url>
+    <content><![CDATA[<p>突然看到这么一个情景模拟。</p>
+<p>如果有个杀手用枪指着你的头，让你打电话，对方接电话了他就扣扳机，不接就放你走，你会发给谁？</p>
+<span id="more"></span>
+
+<p>我想了很久，觉得打给谁都有风险啊?</p>
+<p>也许打给我导师吧，不是因为有仇，而是她是挂我电话最多的那个人，有更多的机会救卿性命。</p>
+<p>说到仇恨，也许是自己阅历浅薄，没有刻骨铭心的仇恨，总觉得即使过去很讨厌的人，许多年没有联系了，也许我打电话，他们反倒会很大概率和蔼地接起电话，问问，寒暄一下。人也许不是神奇的动物，但时间一定是伟大的力量，人类或深痛或真挚的情感，都会随着时光消逝。</p>
+<p>所以，曾经刻骨铭心的感情，然后变得无话可说，最后就是相忘于世间，电话，我又是否会接呢？</p>
+]]></content>
+      <categories>
+        <category>Thinking</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>android电视盒子无法打开win10共享文件夹</title>
+    <url>/0xc0000205-android-shared-folder/</url>
+    <content><![CDATA[<p>前段时间买了个android电视盒子，在家中服务器上开启了共享，之前没有问题，突然有天win10升级，之后就各种诡异。共享的盘符，随即出现一个或多个无法访问，具体表现就是共享文件夹点了没有反应，而同时win电脑则可以访问。换了android手机用es文件管理器同样无法访问，也没有错误提示。</p>
+<p>后来想了个办法，整个文件夹复制到手机，终于看到了错误提示代码 (0xC0000205)。</p>
+<span id="more"></span>
+
+<p>查了无数资料，百度无望，都是在说改权限，但我的设置没有问题。最后在谷歌上搜了好久，一个<a href="https://www.tenforums.com/network-sharing/43931-samba-access-android-device-stopped-working-post885824.html?s=62a07bacd1f654ea36105f0a2d60cbe7#post885824">论坛回复</a>给出了正解。</p>
+<p>So follow the link and add the new <code>IRPStackSize DWORD</code> in</p>
+<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters</code></p>
+<p>and set the value to <code>50</code> works for me. Hope this helps other people.</p>
+<p>注意，50是十进制数</p>
+<p>他注册论坛为了分享，我注册论坛，为了感谢他。</p>
+<p>也希望能帮到需要的人吧.</p>
+<hr>
+<p>2018.11.1 在“程序和功能”-“启动或关闭windows功能”-“SMB1.0XX”开启。</p>
+<hr>
+<p>2019.5.3 another <a href="https://forum.kodi.tv/showthread.php?tid=304203">link</a> may be helpful.</p>
+<p>1. </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Click on Connections:Ethernet</span><br><span class="line">Click on Properties button (lower left)</span><br><span class="line">Double click internet Protocol Version 4 (TCP/IPv4)</span><br><span class="line">Click Advanced Button lower right</span><br><span class="line">Click the WINS tab</span><br><span class="line">Click the radio button to Enable NetBios over TCP/IP</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">I could not get the sc config command (or sc.exe in Powershell) to achieve the result I desired, so I resorted to two registry edits and a reboot.  See new steps below. Try this:</span><br><span class="line">1. Run &quot;tasklist /svc&quot;</span><br><span class="line">In the output, you should see something like this: Browser and LanmanServer running in their own svchost processes. *Sample output below is abbreviated for illustration purposes. You will see a longer list.Image Name                     PID Services</span><br><span class="line">========================= ======== ==============</span><br><span class="line">svchost.exe                   2772 LanmanServer</span><br><span class="line">svchost.exe                   2868 Browser</span><br><span class="line"></span><br><span class="line">2. Run these two commands to add the SvcHostSplitDisable registry value set to 1.</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Browser /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">This will reconfigure the Browser service to run in a shared svchost with LanmanServer like in previous versions of Windows.</span><br></pre></td></tr></table></figure>
+
+<p>3. </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Create a user profile with password in Windows 10. It&#x27;s not wise to use your main Windows admin profile as Kodi will leak this password in plain text.</span><br><span class="line"></span><br><span class="line">Make sure your media folder is shared to this user. I will presume you know how to set up a Windows share.</span><br><span class="line"></span><br><span class="line">Install Kodi v.18. Until Microsoft fixes SMB v.1 (maybe in June), you cannot share to earlier builds.</span><br><span class="line"></span><br><span class="line">(More info: https://support.microsoft.com/en-us/help...-kb4103721 )</span><br><span class="line"></span><br><span class="line">In Kodi &gt; Settings &gt; Services &gt; SMB &gt; Default settings (min none, max v.3).</span><br><span class="line"></span><br><span class="line">In Kodi File Manager &gt; Add Source &gt; Browse &gt; Add Network Location &gt; (Protocol SMB) &gt; Enter fields: Server Name, Shared Folder, Username, Password (do no attempt to browse there).</span><br><span class="line"></span><br><span class="line">Once you&#x27;ve succeeded in creating a link to your shared folder you can choose it as an Add Source shortcut for all media.</span><br><span class="line"></span><br><span class="line">NB: Make sure you instruct Kodi to remember your password.</span><br></pre></td></tr></table></figure>
+
+<p>4.<br><strong>Don’t use USB Hub to connect your hard driver!!</strong></p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>win10</tag>
+        <tag>error</tag>
+        <tag>android</tag>
+        <tag>tvbox</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决</title>
     <url>/qbittorrent-libtorrent-rasterbar-so-7/</url>
     <content><![CDATA[<p>debian8 x64 编译 qbittorrent 3.3.11.</p>
@@ -243,16 +284,16 @@
 <li>另外一个原因就是已经安装了该共享库, 但执行需要调用该共享库的程序的时候, 程序按照默认共享库路径找不到该共享库文件.  所以安装共享库后要注意共享库路径设置问题, 如下:</li>
 </ol>
 <ul>
-<li><p>如果共享库文件安装到了/lib或/usr/lib目录下, 那么需执行一下ldconfig命令。这个命令的用途, 主要是在默认搜寻目录(/lib和/usr/lib)以及动态库配置文件/etc/ld.so.conf内所列的目录下, 搜索出可共享的动态链接库(格式如lib*.so*), 进而创建出动态装入程序(ld.so)所需的连接和缓存文件. 缓存文件默认为/etc/ld.so.cache, 此文件保存已排好序的动态链接库名字列表.</p>
+<li><p>如果共享库文件安装到了&#x2F;lib或&#x2F;usr&#x2F;lib目录下, 那么需执行一下ldconfig命令。这个命令的用途, 主要是在默认搜寻目录(&#x2F;lib和&#x2F;usr&#x2F;lib)以及动态库配置文件&#x2F;etc&#x2F;ld.so.conf内所列的目录下, 搜索出可共享的动态链接库(格式如lib*.so*), 进而创建出动态装入程序(ld.so)所需的连接和缓存文件. 缓存文件默认为&#x2F;etc&#x2F;ld.so.cache, 此文件保存已排好序的动态链接库名字列表.</p>
 </li>
-<li><p>如果共享库文件安装到了/usr/local/lib(很多开源的共享库都会安装到该目录下)或其它”非/lib或/usr/lib”目录下, 那么在执行ldconfig命令前, 还要把新共享库目录加入到共享库配置文件/etc/ld.so.conf中, 如下:</p>
+<li><p>如果共享库文件安装到了&#x2F;usr&#x2F;local&#x2F;lib(很多开源的共享库都会安装到该目录下)或其它”非&#x2F;lib或&#x2F;usr&#x2F;lib”目录下, 那么在执行ldconfig命令前, 还要把新共享库目录加入到共享库配置文件&#x2F;etc&#x2F;ld.so.conf中, 如下:</p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># cat /etc/ld.so.conf</span><br><span class="line">include ld.so.conf.d/*.conf</span><br><span class="line"># echo &quot;/usr/local/lib&quot; &gt;&gt; /etc/ld.so.conf</span><br><span class="line"># ldconfig</span><br></pre></td></tr></table></figure>
 <ul>
-<li>如果共享库文件安装到了其它”非/lib或/usr/lib” 目录下,  但是又不想在/etc/ld.so.conf中加路径(或者是没有权限加路径). 那可以export一个全局变量LD_LIBRARY_PATH, 然后运行程序的时候就会去这个目录中找共享库.</li>
+<li>如果共享库文件安装到了其它”非&#x2F;lib或&#x2F;usr&#x2F;lib” 目录下,  但是又不想在&#x2F;etc&#x2F;ld.so.conf中加路径(或者是没有权限加路径). 那可以export一个全局变量LD_LIBRARY_PATH, 然后运行程序的时候就会去这个目录中找共享库.</li>
 </ul>
-<p>export LD_LIBRARY_PATH=/usr/local/mysql/lib:$LD_LIBRARY_PATH</p>
+<p>export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;lib:$LD_LIBRARY_PATH</p>
 <p>一般来讲这只是一种临时的解决方案, 在没有权限或临时需要的时候使用.</p>
 <ul>
 <li>如果程序需要的库文件比系统目前存在的村文件版本低，可以做一个链接<br>比如：<blockquote>
@@ -266,7 +307,7 @@
 <p>我使用</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
 <p>即解决。</p>
-<p>此外，如编译安装，在/etc/systemd/system/qbittorrent.service文件中的地址因该是：/usr/local/bin</p>
+<p>此外，如编译安装，在&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;qbittorrent.service文件中的地址因该是：&#x2F;usr&#x2F;local&#x2F;bin</p>
 ]]></content>
       <categories>
         <category>ECM</category>
@@ -317,52 +358,6 @@
       </tags>
   </entry>
   <entry>
-    <title>android电视盒子无法打开win10共享文件夹</title>
-    <url>/0xc0000205-android-shared-folder/</url>
-    <content><![CDATA[<p>前段时间买了个android电视盒子，在家中服务器上开启了共享，之前没有问题，突然有天win10升级，之后就各种诡异。共享的盘符，随即出现一个或多个无法访问，具体表现就是共享文件夹点了没有反应，而同时win电脑则可以访问。换了android手机用es文件管理器同样无法访问，也没有错误提示。</p>
-<p>后来想了个办法，整个文件夹复制到手机，终于看到了错误提示代码 (0xC0000205)。</p>
-<span id="more"></span>
-
-<p>查了无数资料，百度无望，都是在说改权限，但我的设置没有问题。最后在谷歌上搜了好久，一个<a href="https://www.tenforums.com/network-sharing/43931-samba-access-android-device-stopped-working-post885824.html?s=62a07bacd1f654ea36105f0a2d60cbe7#post885824">论坛回复</a>给出了正解。</p>
-<p>So follow the link and add the new <code>IRPStackSize DWORD</code> in</p>
-<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters</code></p>
-<p>and set the value to <code>50</code> works for me. Hope this helps other people.</p>
-<p>注意，50是十进制数</p>
-<p>他注册论坛为了分享，我注册论坛，为了感谢他。</p>
-<p>也希望能帮到需要的人吧.</p>
-<hr>
-<p>2018.11.1 在“程序和功能”-“启动或关闭windows功能”-“SMB1.0XX”开启。</p>
-<hr>
-<p>2019.5.3 another <a href="https://forum.kodi.tv/showthread.php?tid=304203">link</a> may be helpful.</p>
-<ol>
-<li></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Click on Connections:Ethernet</span><br><span class="line">Click on Properties button (lower left)</span><br><span class="line">Double click internet Protocol Version 4 (TCP/IPv4)</span><br><span class="line">Click Advanced Button lower right</span><br><span class="line">Click the WINS tab</span><br><span class="line">Click the radio button to Enable NetBios over TCP/IP</span><br></pre></td></tr></table></figure>
-
-<p>2.</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">I could not get the sc config command (or sc.exe in Powershell) to achieve the result I desired, so I resorted to two registry edits and a reboot.  See new steps below. Try this:</span><br><span class="line">1. Run &quot;tasklist /svc&quot;</span><br><span class="line">In the output, you should see something like this: Browser and LanmanServer running in their own svchost processes. *Sample output below is abbreviated for illustration purposes. You will see a longer list.Image Name                     PID Services</span><br><span class="line">========================= ======== ==============</span><br><span class="line">svchost.exe                   2772 LanmanServer</span><br><span class="line">svchost.exe                   2868 Browser</span><br><span class="line"></span><br><span class="line">2. Run these two commands to add the SvcHostSplitDisable registry value set to 1.</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Browser /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">This will reconfigure the Browser service to run in a shared svchost with LanmanServer like in previous versions of Windows.</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Create a user profile with password in Windows 10. It&#x27;s not wise to use your main Windows admin profile as Kodi will leak this password in plain text.</span><br><span class="line"></span><br><span class="line">Make sure your media folder is shared to this user. I will presume you know how to set up a Windows share.</span><br><span class="line"></span><br><span class="line">Install Kodi v.18. Until Microsoft fixes SMB v.1 (maybe in June), you cannot share to earlier builds.</span><br><span class="line"></span><br><span class="line">(More info: https://support.microsoft.com/en-us/help...-kb4103721 )</span><br><span class="line"></span><br><span class="line">In Kodi &gt; Settings &gt; Services &gt; SMB &gt; Default settings (min none, max v.3).</span><br><span class="line"></span><br><span class="line">In Kodi File Manager &gt; Add Source &gt; Browse &gt; Add Network Location &gt; (Protocol SMB) &gt; Enter fields: Server Name, Shared Folder, Username, Password (do no attempt to browse there).</span><br><span class="line"></span><br><span class="line">Once you&#x27;ve succeeded in creating a link to your shared folder you can choose it as an Add Source shortcut for all media.</span><br><span class="line"></span><br><span class="line">NB: Make sure you instruct Kodi to remember your password.</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li></li>
-</ol>
-<p><strong>Don’t use USB Hub to connect your hard driver!!</strong></p>
-]]></content>
-      <categories>
-        <category>ECM</category>
-      </categories>
-      <tags>
-        <tag>win10</tag>
-        <tag>error</tag>
-        <tag>android</tag>
-        <tag>tvbox</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>阻止外置硬盘自动休眠</title>
     <url>/external-hard-drive-auto-sleep/</url>
     <content><![CDATA[<p>最近给家里换了个服务器，加了个硬盘柜，但发现硬盘柜中的硬盘时常自动断开连接，四处搜索后，得出以下解决方案：</p>
@@ -388,7 +383,7 @@
 <p>被逼无奈，最终捡起flexget，然后开启了新世界的大门！这玩意儿真的是非常便捷强大，比在rutorrent里写正则表达过滤方便太多了！！</p>
 <p>最后要介绍的PT贴吧大神做的autoremove-torrents，真的是神器，最终实现了全自动无人值守的盒子配置。下面进入正题吧：</p>
 <span id="more"></span>
-<p>（本文所有命令均在Ubuntu 16.04 x64下运行，理论上讲18.04也可以，14.04主要是apt和<br>apt-get的区别,均在root用户下，/root/目录下运行）</p>
+<p>（本文所有命令均在Ubuntu 16.04 x64下运行，理论上讲18.04也可以，14.04主要是apt和<br>apt-get的区别,均在root用户下，&#x2F;root&#x2F;目录下运行）</p>
 <h2 id="安装qbittorrent"><a href="#安装qbittorrent" class="headerlink" title="安装qbittorrent"></a>安装qbittorrent</h2><h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt install software-properties-common python-software-properties</span><br><span class="line">add-apt-repository ppa:qbittorrent-team/qbittorrent-stable</span><br><span class="line">apt update &amp;&amp; apt install qbittorrent-nox</span><br></pre></td></tr></table></figure>
 <h3 id="设置自启动"><a href="#设置自启动" class="headerlink" title="设置自启动"></a>设置自启动</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano /etc/systemd/system/qbittorrent.service</span><br></pre></td></tr></table></figure>
 
@@ -398,7 +393,7 @@
 <p>使用方法：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable qbittorrent  #开启自启动</span><br><span class="line">systemctl start qbittorrent   #启动qb</span><br><span class="line">systemctl stop qbittorrent    #停止qb</span><br><span class="line">systemctl restart qbittorrent #重启qb</span><br></pre></td></tr></table></figure>
 
-<p>启动后应该可以在http://你的ip:8080/访问webui，用户名admin，密码adminadmin，登录后<br>切记修改用户名和密码！！！</p>
+<p>启动后应该可以在http:&#x2F;&#x2F;你的ip:8080&#x2F;访问webui，用户名admin，密码adminadmin，登录后<br>切记修改用户名和密码！！！</p>
 <h2 id="安装flexget"><a href="#安装flexget" class="headerlink" title="安装flexget"></a>安装flexget</h2><h3 id="pip安装"><a href="#pip安装" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt install python3-setuptools python3-pip</span><br><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install flexget ##也可能是pip install，取决于你是否安装了python2.</span><br></pre></td></tr></table></figure>
 
 <h3 id="填写flexget配置文件："><a href="#填写flexget配置文件：" class="headerlink" title="填写flexget配置文件："></a>填写flexget配置文件：</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir .flexget</span><br><span class="line">nano .flexget/config.yml</span><br></pre></td></tr></table></figure>
@@ -510,119 +505,6 @@
       </tags>
   </entry>
   <entry>
-    <title>p20 pro以及其他异形屏使用windows远程桌面rdp鼠标定位不准错位的临时解决</title>
-    <url>/p20-pro-rdp-mouse-pointer-wrong-position/</url>
-    <content><![CDATA[<p>p20 pro什么都好，但有件事一直困扰着我，那就是在window remote desktop app下连接远程pc，鼠标在画面中的位置和点击位置不一致，且横屏状态下，越靠近右侧，漂移幅度越大。</p>
-<p>具体表现举例，想要关闭窗口，鼠标需要在最小化按钮附近才能点到关闭按钮。</p>
-<p>推断是因为刘海屏拉伸所导致的，但是关闭刘海屏幕显示，关闭软件拉伸都没有解决问题。</p>
-<p>在这个即将发售，我准备去强p30 pro的日子，说说怎么解决这个问题吧。。。</p>
-<span id="more"></span>
-
-<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>偶然机会，在google market搜了下rdp，在评论中看到了这个解决方案，其中提到他是在酷安的评论里看到的，我去膜拜点了个赞，真的是从心底感谢啊。因为我发现，店里的<br>p30 pro还存在这个问题的，都影响我换手机的动力啦，哈哈哈。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>很简单：</p>
-<ol>
-<li>开启屏幕自动旋转</li>
-<li>打开RD Client</li>
-<li>让APP自动旋转为横屏</li>
-<li>选择合适的分辨率</li>
-<li>请开始你的表演 :smile:</li>
-</ol>
-<p>以上。</p>
-]]></content>
-      <categories>
-        <category>ECM</category>
-      </categories>
-      <tags>
-        <tag>rdp</tag>
-        <tag>p20pro</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>fdisk与df显示磁盘大小不一致的解决办法</title>
-    <url>/diff-result-fdisk-df/</url>
-    <content><![CDATA[<p>昨天重装了一个vps，用了ubuntu18.04，踩了一下午的netplan坑，又发现，磁盘空间货不对板。google一下找到了解决方案。</p>
-<span id="more"></span>
-
-<p>很简单，这个问题一般是因为文件系统和分区大小不一致导致的。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">resize2fs /dev/sda1</span><br></pre></td></tr></table></figure>
-
-<p>即可解决问题。</p>
-<p><code>resize2fs</code>使文件系统<code>filesystem</code>与<code>partition</code>保持一致从而提升空间。</p>
-<p>ref: <a href="https://unix.stackexchange.com/questions/10776/why-are-partition-size-and-df-output-different">Why are partition size and df output different?</a></p>
-]]></content>
-      <categories>
-        <category>Tutorial</category>
-      </categories>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>php优化设置</title>
-    <url>/php-optimize-setting/</url>
-    <content><![CDATA[<p>之前折腾个人的小破站，搜集了不少各路“优化”设置，放在这里，以备不时之需啦。</p>
-<span id="more"></span>
-
-<p>[toc]</p>
-<h1 id="unix-socket还是tcp-sock？"><a href="#unix-socket还是tcp-sock？" class="headerlink" title="unix socket还是tcp sock？"></a>unix socket还是tcp sock？</h1><h2 id="TCP-socket"><a href="#TCP-socket" class="headerlink" title="TCP socket"></a>TCP socket</h2><ol>
-<li><p>编辑/etc/nginx/sites-available/default：</p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">	  index index.php index.html index.htm;</span><br><span class="line">	  include /etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">	  fastcgi_index index.php;</span><br><span class="line">	  include fastcgi_params;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>编辑/etc/php5/fpm/pool.d/<a href="http://www.conf中的参数listen：">www.conf中的参数listen：</a></p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listen=127.0.0.1:9000</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="unix-socket"><a href="#unix-socket" class="headerlink" title="unix socket"></a>unix socket</h2><ol>
-<li><p>创建socket接口位置</p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo touch /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chown www-data:www-data /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chmod 666 /dev/shm/fpm-cgi.sock</span><br></pre></td></tr></table></figure>
-
-<p> dev/shm目录是所谓的tmpfs，是RAM可以直接使用的区域，读写速度会快一些。</p>
-</li>
-<li><p>编辑/etc/php5/fpm/pool.d/<a href="http://www.conf中的参数：">www.conf中的参数：</a></p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listen=/dev/shm/fpm-cgi.sock</span><br><span class="line"></span><br><span class="line">; Set listen(2) backlog. A value of &#x27;-1&#x27; means unlimited.</span><br><span class="line">; Default Value: 128 (-1 on FreeBSD and OpenBSD) </span><br><span class="line">; 内存积压，默认是128，并发高了之后就会报错,根据自己内存设置</span><br><span class="line">listen.backlog = 128</span><br></pre></td></tr></table></figure></li>
-<li><p>编辑/etc/nginx/sites-available/default：</p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location~\.php$&#123;</span><br><span class="line">	  indexindex.phpindex.htmlindex.htm;</span><br><span class="line">	  include/etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_passunix:/dev/shm/fpm-cgi.sock;</span><br><span class="line">	  fastcgi_indexindex.php;</span><br><span class="line">	  includefastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>修改/etc/sysctl.conf配置，提高内核级别的并发连接数</p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">	net.core.somaxconn = 2048</span><br><span class="line"></span><br><span class="line">	sudo sysctl -p</span><br><span class="line">	````</span><br><span class="line"></span><br><span class="line">5. 重启nginx和php-fpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 两种区别</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">从原理上来说，unix socket方式肯定要比tcp的方式快而且消耗资源少，因为socket之间在nginx和php-fpm的进程之间通信，而tcp需要经过本地回环驱动，还要申请临时端口和tcp相关资源。</span></span><br><span class="line">当然还是从原理上来说，unix socket会显得不是那么稳定，当并发连接数爆发时，会产生大量的长时缓存，在没有面向连接协议支撑的情况下，大数据包很有可能就直接出错并不会返回异常。而TCP这样的面向连接的协议，多少可以保证通信的正确性和完整性。</span><br><span class="line">当然以上主要是半懂不懂的理论分析加主观臆测，具体的差别还是要通过测试数据来说话，以后有空，会进行这方面的测试。从网上别人博客的测试数据，我的理论分析差不多是对的。至于你选择哪种方式，我只能说“鱼和熊掌不可兼得也”，通过高超的运维和配置技巧，在性能和稳定性上做一个平衡吧。</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">楼主，你确定socket比tcp要好吗？我之前也是这么认为的，但是今天做压测的时候就发现tcp比socket稳定多了 同样的并发，超过某个数量的时候，socket就一直报：connect()to unix:/dev/shm/php55-socket failed (11: Resource temporarily unavailable。。。报错率大概是15%的样子，但是查看一些资料发现，tcp比socket这方面稳定，故改tcp，发现基本没有报错了。同样的并发下，起码出现502的几率相对减少，所以我还是改tcp了。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">php-fpm进程数的优化 [php-fpm进程数设置多少合适](https://zhuanlan.zhihu.com/p/94627701)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 了解参数</span></span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">需要了解的参数是：pm、pm.max_children、pm.start_servers、pm.min_spare_servers、pm.max_spare_servers。</span><br><span class="line"></span><br><span class="line">pm：表示使用那种方式，有两个值可以选择，就是static（静态）或者dynamic（动态）。</span><br><span class="line"></span><br><span class="line">在更老一些的版本中，dynamic被称作apache-like。这个要注意看配置文件的说明。</span><br><span class="line"></span><br><span class="line">下面5个参数的意思分别为：</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">pm = dynamic 如何控制子进程，选项有static和dynamic    </span><br><span class="line">pm.max_children：静态方式下开启的php-fpm进程数量    </span><br><span class="line">pm.max_requests：php-fpm子进程能处理的最大请求数    </span><br><span class="line">pm.start_servers：动态方式下的起始php-fpm进程数量</span><br><span class="line">pm.min_spare_servers：动态方式下的最小php-fpm进程数</span><br><span class="line">pm.max_spare_servers：动态方式下的最大php-fpm进程数量</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>如果dm设置为 static，那么其实只有pm.max_children这个参数生效。系统会开启设置数量的php-fpm进程。</p>
-<p>如果dm设置为 dynamic，那么pm.max_children参数失效，后面3个参数生效。</p>
-<p>系统会在php-fpm运行开始 的时候启动pm.start_servers个php-fpm进程，</p>
-<p>然后根据系统的需求动态在pm.min_spare_servers和pm.max_spare_servers之间调整php-fpm进程数。</p>
-<p>在高并发场景（我们公司是一万并发测试）中，一般都是采用的static方式，因为一般来说我们的服务器都是有严格的业务分离，fpm服务器就是用来作为fpm服务器使用，除去还有一个nginx之外，不会去考虑有其他的服务器占用资源。</p>
-<p>在php的运行中，无非是两种场景</p>
-<ol>
-<li>大运算的场景，即 php程序需要用大量的cpu资源来进行数据计算之类的操作，在这种场景下，fpm进程可以设置为cpu数量的一倍或者两倍</li>
-<li>高io场景，php的使用场景中（最起码是本电商场景中）基本上属于高io，因为程序花了大量的时间在等待redis返回等待数据库返回。高io场景下，因为cpu大多处在wa状态下，所以可以尽量的加大fpm进程数，所以这个时候使用内存/30m是更为合理的</li>
-</ol>
-<p>经过我们自己真实压测，大量redis和mysql读写的io密集情况下，16G的内存，fpm我们设置为400个的时候qps比fpm 16个 32个要好不少</p>
-<h1 id="php-ini调优"><a href="#php-ini调优" class="headerlink" title="php.ini调优"></a>php.ini调优</h1><h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>php.ini中的 memory_limit设置用于设定单个 PHP 进程可以使用的系统内存最大值。</p>
-<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file_uploads = 1</span><br><span class="line">upload_max_filesize = 10M</span><br><span class="line">max_file_uploads = 3</span><br></pre></td></tr></table></figure>
-
-<p>默认情况下，PHP允许在单次请求中上传20个文件，上传的文件最大为2MB，这里为单次请求最多只能上传3个文件，每个文件最大为10MB，这个值不要设置太大，否则会出现超时。</p>
-<p>如果非要上传大文件，Web 服务器的配置也要做相应调整。除了在 php.ini 中设置之外，还要调整 Nginx 虚拟主机配置中的 client_max_body_size 设置。</p>
-<h2 id="最长执行时间"><a href="#最长执行时间" class="headerlink" title="最长执行时间"></a>最长执行时间</h2><p>最长执行时间</p>
-<p>php.ini 文件中的 max_execution_time 用于设置单个 PHP 进程在终止之前最长可运行时间。这个设置默认是 30 秒，建议将其设置为 5 秒：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">max_execution_time = 5</span><br></pre></td></tr></table></figure>
-
-<p>在 PHP 脚本中可以调用 set_limit_time() 函数覆盖这个设置。</p>
-<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h1><ul>
-<li><p><a href="https://blog.csdn.net/pcyph/java/article/details/46513521">nginx和php-fpm通信使用unix socket还是TCP，及其配置</a></p>
-</li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/94627701">php-fpm进程数设置多少合适</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/dtfly520/article/details/76849855">php.ini 配置调优 —— 让 PHP 应用性能维持在更高水平</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Tutorial</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>php</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hyper-v虚拟LEDE旁路由实现科学上网</title>
     <url>/hyper-v-lede-side-router/</url>
     <content><![CDATA[<p>事情的起因如此的简单，就是突然发现油管上给我推荐的视频都在讲软路由，点开看看。。。内容很基础，无感，但其中一个提到用旧电脑做了个旁路由，通过修改其他设备的网关来实现科学上网的，一下点燃了我的热情！</p>
@@ -642,7 +524,7 @@
 <li><a href="https://blog.skk.moe/post/hyper-v-win10-lede/">在 Windows 10 上使用 Hyper-V 安装 LEDE 软路由</a></li>
 </ul>
 <p>这一篇解决方案差不多，区别是使用了hyper-v的第二代虚拟化，所以虚拟盘使用的gpt-uefi的，记得要去掉安全启动，否则启动不了的，据说可以提升性能。另外本篇中提到的对宿主机虚拟网卡和lede-ui中设置ip，利用30s回滚的机会进行设置的方法，有一定的实践价值。</p>
-<p><em>划重点，这里我踩的坑你们估计想不到。。第一次启动虚拟后，死活找不到网卡，ifconfig返回为空，/etc/config/netwrok就没有这个文件，真的是一头雾水。。最后发现，是我下载的固件出了问题！眼瞎！！那么大的汉字“虚拟盘和转盘专用”。。。</em></p>
+<p><em>划重点，这里我踩的坑你们估计想不到。。第一次启动虚拟后，死活找不到网卡，ifconfig返回为空，&#x2F;etc&#x2F;config&#x2F;netwrok就没有这个文件，真的是一头雾水。。最后发现，是我下载的固件出了问题！眼瞎！！那么大的汉字“虚拟盘和转盘专用”。。。</em></p>
 <h1 id="理解虚拟机与宿主机的网络结构"><a href="#理解虚拟机与宿主机的网络结构" class="headerlink" title="理解虚拟机与宿主机的网络结构"></a>理解虚拟机与宿主机的网络结构</h1><p>然后就是实践本人想法的时候了，所有的文章都是一个类型，但不是我想要的，我希望虚拟机和宿主机在同一个网段下，就像真实的接入了一个旁路由，旁路由的lan口插在主路由的lan口，然后修改旁路由ip避免冲突，但与其他设备在一个网段下方便修改网关，这样就可以单独修改switch的网关设置，实现switch用lede里的软件游戏模式科学上网，而不影响其他设备。（说到这里，我突然有个想法，科学上网软件里好像有个功能叫“访问控制”？？？我天，我是不是这两天都白干了。。。答案是，yes。。。我写到这里去试了下，结果。。。:cry:，还是继续写吧）</p>
 <p>要实现这个，就需要研究一下虚拟机和宿主机的网络构成到底有哪几种：</p>
 <ul>
@@ -661,7 +543,7 @@
 <p><del>我只用了随虚拟机建立的default vEthernet这个内网虚拟网卡和lan口网卡桥接就成了，并没有如文中最后所说给网桥一个ip地址。</del> 此种方法实现的桥接尽在当时有效，一旦重启则default vEthernet会再次被分配一个内网地址，需要按照NAT的方式对LEDE的网卡进行设置才能上网。<del>理论上讲</del>我猜，记录好重启前的网卡状态，通过对网卡的相应设置应该还是可以实现桥接吧？但是,折腾也要有个限度吧XD，老老实实的在桥接和NAT中选一个就好了。。。 </p>
 <p>两种模式的区别一句话：桥接的网络下，物理机所在网络中的其他主机可以访问虚拟机；NAT的网络下，只有宿主机能访问虚拟机（有教程说可以通过Powershell设置转发来实现，但是。。。何必呢。。。）。</p>
 <p>哈哈，就酱了。。</p>
-<p>这里要说的是，桥接模式下如何控制宿主PC物理网卡的IP地址和虚拟机里LEDE的IP地址（我需要固定ip），因为桥接后，会出现一个网桥，而<del>接入网桥的设备</del>物理网卡已经没有单独设置ip的选项了。我的办法是，<del>在路由里用静态路由表确定宿主机的</del>修改网桥的ipv4设置来确定物理网卡ip地址，在虚拟机里修改/etc/config/network文件里lan口的地址来确定虚拟机的ip地址。例如：宿主机为192.168.1.2，那么将虚拟机设置为192.168.1.4就可以在宿主机的浏览器访问1.4上的lede了，之后再相应设置虚拟路由的网关、dns什么的。</p>
+<p>这里要说的是，桥接模式下如何控制宿主PC物理网卡的IP地址和虚拟机里LEDE的IP地址（我需要固定ip），因为桥接后，会出现一个网桥，而<del>接入网桥的设备</del>物理网卡已经没有单独设置ip的选项了。我的办法是，<del>在路由里用静态路由表确定宿主机的</del>修改网桥的ipv4设置来确定物理网卡ip地址，在虚拟机里修改&#x2F;etc&#x2F;config&#x2F;network文件里lan口的地址来确定虚拟机的ip地址。例如：宿主机为192.168.1.2，那么将虚拟机设置为192.168.1.4就可以在宿主机的浏览器访问1.4上的lede了，之后再相应设置虚拟路由的网关、dns什么的。</p>
 <p>最重要的已经在刚才的一段里说完了。。。希望对看到的人有所帮助。</p>
 <h1 id="如何利用这个旁路由？"><a href="#如何利用这个旁路由？" class="headerlink" title="如何利用这个旁路由？"></a>如何利用这个旁路由？</h1><p>很简单，连接到192.168.1.x下的设备，选择手动ip设置，把网关设置为192.168.1.4，两个dns，我一般填虚拟机的ip和公网的dns，我猜两个公网dns应该也是可以的。 That‘s it.</p>
 <p><a href="https://instar.me/archives/e806f8ac.html">关于 N1 旁路由的设置</a>文章写的很清晰，大家可以参考。</p>
@@ -693,7 +575,7 @@
 <blockquote>
 <p>PENWRT基于LINUX，来源于电脑系统。LAN和WAN是指不同的防火墙分区（就像WINDOWS链接一个网络后让你选是连接到什么网络一个意思，但LINUX的防火墙分区概念原早于WIN）。而防火墙分区和物理网口既有关系又有很大的区别。一个物理网口可以通过VLAN划分绑定不同的防火墙分区，一个防火墙分区可以绑定多个物理网口。在路由系统里会针对不同的防火墙分区有不同的规则，而你还可以把LAN同时当做一个虚拟网卡来进行IP地址设置以及其他管理。</p>
 <p>OPENWRT默认物理网口绑定到LAN区域（也就是桥接），而LAN区域默认拥有路由远程管理权限。但在单臂路由时，由于一个物理网口同时要收发WAN区域流量和LAN区域流量，所以物理网口（eth0）需要取消桥接LAN。在eth0取消桥接LAN后，由于LAN区域已经不再有实际物理网口绑定，原虚拟网卡LAN的地址自动赋值给物理网口eth0，所以并不妨碍我们远程管理路由。但硬路由LAN桥接的eth0网卡有四个子接口（eth0.1-eth0.4），在取消桥接LAN后系统无法给4个子网卡自动设置IP，网卡没有设置IP，所以我们就不能远程管理路由了</p>
-<p>旁路由其实并不是传统意义上的路由，可以看做传统意义的V-P：N服务器，他只是作为一个服务器存在，所以他的防火墙区域主要是LAN和Vp?n，而V-P/N区域都是基于软件的，接口都是虚拟的，所以一般不会和LAN区域所桥接的接口有什么冲突。</p>
+<p>旁路由其实并不是传统意义上的路由，可以看做传统意义的V-P：N服务器，他只是作为一个服务器存在，所以他的防火墙区域主要是LAN和Vp?n，而V-P&#x2F;N区域都是基于软件的，接口都是虚拟的，所以一般不会和LAN区域所桥接的接口有什么冲突。</p>
 <p>在不桥接LAN接口的情况下，所有的数据包都需要通过程序判断识别为是LAN还是WAN数据包，然后再进一步处理，这会一定程度加重CPU负担，所以可能会有卡顿现象（CPU性能越弱就越明显）。而使用VLAN标识后可以很好解决这种现象，让网络拓扑更清晰，这也是单臂路由推荐的方式，只是需要管理型交换机才能完成。</p>
 </blockquote>
 <blockquote>
@@ -705,7 +587,7 @@
 <blockquote>
 <p>说一下我对桥接模式的理解;<br>理论上,桥接就是二层交换机.设为桥接,就是说虚拟出来一个交换机,把这个网口挂上去. 所以设置成桥接后,可选多个网口,这样相当与在内部,多个网口直连到同一个交换机上.<br>取消桥接后,每个接口都可以理解成一个三层口,你只有直连这个三层口,配上ip才能访问. 其他口都是相互独立的.所以连不上了.</p>
 <p>但是为何做旁路由都在强调取消桥接呢? 有的人说不取消也没事.有的人却强调取消. 我也是实验中发现一个其中的原因.</p>
-<p>先说结论: 这里的桥接和普通意义交换机有不同.因为它会arp劫持. 劫持非桥接网段的其他网段ip. 你要细品.再细品,不信就试试看.<br>举个例子:<br>家用互联网.一般不做vlan划分,如果同一个网络中使用两个不同网段ip. 比如上网的是192.168.1.0/24 家里的监控不联网,摄像头硬盘录像机使用192.168.2.0/24.<br>肯定有人说为啥不单独走线,两个网段在同一个网络中,ip广播怎么办.这些都不是一般用户考虑的事情.本身设备也不多呀. 但是当挂上openwrt后.故事就这样开始了.<br>openwrt lan口开桥接模式.ip 192.168.1.2/24 ,然后并到主网络中. 好吗,你会发现摄像头登录不上了. 不信邪.尝试改本机的ip为192.168.2.0/24 直连摄像头.可提示ip冲突. (winxp 会无法设置ip,ip会空. win7以上系统可以设置.单会提示ip冲突. )换个ip同样如此.<br>去openwrt看一下,发现arp出现了问题. 电脑设置的ip地址会备绑定在一个随机的mac上.所以才会提示ip冲突. 我只好把它理解成arp劫持. 它的网桥就是默认开启了这个功能.<br>如果网络中只有这一个网段,我所谓.但是要有其他网段.必须要关闭桥接模式.</p>
+<p>先说结论: 这里的桥接和普通意义交换机有不同.因为它会arp劫持. 劫持非桥接网段的其他网段ip. 你要细品.再细品,不信就试试看.<br>举个例子:<br>家用互联网.一般不做vlan划分,如果同一个网络中使用两个不同网段ip. 比如上网的是192.168.1.0&#x2F;24 家里的监控不联网,摄像头硬盘录像机使用192.168.2.0&#x2F;24.<br>肯定有人说为啥不单独走线,两个网段在同一个网络中,ip广播怎么办.这些都不是一般用户考虑的事情.本身设备也不多呀. 但是当挂上openwrt后.故事就这样开始了.<br>openwrt lan口开桥接模式.ip 192.168.1.2&#x2F;24 ,然后并到主网络中. 好吗,你会发现摄像头登录不上了. 不信邪.尝试改本机的ip为192.168.2.0&#x2F;24 直连摄像头.可提示ip冲突. (winxp 会无法设置ip,ip会空. win7以上系统可以设置.单会提示ip冲突. )换个ip同样如此.<br>去openwrt看一下,发现arp出现了问题. 电脑设置的ip地址会备绑定在一个随机的mac上.所以才会提示ip冲突. 我只好把它理解成arp劫持. 它的网桥就是默认开启了这个功能.<br>如果网络中只有这一个网段,我所谓.但是要有其他网段.必须要关闭桥接模式.</p>
 </blockquote>
 <p>无法判断那个下边说的劫持是否为真，不过我有遇到过虚拟机里的openwrt没有关dhcp，还是一个不同的网段（192.168.0.x），会在内网中抢答给新接入的设备分配到非192.168.1.x的地址，导致不能工作。</p>
 <p><strong>结论：单口的路由，虚拟旁路有，关闭与否没关系。但，不过点一下的事么，解除绑定吧。</strong></p>
@@ -736,9 +618,9 @@
 <p>另一个想法是，其他设备实际上与这个oepnwrt在一个子网的，不开启的时候，即使网关改为openwrt，地址转化还是受到主路由的影响，所以会有奇怪的不通现象吧。</p>
 <p><strong>结论：还是要开的。。。</strong></p>
 <h2 id="防火墙规则-2022-11-29"><a href="#防火墙规则-2022-11-29" class="headerlink" title="防火墙规则-2022.11.29"></a><del>防火墙规则-2022.11.29</del></h2><h3 id="方法一-推荐）："><a href="#方法一-推荐）：" class="headerlink" title="方法一(推荐）："></a><del>方法一(推荐）：</del></h3><p><del>接口：删除vpn，wan等接口，只保留lan，当然如果装了docker，那个端口也是需要的</del></p>
-<p><del>防火墙：不用管了，自己会变成lan=&gt;accept</del></p>
+<p><del>防火墙：不用管了，自己会变成lan&#x3D;&gt;accept</del></p>
 <h3 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a><del>方法二：</del></h3><p><del>接口：lan口取消桥接  据说不取消会导致局域网广播影响性能，ref-7</del></p>
-<p><del>防火墙中设置：lan =》wan/vpn 开启IP动态伪装</del></p>
+<p><del>防火墙中设置：lan &#x3D;》wan&#x2F;vpn 开启IP动态伪装</del></p>
 <p><del>这种方法应该是与网络防火墙的那个自定义规则是等效的。</del></p>
 <h2 id="防火墙规则2021-6-9"><a href="#防火墙规则2021-6-9" class="headerlink" title="防火墙规则2021.6.9"></a><del>防火墙规则2021.6.9</del></h2><p><del>最近手贱，想直接升级，又搞了一次hyper-v</del></p>
 <p><del>最终是去掉桥接的同时iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE 起了作用，可以访问国内了。可能与我本次没有删除多余的wan口有关</del></p>
@@ -757,9 +639,9 @@
 <li><a href="http://www.cnblogs.com/elvis0123/articles/2006771.html">http://www.cnblogs.com/elvis0123/articles/2006771.html</a></li>
 <li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html">http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html</a></li>
 <li><a href="http://www.cnblogs.com/zhourourou/p/5210477.html">http://www.cnblogs.com/zhourourou/p/5210477.html</a></li>
-<li><a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=3354745&amp;page=1">https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=3354745&amp;page=1</a></li>
-<li><a href="https://koolshare.cn/forum.php?mod=redirect&amp;goto=findpost&amp;ptid=166096&amp;pid=2114362">https://koolshare.cn/forum.php?mod=redirect&amp;goto=findpost&amp;ptid=166096&amp;pid=2114362</a></li>
-<li><a href="https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741">https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741</a></li>
+<li><a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&tid=3354745&page=1">https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=3354745&amp;page=1</a></li>
+<li><a href="https://koolshare.cn/forum.php?mod=redirect&goto=findpost&ptid=166096&pid=2114362">https://koolshare.cn/forum.php?mod=redirect&amp;goto=findpost&amp;ptid=166096&amp;pid=2114362</a></li>
+<li><a href="https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&t=1741">https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741</a></li>
 <li><a href="https://www.right.com.cn/forum/thread-4031598-1-1.html">lan物理设置中的桥接接口到底怎么用-软路由,x86系统,openwrt(x86),Router OS 等-恩山无线论坛 (right.com.cn)</a></li>
 <li><a href="https://www.right.com.cn/forum/thread-7817323-1-1.html">openwrt旁路由该如何设置？（动态伪装相关）-OPENWRT专版-恩山无线论坛 (right.com.cn)</a> </li>
 <li>[<a href="https://openwrt.org/zh/docs/guide-developer/networking/network.interfaces">OpenWrt Wiki] Linux 网络接口(Network Interfaces)</a></li>
@@ -778,6 +660,178 @@
       </tags>
   </entry>
   <entry>
+    <title>fdisk与df显示磁盘大小不一致的解决办法</title>
+    <url>/diff-result-fdisk-df/</url>
+    <content><![CDATA[<p>昨天重装了一个vps，用了ubuntu18.04，踩了一下午的netplan坑，又发现，磁盘空间货不对板。google一下找到了解决方案。</p>
+<span id="more"></span>
+
+<p>很简单，这个问题一般是因为文件系统和分区大小不一致导致的。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">resize2fs /dev/sda1</span><br></pre></td></tr></table></figure>
+
+<p>即可解决问题。</p>
+<p><code>resize2fs</code>使文件系统<code>filesystem</code>与<code>partition</code>保持一致从而提升空间。</p>
+<p>ref: <a href="https://unix.stackexchange.com/questions/10776/why-are-partition-size-and-df-output-different">Why are partition size and df output different?</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>p20 pro以及其他异形屏使用windows远程桌面rdp鼠标定位不准错位的临时解决</title>
+    <url>/p20-pro-rdp-mouse-pointer-wrong-position/</url>
+    <content><![CDATA[<p>p20 pro什么都好，但有件事一直困扰着我，那就是在window remote desktop app下连接远程pc，鼠标在画面中的位置和点击位置不一致，且横屏状态下，越靠近右侧，漂移幅度越大。</p>
+<p>具体表现举例，想要关闭窗口，鼠标需要在最小化按钮附近才能点到关闭按钮。</p>
+<p>推断是因为刘海屏拉伸所导致的，但是关闭刘海屏幕显示，关闭软件拉伸都没有解决问题。</p>
+<p>在这个即将发售，我准备去强p30 pro的日子，说说怎么解决这个问题吧。。。</p>
+<span id="more"></span>
+
+<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>偶然机会，在google market搜了下rdp，在评论中看到了这个解决方案，其中提到他是在酷安的评论里看到的，我去膜拜点了个赞，真的是从心底感谢啊。因为我发现，店里的<br>p30 pro还存在这个问题的，都影响我换手机的动力啦，哈哈哈。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>很简单：</p>
+<ol>
+<li>开启屏幕自动旋转</li>
+<li>打开RD Client</li>
+<li>让APP自动旋转为横屏</li>
+<li>选择合适的分辨率</li>
+<li>请开始你的表演 :smile:</li>
+</ol>
+<p>以上。</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>rdp</tag>
+        <tag>p20pro</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>个人Git&amp;Github基本操作</title>
+    <url>/personal-git-hub-basic-commands/</url>
+    <content><![CDATA[<p>毕竟不是程序员，git这种东西，心血来潮才会用，用来用去都是些非常基础的操作，搜索啥的太麻烦，索性在自己记录下，以后复制粘贴喽。</p>
+<p>如果你看到了这里，那么希望以下内容也能对你有用哈。</p>
+<span id="more"></span>
+
+<h1 id="默认pub-key名称"><a href="#默认pub-key名称" class="headerlink" title="默认pub-key名称"></a>默认pub-key名称</h1><p>By default, the filenames of the public keys are one of the following:</p>
+<ul>
+<li><em>id_rsa.pub</em></li>
+<li><em>id_ecdsa.pub</em></li>
+<li><em>id_ed25519.pub</em></li>
+</ul>
+<h1 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH-Key"></a>生成SSH-Key</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="测试SSH"><a href="#测试SSH" class="headerlink" title="测试SSH"></a>测试SSH</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Permissions-for-“xxx”-are-too-open"><a href="#Permissions-for-“xxx”-are-too-open" class="headerlink" title="Permissions for “xxx” are too open"></a>Permissions for “xxx” are too open</h2><p>解决方法：</p>
+<p>xxx文件-&gt;属性-&gt;安全-&gt;高级-&gt;所有者改成当前操作用户-&gt;权限条目删除所有并添加当前操作用户，另，禁用继承？</p>
+<h1 id="添加到远程仓库"><a href="#添加到远程仓库" class="headerlink" title="添加到远程仓库"></a>添加到远程仓库</h1><h2 id="1、创建本地仓库（必须与github上面创建的仓库名称一样）（git-init-命令）"><a href="#1、创建本地仓库（必须与github上面创建的仓库名称一样）（git-init-命令）" class="headerlink" title="1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）"></a>1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init 仓库名称（必须与github创建的仓库名称一样）</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、切换到创建的本地仓库（cd-命令）"><a href="#2、切换到创建的本地仓库（cd-命令）" class="headerlink" title="2、切换到创建的本地仓库（cd 命令）"></a>2、切换到创建的本地仓库（cd 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd 仓库名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git-add-命令）"><a href="#3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git-add-命令）" class="headerlink" title="3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）"></a>3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 文件夹名称</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 具体文件名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、将缓存提交到本地仓库并且备注信息（git-commit-m-命令）"><a href="#4、将缓存提交到本地仓库并且备注信息（git-commit-m-命令）" class="headerlink" title="4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）"></a>4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;备注信息&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、-添加远程仓库（git-remote-add-origin-命令）"><a href="#5、-添加远程仓库（git-remote-add-origin-命令）" class="headerlink" title="5、 添加远程仓库（git remote add origin 命令）"></a>5、 添加远程仓库（git remote add origin 命令）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin 仓库克隆SSh地址</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、将分支推送到GitHub（git-push-命令）"><a href="#6、将分支推送到GitHub（git-push-命令）" class="headerlink" title="6、将分支推送到GitHub（git push 命令）"></a>6、将分支推送到GitHub（git push 命令）</h2><p>首次推送</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master # -u用来设定默认推送，反向操作为 git branch --unset-upstream</span><br></pre></td></tr></table></figure>
+
+<p>非首次推送</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<h1 id="VS-code每次打开github仓库时总是弹出页面要求登录"><a href="#VS-code每次打开github仓库时总是弹出页面要求登录" class="headerlink" title="VS code每次打开github仓库时总是弹出页面要求登录"></a>VS code每次打开github仓库时总是弹出页面要求登录</h1><p>网上的那些教程让你<code>git config --global credential.helper store</code>不解决根本问题，有个<a href="https://stackoverflow.com/a/34627954/22544109">回答</a>写得很好，但不解决根本问题。</p>
+<blockquote>
+<p>You can do a temporary trick to cache the authorization</p>
+</blockquote>
+<p>原因我也找到了：在vscode里开启了<code>auto-fetch</code>，同时这个仓库还使用https的链接</p>
+<p>解决方法：设置github的ssh认证方式，然后把仓库链接改为<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#109;</a>这种形式的。一劳永逸啊。</p>
+<p>ref：</p>
+<p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
+<p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
+<p><a href="https://stackoverflow.com/a/52298381/22544109">https://stackoverflow.com/a/52298381/22544109</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>win10</tag>
+        <tag>error</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>php优化设置</title>
+    <url>/php-optimize-setting/</url>
+    <content><![CDATA[<p>之前折腾个人的小破站，搜集了不少各路“优化”设置，放在这里，以备不时之需啦。</p>
+<span id="more"></span>
+
+<p>[toc]</p>
+<h1 id="unix-socket还是tcp-sock？"><a href="#unix-socket还是tcp-sock？" class="headerlink" title="unix socket还是tcp sock？"></a>unix socket还是tcp sock？</h1><h2 id="TCP-socket"><a href="#TCP-socket" class="headerlink" title="TCP socket"></a>TCP socket</h2><ol>
+<li><p>编辑&#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;default：</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">	  index index.php index.html index.htm;</span><br><span class="line">	  include /etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">	  fastcgi_index index.php;</span><br><span class="line">	  include fastcgi_params;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑&#x2F;etc&#x2F;php5&#x2F;fpm&#x2F;pool.d&#x2F;<a href="http://www.conf中的参数listen：">www.conf中的参数listen：</a></p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listen=127.0.0.1:9000</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="unix-socket"><a href="#unix-socket" class="headerlink" title="unix socket"></a>unix socket</h2><ol>
+<li><p>创建socket接口位置</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo touch /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chown www-data:www-data /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chmod 666 /dev/shm/fpm-cgi.sock</span><br></pre></td></tr></table></figure>
+
+<p> dev&#x2F;shm目录是所谓的tmpfs，是RAM可以直接使用的区域，读写速度会快一些。</p>
+</li>
+<li><p>编辑&#x2F;etc&#x2F;php5&#x2F;fpm&#x2F;pool.d&#x2F;<a href="http://www.conf中的参数：">www.conf中的参数：</a></p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">listen=/dev/shm/fpm-cgi.sock</span><br><span class="line"></span><br><span class="line">; Set listen(2) backlog. A value of &#x27;-1&#x27; means unlimited.</span><br><span class="line">; Default Value: 128 (-1 on FreeBSD and OpenBSD) </span><br><span class="line">; 内存积压，默认是128，并发高了之后就会报错,根据自己内存设置</span><br><span class="line">listen.backlog = 128</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑&#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;default：</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location~\.php$&#123;</span><br><span class="line">	  indexindex.phpindex.htmlindex.htm;</span><br><span class="line">	  include/etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_passunix:/dev/shm/fpm-cgi.sock;</span><br><span class="line">	  fastcgi_indexindex.php;</span><br><span class="line">	  includefastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改&#x2F;etc&#x2F;sysctl.conf配置，提高内核级别的并发连接数</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">	net.core.somaxconn = 2048</span><br><span class="line"></span><br><span class="line">	sudo sysctl -p</span><br><span class="line">	````</span><br><span class="line"></span><br><span class="line">5. 重启nginx和php-fpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 两种区别</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">从原理上来说，unix socket方式肯定要比tcp的方式快而且消耗资源少，因为socket之间在nginx和php-fpm的进程之间通信，而tcp需要经过本地回环驱动，还要申请临时端口和tcp相关资源。</span></span><br><span class="line">当然还是从原理上来说，unix socket会显得不是那么稳定，当并发连接数爆发时，会产生大量的长时缓存，在没有面向连接协议支撑的情况下，大数据包很有可能就直接出错并不会返回异常。而TCP这样的面向连接的协议，多少可以保证通信的正确性和完整性。</span><br><span class="line">当然以上主要是半懂不懂的理论分析加主观臆测，具体的差别还是要通过测试数据来说话，以后有空，会进行这方面的测试。从网上别人博客的测试数据，我的理论分析差不多是对的。至于你选择哪种方式，我只能说“鱼和熊掌不可兼得也”，通过高超的运维和配置技巧，在性能和稳定性上做一个平衡吧。</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">楼主，你确定socket比tcp要好吗？我之前也是这么认为的，但是今天做压测的时候就发现tcp比socket稳定多了 同样的并发，超过某个数量的时候，socket就一直报：connect()to unix:/dev/shm/php55-socket failed (11: Resource temporarily unavailable。。。报错率大概是15%的样子，但是查看一些资料发现，tcp比socket这方面稳定，故改tcp，发现基本没有报错了。同样的并发下，起码出现502的几率相对减少，所以我还是改tcp了。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">php-fpm进程数的优化 [php-fpm进程数设置多少合适](https://zhuanlan.zhihu.com/p/94627701)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 了解参数</span></span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">需要了解的参数是：pm、pm.max_children、pm.start_servers、pm.min_spare_servers、pm.max_spare_servers。</span><br><span class="line"></span><br><span class="line">pm：表示使用那种方式，有两个值可以选择，就是static（静态）或者dynamic（动态）。</span><br><span class="line"></span><br><span class="line">在更老一些的版本中，dynamic被称作apache-like。这个要注意看配置文件的说明。</span><br><span class="line"></span><br><span class="line">下面5个参数的意思分别为：</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">pm = dynamic 如何控制子进程，选项有static和dynamic    </span><br><span class="line">pm.max_children：静态方式下开启的php-fpm进程数量    </span><br><span class="line">pm.max_requests：php-fpm子进程能处理的最大请求数    </span><br><span class="line">pm.start_servers：动态方式下的起始php-fpm进程数量</span><br><span class="line">pm.min_spare_servers：动态方式下的最小php-fpm进程数</span><br><span class="line">pm.max_spare_servers：动态方式下的最大php-fpm进程数量</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>如果dm设置为 static，那么其实只有pm.max_children这个参数生效。系统会开启设置数量的php-fpm进程。</p>
+<p>如果dm设置为 dynamic，那么pm.max_children参数失效，后面3个参数生效。</p>
+<p>系统会在php-fpm运行开始 的时候启动pm.start_servers个php-fpm进程，</p>
+<p>然后根据系统的需求动态在pm.min_spare_servers和pm.max_spare_servers之间调整php-fpm进程数。</p>
+<p>在高并发场景（我们公司是一万并发测试）中，一般都是采用的static方式，因为一般来说我们的服务器都是有严格的业务分离，fpm服务器就是用来作为fpm服务器使用，除去还有一个nginx之外，不会去考虑有其他的服务器占用资源。</p>
+<p>在php的运行中，无非是两种场景</p>
+<ol>
+<li>大运算的场景，即 php程序需要用大量的cpu资源来进行数据计算之类的操作，在这种场景下，fpm进程可以设置为cpu数量的一倍或者两倍</li>
+<li>高io场景，php的使用场景中（最起码是本电商场景中）基本上属于高io，因为程序花了大量的时间在等待redis返回等待数据库返回。高io场景下，因为cpu大多处在wa状态下，所以可以尽量的加大fpm进程数，所以这个时候使用内存&#x2F;30m是更为合理的</li>
+</ol>
+<p>经过我们自己真实压测，大量redis和mysql读写的io密集情况下，16G的内存，fpm我们设置为400个的时候qps比fpm 16个 32个要好不少</p>
+<h1 id="php-ini调优"><a href="#php-ini调优" class="headerlink" title="php.ini调优"></a>php.ini调优</h1><h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>php.ini中的 memory_limit设置用于设定单个 PHP 进程可以使用的系统内存最大值。</p>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file_uploads = 1</span><br><span class="line">upload_max_filesize = 10M</span><br><span class="line">max_file_uploads = 3</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，PHP允许在单次请求中上传20个文件，上传的文件最大为2MB，这里为单次请求最多只能上传3个文件，每个文件最大为10MB，这个值不要设置太大，否则会出现超时。</p>
+<p>如果非要上传大文件，Web 服务器的配置也要做相应调整。除了在 php.ini 中设置之外，还要调整 Nginx 虚拟主机配置中的 client_max_body_size 设置。</p>
+<h2 id="最长执行时间"><a href="#最长执行时间" class="headerlink" title="最长执行时间"></a>最长执行时间</h2><p>最长执行时间</p>
+<p>php.ini 文件中的 max_execution_time 用于设置单个 PHP 进程在终止之前最长可运行时间。这个设置默认是 30 秒，建议将其设置为 5 秒：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">max_execution_time = 5</span><br></pre></td></tr></table></figure>
+
+<p>在 PHP 脚本中可以调用 set_limit_time() 函数覆盖这个设置。</p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h1><ul>
+<li><p><a href="https://blog.csdn.net/pcyph/java/article/details/46513521">nginx和php-fpm通信使用unix socket还是TCP，及其配置</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/94627701">php-fpm进程数设置多少合适</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/dtfly520/article/details/76849855">php.ini 配置调优 —— 让 PHP 应用性能维持在更高水平</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>php</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>为Github桌面客户端登录与添加代理</title>
     <url>/github-desktop-proxy/</url>
     <content><![CDATA[<h1 id="为github-dekstop客户端添加代理"><a href="#为github-dekstop客户端添加代理" class="headerlink" title="为github dekstop客户端添加代理"></a>为github dekstop客户端添加代理</h1><p>在<code>C:\users\用户名\</code>下找到<code>.gitconfig</code>文件，在其中添加：</p>
@@ -787,7 +841,7 @@
 <span id="more"></span>
 
 <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h1><p><a href="https://kassadin.moe/2019/07/17/003-how-to-set-proxy-for-Github-desktop/">笔记：如何给Github Desktop设置代理</a></p>
-<p><a href="https://stackoverflow.com/questions/38615168/how-can-i-configure-github-desktop-windows-to-work-with-a-proxy?rq=1">How Can I Configure GitHub Desktop/Windows to Work with a Proxy?</a></p>
+<p><a href="https://stackoverflow.com/questions/38615168/how-can-i-configure-github-desktop-windows-to-work-with-a-proxy?rq=1">How Can I Configure GitHub Desktop&#x2F;Windows to Work with a Proxy?</a></p>
 <p><a href="https://www.jianshu.com/p/8e9af3a1b231">X先生说：通过 SS 代理加快 GitHub Clone 速度</a></p>
 ]]></content>
       <categories>
@@ -820,7 +874,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
 <p><strong>注意！是<em>hexo-cli</em>，不是hexo！！</strong></p>
-<p><code>-g</code>这个扩展表示把hexo安装成为全局程序，使命令行全局可用<code>hexo</code>命令。用<code>-S</code>则不能，另外powershell不行，用cmd吧。</p>
+<p><code>-g</code>这个扩展表示把hexo安装成为全局程序，使命令行全局可用<code>hexo</code>命令。用<code>-S</code>则不能，另外powershell不行，用cmd吧。此时hexo是安装在全局预设目录下，而不是当前的项目文件夹下。</p>
 <p>此外，相应的还有如下几种选择：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install X -g</span><br><span class="line">安装模块到全局，不会在项目node_modules目录中保存模块包。</span><br><span class="line">不会将模块依赖写入devDependencies或dependencies 节点。</span><br><span class="line">运行 npm install 初始化项目时不会下载模块。</span><br><span class="line">具体想知道装在哪里，可以npm config ls，安装完成后也会显示位置。</span><br><span class="line"></span><br><span class="line">npm install X</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">不会修改package.json</span><br><span class="line">之后运行npm install命令时，不会自动安装X</span><br><span class="line"></span><br><span class="line">npm install X --save  同  npm install X -S</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">会在package.json的dependencies属性下添加X</span><br><span class="line">之后运行npm install命令时，会自动安装X到node_modules目录中</span><br><span class="line">之后运行npm install --production或者注明NODE_ENV变量值为production时，会自动安装msbuild到node_modules目录中,即是在线上环境运行时会将包安装</span><br><span class="line"></span><br><span class="line">npm install X –save-dev  同  npm install X -D</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">会在package.json的devDependencies属性下添加X</span><br><span class="line">之后运行npm install命令时，会自动安装X到node_modules目录中</span><br><span class="line">之后运行npm install –production或者注明NODE_ENV变量值为production时，不会自动安装X到node_modules目录中</span><br><span class="line"></span><br><span class="line">使用原则:</span><br><span class="line">devDependencies 节点下的模块是我们在开发时需要用的，比如项目中使用的 gulp ，压缩css、js的模块。这些模块在我们的项目部署后是不需要的，所以我们可以使用--save-dev的形式安装。像 express 这些模块是项目运行必备的，应该安装在 dependencies 节点下，所以我们应该使用--save的形式安装。</span><br><span class="line"></span><br><span class="line">总结为一句话：运行时需要用到的包使用––save，否则使用––save-dev。</span><br><span class="line"></span><br><span class="line">作者：JuanitaLee</span><br><span class="line">链接：https://www.jianshu.com/p/920c1a6e999c</span><br><span class="line">来源：简书</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
 
@@ -837,18 +891,24 @@
 <p>Except <code>home</code> and <code>archives</code>, all custom pages under <code>menu</code> section need to be created manually. See <a href="https://theme-next.js.org/docs/theme-settings/custom-pages.html">«Custom Page Support»</a>.</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new page 404</span><br><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
-<h1 id="6-换gitignore"><a href="#6-换gitignore" class="headerlink" title="6.换gitignore"></a>6.换gitignore</h1><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line"># Hexo init</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># General</span><br><span class="line">.DS_Store</span><br><span class="line">.AppleDouble</span><br><span class="line">.LSOverride</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Thumbnails</span><br><span class="line">._*</span><br><span class="line"></span><br><span class="line"># Files that might appear in the root of a volume</span><br><span class="line">.DocumentRevisions-V100</span><br><span class="line">.fseventsd</span><br><span class="line">.Spotlight-V100</span><br><span class="line">.TemporaryItems</span><br><span class="line">.Trashes</span><br><span class="line">.VolumeIcon.icns</span><br><span class="line">.com.apple.timemachine.donotpresent</span><br><span class="line"></span><br><span class="line"># Directories potentially created on remote AFP share</span><br><span class="line">.AppleDB</span><br><span class="line">.AppleDesktop</span><br><span class="line">Network Trash Folder</span><br><span class="line">Temporary Items</span><br><span class="line">.apdisk</span><br><span class="line"></span><br><span class="line"># Windows thumbnail cache files</span><br><span class="line">Thumbs.db</span><br><span class="line">ehthumbs.db</span><br><span class="line">ehthumbs_vista.db</span><br><span class="line"></span><br><span class="line"># Dump file</span><br><span class="line">*.stackdump</span><br><span class="line"></span><br><span class="line"># Folder config file</span><br><span class="line">Desktop.ini</span><br><span class="line"></span><br><span class="line"># Recycle Bin used on file shares</span><br><span class="line">$RECYCLE.BIN/</span><br><span class="line"></span><br><span class="line"># Windows Installer files</span><br><span class="line">*.cab</span><br><span class="line">*.msi</span><br><span class="line">*.msm</span><br><span class="line">*.msp</span><br><span class="line"></span><br><span class="line"># Windows shortcuts</span><br><span class="line">*.lnk</span><br><span class="line"></span><br><span class="line">*~</span><br><span class="line"></span><br><span class="line"># temporary files which can be created if a process still has a handle open of a deleted file</span><br><span class="line">.fuse_hidden*</span><br><span class="line"></span><br><span class="line"># KDE directory preferences</span><br><span class="line">.directory</span><br><span class="line"></span><br><span class="line"># Linux trash folder which might appear on any partition or disk</span><br><span class="line">.Trash-*</span><br><span class="line"></span><br><span class="line"># .nfs files are created when an open file is removed but is still being accessed</span><br><span class="line">.nfs*</span><br><span class="line"></span><br><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line">yarn-debug.log*</span><br><span class="line">yarn-error.log*</span><br><span class="line"></span><br><span class="line"># Runtime data</span><br><span class="line">pids</span><br><span class="line">*.pid</span><br><span class="line">*.seed</span><br><span class="line">*.pid.lock</span><br><span class="line"></span><br><span class="line"># Directory for instrumented libs generated by jscoverage/JSCover</span><br><span class="line">lib-cov</span><br><span class="line"></span><br><span class="line"># Coverage directory used by tools like istanbul</span><br><span class="line">coverage</span><br><span class="line"></span><br><span class="line"># nyc test coverage</span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"># Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)</span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"># Bower dependency directory (https://bower.io/)</span><br><span class="line">bower_components</span><br><span class="line"></span><br><span class="line"># node-waf configuration</span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"># Compiled binary addons (https://nodejs.org/api/addons.html)</span><br><span class="line">build/Release</span><br><span class="line"></span><br><span class="line"># Dependency directories</span><br><span class="line">node_modules/</span><br><span class="line">jspm_packages/</span><br><span class="line"></span><br><span class="line"># Typescript v1 declaration files</span><br><span class="line">typings/</span><br><span class="line"></span><br><span class="line"># Optional npm cache directory</span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"># Optional eslint cache</span><br><span class="line">.eslintcache</span><br><span class="line"></span><br><span class="line"># Optional REPL history</span><br><span class="line">.node_repl_history</span><br><span class="line"></span><br><span class="line"># Output of &#x27;npm pack&#x27;</span><br><span class="line">*.tgz</span><br><span class="line"></span><br><span class="line"># Yarn Integrity file</span><br><span class="line">.yarn-integrity</span><br><span class="line"></span><br><span class="line"># dotenv environment variables file</span><br><span class="line">.env</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.vscode/*</span><br><span class="line">!.vscode/settings.json</span><br><span class="line">!.vscode/tasks.json</span><br><span class="line">!.vscode/launch.json</span><br><span class="line">!.vscode/extensions.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*.gem</span><br><span class="line">*.rbc</span><br><span class="line">/.config</span><br><span class="line">/coverage/</span><br><span class="line">/InstalledFiles</span><br><span class="line">/pkg/</span><br><span class="line">/spec/reports/</span><br><span class="line">/spec/examples.txt</span><br><span class="line">/test/tmp/</span><br><span class="line">/test/version_tmp/</span><br><span class="line">/tmp/</span><br><span class="line"></span><br><span class="line"># Used by dotenv library to load environment variables.</span><br><span class="line"># .env</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion:</span><br><span class="line">.dat*</span><br><span class="line">.repl_history</span><br><span class="line">build/</span><br><span class="line">*.bridgesupport</span><br><span class="line">build-iPhoneOS/</span><br><span class="line">build-iPhoneSimulator/</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion (use of CocoaPods):</span><br><span class="line">#</span><br><span class="line"># We recommend against adding the Pods directory to your .gitignore. However</span><br><span class="line"># you should judge for yourself, the pros and cons are mentioned at:</span><br><span class="line"># https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control</span><br><span class="line">#</span><br><span class="line"># vendor/Pods/</span><br><span class="line"></span><br><span class="line">## Documentation cache and generated files:</span><br><span class="line">/.yardoc/</span><br><span class="line">/_yardoc/</span><br><span class="line">/doc/</span><br><span class="line">/rdoc/</span><br><span class="line"></span><br><span class="line">## Environment normalization:</span><br><span class="line">/.bundle/</span><br><span class="line">/vendor/bundle</span><br><span class="line">/lib/bundler/man/</span><br><span class="line"></span><br><span class="line"># for a library or gem, you might want to ignore these files since the code is</span><br><span class="line"># intended to run in multiple environments; otherwise, check them in:</span><br><span class="line"># Gemfile.lock</span><br><span class="line"># .ruby-version</span><br><span class="line"># .ruby-gemset</span><br><span class="line"></span><br><span class="line"># unless supporting rvm &lt; 1.11.0 or doing something fancy, ignore this:</span><br><span class="line">.rvmrc</span><br><span class="line"></span><br><span class="line"># jekyll</span><br><span class="line">Gemfile.lock</span><br><span class="line">package-lock.json</span><br><span class="line">_site/</span><br><span class="line">.sass-cache/</span><br><span class="line">.jekyll-metadata</span><br><span class="line"></span><br><span class="line">_drafts/</span><br></pre></td></tr></table></figure>
+<h1 id="6-换gitignore"><a href="#6-换gitignore" class="headerlink" title="6.换gitignore"></a>6.换gitignore</h1><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line"># Hexo init</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line"></span><br><span class="line"># General</span><br><span class="line">.DS_Store</span><br><span class="line">.AppleDouble</span><br><span class="line">.LSOverride</span><br><span class="line"></span><br><span class="line"># Thumbnails</span><br><span class="line">._*</span><br><span class="line"></span><br><span class="line"># Files that might appear in the root of a volume</span><br><span class="line">.DocumentRevisions-V100</span><br><span class="line">.fseventsd</span><br><span class="line">.Spotlight-V100</span><br><span class="line">.TemporaryItems</span><br><span class="line">.Trashes</span><br><span class="line">.VolumeIcon.icns</span><br><span class="line">.com.apple.timemachine.donotpresent</span><br><span class="line"></span><br><span class="line"># Directories potentially created on remote AFP share</span><br><span class="line">.AppleDB</span><br><span class="line">.AppleDesktop</span><br><span class="line">Network Trash Folder</span><br><span class="line">Temporary Items</span><br><span class="line">.apdisk</span><br><span class="line"></span><br><span class="line"># Windows thumbnail cache files</span><br><span class="line">Thumbs.db</span><br><span class="line">ehthumbs.db</span><br><span class="line">ehthumbs_vista.db</span><br><span class="line"></span><br><span class="line"># Dump file</span><br><span class="line">*.stackdump</span><br><span class="line"></span><br><span class="line"># Folder config file</span><br><span class="line">Desktop.ini</span><br><span class="line"></span><br><span class="line"># Recycle Bin used on file shares</span><br><span class="line">$RECYCLE.BIN/</span><br><span class="line"></span><br><span class="line"># Windows Installer files</span><br><span class="line">*.cab</span><br><span class="line">*.msi</span><br><span class="line">*.msm</span><br><span class="line">*.msp</span><br><span class="line"></span><br><span class="line"># Windows shortcuts</span><br><span class="line">*.lnk</span><br><span class="line"></span><br><span class="line">*~</span><br><span class="line"></span><br><span class="line"># temporary files which can be created if a process still has a handle open of a deleted file</span><br><span class="line">.fuse_hidden*</span><br><span class="line"></span><br><span class="line"># KDE directory preferences</span><br><span class="line">.directory</span><br><span class="line"></span><br><span class="line"># Linux trash folder which might appear on any partition or disk</span><br><span class="line">.Trash-*</span><br><span class="line"></span><br><span class="line"># .nfs files are created when an open file is removed but is still being accessed</span><br><span class="line">.nfs*</span><br><span class="line"></span><br><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line">yarn-debug.log*</span><br><span class="line">yarn-error.log*</span><br><span class="line"></span><br><span class="line"># Runtime data</span><br><span class="line">pids</span><br><span class="line">*.pid</span><br><span class="line">*.seed</span><br><span class="line">*.pid.lock</span><br><span class="line"></span><br><span class="line"># Directory for instrumented libs generated by jscoverage/JSCover</span><br><span class="line">lib-cov</span><br><span class="line"></span><br><span class="line"># Coverage directory used by tools like istanbul</span><br><span class="line">coverage</span><br><span class="line"></span><br><span class="line"># nyc test coverage</span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"># Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)</span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"># Bower dependency directory (https://bower.io/)</span><br><span class="line">bower_components</span><br><span class="line"></span><br><span class="line"># node-waf configuration</span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"># Compiled binary addons (https://nodejs.org/api/addons.html)</span><br><span class="line">build/Release</span><br><span class="line"></span><br><span class="line"># Dependency directories</span><br><span class="line">node_modules/</span><br><span class="line">jspm_packages/</span><br><span class="line"></span><br><span class="line"># Typescript v1 declaration files</span><br><span class="line">typings/</span><br><span class="line"></span><br><span class="line"># Optional npm cache directory</span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"># Optional eslint cache</span><br><span class="line">.eslintcache</span><br><span class="line"></span><br><span class="line"># Optional REPL history</span><br><span class="line">.node_repl_history</span><br><span class="line"></span><br><span class="line"># Output of &#x27;npm pack&#x27;</span><br><span class="line">*.tgz</span><br><span class="line"></span><br><span class="line"># Yarn Integrity file</span><br><span class="line">.yarn-integrity</span><br><span class="line"></span><br><span class="line"># dotenv environment variables file</span><br><span class="line">.env</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.vscode/*</span><br><span class="line">!.vscode/settings.json</span><br><span class="line">!.vscode/tasks.json</span><br><span class="line">!.vscode/launch.json</span><br><span class="line">!.vscode/extensions.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*.gem</span><br><span class="line">*.rbc</span><br><span class="line">/.config</span><br><span class="line">/coverage/</span><br><span class="line">/InstalledFiles</span><br><span class="line">/pkg/</span><br><span class="line">/spec/reports/</span><br><span class="line">/spec/examples.txt</span><br><span class="line">/test/tmp/</span><br><span class="line">/test/version_tmp/</span><br><span class="line">/tmp/</span><br><span class="line"></span><br><span class="line"># Used by dotenv library to load environment variables.</span><br><span class="line"># .env</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion:</span><br><span class="line">.dat*</span><br><span class="line">.repl_history</span><br><span class="line">build/</span><br><span class="line">*.bridgesupport</span><br><span class="line">build-iPhoneOS/</span><br><span class="line">build-iPhoneSimulator/</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion (use of CocoaPods):</span><br><span class="line">#</span><br><span class="line"># We recommend against adding the Pods directory to your .gitignore. However</span><br><span class="line"># you should judge for yourself, the pros and cons are mentioned at:</span><br><span class="line"># https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control</span><br><span class="line">#</span><br><span class="line"># vendor/Pods/</span><br><span class="line"></span><br><span class="line">## Documentation cache and generated files:</span><br><span class="line">/.yardoc/</span><br><span class="line">/_yardoc/</span><br><span class="line">/doc/</span><br><span class="line">/rdoc/</span><br><span class="line"></span><br><span class="line">## Environment normalization:</span><br><span class="line">/.bundle/</span><br><span class="line">/vendor/bundle</span><br><span class="line">/lib/bundler/man/</span><br><span class="line"></span><br><span class="line"># for a library or gem, you might want to ignore these files since the code is</span><br><span class="line"># intended to run in multiple environments; otherwise, check them in:</span><br><span class="line"># Gemfile.lock</span><br><span class="line"># .ruby-version</span><br><span class="line"># .ruby-gemset</span><br><span class="line"></span><br><span class="line"># unless supporting rvm &lt; 1.11.0 or doing something fancy, ignore this:</span><br><span class="line">.rvmrc</span><br><span class="line"></span><br><span class="line"># jekyll</span><br><span class="line">Gemfile.lock</span><br><span class="line">package-lock.json</span><br><span class="line">_site/</span><br><span class="line">.sass-cache/</span><br><span class="line">.jekyll-metadata</span><br><span class="line"></span><br><span class="line">_drafts/</span><br></pre></td></tr></table></figure>
 
-<h1 id="7-推送源码至github"><a href="#7-推送源码至github" class="headerlink" title="7.推送源码至github"></a>7.推送源码至github</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-<h1 id="8-阅读时长-≈-NaN-aN"><a href="#8-阅读时长-≈-NaN-aN" class="headerlink" title="8. 阅读时长 ≈ NaN:aN"></a>8. 阅读时长 ≈ NaN:aN</h1><p>按照教程开启阅读时长及字数统计后，如果不显示正确信息，那么记得清楚数据：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
-<h1 id="9-部署"><a href="#9-部署" class="headerlink" title="9. 部署"></a>9. 部署</h1><p>这里介绍两种部署到github的方式，还可以选择部署到vercel</p>
-<h2 id="9-1-hexo-deployer"><a href="#9-1-hexo-deployer" class="headerlink" title="9.1 hexo deployer"></a>9.1 hexo deployer</h2><p>先要安装插件’npm install hexo-deployer-git –save’，然后在<code>_config.yml</code>中设置deploy的相关内容，<a href="https://hexo.io/docs/one-command-deployment">具体参见</a></p>
-<h2 id="9-2-hexo-action"><a href="#9-2-hexo-action" class="headerlink" title="9.2 hexo-action"></a>9.2 hexo-action</h2><p>参考<a href="https://github.com/sma11black/hexo-action">hexo-action</a>，利用github action来将网页发布到github pages.</p>
+<h1 id="7-更新hexo及主题的nodejs程序"><a href="#7-更新hexo及主题的nodejs程序" class="headerlink" title="7.更新hexo及主题的nodejs程序"></a>7.更新hexo及主题的nodejs程序</h1><p>在项目文件夹下运行<code>npm update -S</code>即可。</p>
+<h1 id="8-部署"><a href="#8-部署" class="headerlink" title="8. 部署"></a>8. 部署</h1><p>这里介绍两种部署到github的方式，还可以选择部署到vercel</p>
+<h2 id="8-1-hexo-deployer"><a href="#8-1-hexo-deployer" class="headerlink" title="8.1 hexo deployer"></a>8.1 hexo deployer</h2><p>先要安装插件’npm install hexo-deployer-git –save’，然后在<code>_config.yml</code>中设置deploy的相关内容，<a href="https://hexo.io/docs/one-command-deployment">具体参见</a>。</p>
+<hr>
+<p>2023.9.12更新</p>
+<p>文档里举例的<code>repo</code>写法是https的，在此次更新中遇到的问题，github action编译后无法推送，提示<code>could not read Username for &#39;https://github.com&#39;: No such file or directory</code>。</p>
+<p>我在本地使用hexo deploy时也是同样的问题，但多了一个提示，说使用用户名和密码的验证方式很早就禁止了。在为本地计算机配置git ssh，将repo地址改为ssh的写法后，一切顺利。</p>
+<h2 id="8-2-hexo-action"><a href="#8-2-hexo-action" class="headerlink" title="8.2 hexo-action"></a>8.2 hexo-action</h2><p>参考<a href="https://github.com/sma11black/hexo-action">hexo-action</a>，利用github action来将网页发布到github pages.</p>
 <p>注意，不要使用GitHub账户的那个<code>key</code>，单独设置一个，而且添加时候也会提醒。。。偷不到懒的。。。</p>
-<h2 id="9-3-vercel"><a href="#9-3-vercel" class="headerlink" title="9.3 vercel"></a>9.3 vercel</h2><p>直接在vercel的网站上配置即可。</p>
-<h1 id="10-hexo-word-counter中的post图标选项"><a href="#10-hexo-word-counter中的post图标选项" class="headerlink" title="10. hexo-word-counter中的post图标选项"></a>10. hexo-word-counter中的post图标选项</h1><p><code>hexo-word-counter</code>插件说明中提到<code>item_text_post</code>选项，实际测试设置无效，且next-theme的配置说明里也没有这个选项。</p>
+<p><strong>config里的deploy插件是必须的</strong>，另外注意<code>9.1</code>中提到的git地址的写法，也就是<a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;">&#103;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;</a>:xxx</p>
+<h2 id="8-3-vercel"><a href="#8-3-vercel" class="headerlink" title="8.3 vercel"></a>8.3 vercel</h2><p>直接在vercel的网站上配置即可。</p>
+<p>项目settings里有选择node.js版本的选项，最近的更新在这里卡了好久，本地更新自己的nodejs没用的。。。</p>
+<h1 id="9-阅读时长-≈-NaN-aN"><a href="#9-阅读时长-≈-NaN-aN" class="headerlink" title="9. 阅读时长 ≈ NaN:aN"></a>9. 阅读时长 ≈ NaN:aN</h1><p>按照教程开启阅读时长及字数统计后，如果不显示正确信息，那么记得清除数据：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+
+<h1 id="10-开启hexo-word-counter中的post图标选项"><a href="#10-开启hexo-word-counter中的post图标选项" class="headerlink" title="10. 开启hexo-word-counter中的post图标选项"></a>10. 开启hexo-word-counter中的post图标选项</h1><p><code>hexo-word-counter</code>插件说明中提到<code>item_text_post</code>选项，实际测试设置无效，且next-theme的配置说明里也没有这个选项。</p>
 <p>找到了next-theme的<a href="https://t.me/theme_next_cn">telegram群</a>，群内大佬指点，应该修改：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  item_text: false</span><br></pre></td></tr></table></figure>
 
@@ -861,9 +921,10 @@
 <h1 id="12-powershell下使用hexo命令提示”此系统上禁止运行脚本”"><a href="#12-powershell下使用hexo命令提示”此系统上禁止运行脚本”" class="headerlink" title="12.powershell下使用hexo命令提示”此系统上禁止运行脚本”"></a>12.powershell下使用hexo命令提示”此系统上禁止运行脚本”</h1><p><code>Set-ExecutionPolicy RemoteSigned</code> #此命令当时从哪里找的，忘了。。。</p>
 <p><code>Set-ExecutionPolicy -ExecutionPolicy UNRESTRICTED</code> #刚才搜了一下，现在网上都是这个了。。。还没有测试过。。。 </p>
 <h1 id="13-停止目录自动编号"><a href="#13-停止目录自动编号" class="headerlink" title="13.停止目录自动编号"></a>13.停止目录自动编号</h1><p>在’_config.next.yml’中修改<code>toc</code>下的<code>number</code>为<code>false</code></p>
-<h1 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h1><p>2022/11/21 增加停止目录自动编号的方法</p>
-<p>2022/11/11 安装hexo还是要带着<code>-g</code>的，不能带’-S’，否则hexo命令行不起作用</p>
-<p>2022/11/09 此系统上禁止运行脚本</p>
+<h1 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h1><p>2023&#x2F;09&#x2F;12 增加了软件更新的方式，完善了部署部分。</p>
+<p>2022&#x2F;11&#x2F;21 增加停止目录自动编号的方法</p>
+<p>2022&#x2F;11&#x2F;11 安装hexo还是要带着<code>-g</code>的，不能带’-S’，否则hexo命令行不起作用</p>
+<p>2022&#x2F;11&#x2F;09 此系统上禁止运行脚本</p>
 ]]></content>
       <categories>
         <category>Tutorial</category>
@@ -903,163 +964,6 @@
         <tag>qbittorrent</tag>
         <tag>flexget</tag>
         <tag>autoremove-torrents</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件</title>
-    <url>/msmtp-smartmontools-auto-monitoring-mail/</url>
-    <content><![CDATA[<p>近期又开始折腾了。入手了一个京云小盒子，准备放回老家刷PT。盒子只有2G内存，装完win10 LTSC只剩下400M内存，太危险，没办法，还是用linux吧。我的NAS最基本的就是plex+qb，但毕竟远程操作，及时知道硬盘状态很重要，家里用的stablebit scanner只能在windows下使用，就开始琢磨linux下的方案啦。一如既往，踩够了坑，在整理记录下，希望能对看到的你有所帮助。</p>
-<span id="more"></span>
-
-
-<h1 id="1-msmtp"><a href="#1-msmtp" class="headerlink" title="1.msmtp"></a>1.msmtp</h1><h2 id="1-1安装msmtp"><a href="#1-1安装msmtp" class="headerlink" title="1.1安装msmtp"></a>1.1安装msmtp</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install bsd-mailx msmtp msmtp-mta</span><br></pre></td></tr></table></figure>
-
-<p><code>bsd-mailx</code>这个是本次踩的最大的坑，最小化安装的ubuntu没有自带邮件系统，是没有所有的邮件系统，既没有mail这个命令，也没又系统内置的邮箱，即是说，smartclt即使发送给用户也是收不到的，更不用说向外部发送邮件了。自然<code>msmtp-mta</code>创建的<code>sendmail</code>软链接也就成了无根之水。</p>
-<h2 id="1-2配置msmtp"><a href="#1-2配置msmtp" class="headerlink" title="1.2配置msmtp"></a>1.2配置msmtp</h2><p>全局配置文件在<code>/etc/msmtprc</code>下，具体配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Set default values for all following accounts.</span><br><span class="line">defaults</span><br><span class="line">auth           on</span><br><span class="line">tls            on</span><br><span class="line">tls_trust_file /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">logfile        /home/xxx/.msmtp.log</span><br><span class="line">#tls_starttls   off</span><br><span class="line">#tls_certcheck  off</span><br><span class="line"></span><br><span class="line"># Yandex</span><br><span class="line">account        yandex</span><br><span class="line">host           smtp.yandex.com</span><br><span class="line">port           465</span><br><span class="line">from           xxx@yandex.com</span><br><span class="line">user           xxx</span><br><span class="line">password       xxx</span><br><span class="line"></span><br><span class="line"># Hotmail</span><br><span class="line">account        hotmail</span><br><span class="line">host           smtp-mail.outlook.com</span><br><span class="line">port           587</span><br><span class="line">from           xxx@hotmail.com</span><br><span class="line">user           xxx@hotmail.com</span><br><span class="line">password       xxxx</span><br><span class="line"></span><br><span class="line"># Set a default account</span><br><span class="line">account default : hotmail</span><br></pre></td></tr></table></figure>
-
-<p>这里踩的坑是外发邮箱的选择，一开始选了yandex，但这个邮箱的smtp不支持starttls，可以通过<code>tls_starttls   off</code>并设置端口为465解决予以解决，提示证书错可以通过<code>tls_certcheck  off</code>，更恶心的来了，yandex还会监控你的邮件内容，太过简单的内容会被认为是垃圾邮件而拒绝投递。无奈换了hotmail，豁然开朗！所有问题都不是问题了，所以，有时候，选择啊，比努力更重要XD。</p>
-<h2 id="1-3解决crontab任务持续报错的问题"><a href="#1-3解决crontab任务持续报错的问题" class="headerlink" title="1.3解决crontab任务持续报错的问题"></a>1.3解决crontab任务持续报错的问题</h2><p>这里设置的msmtp是为了让smartmontools发送错误信息，但crontab任务默认会将执行的结果发送给当用户（见<code>crontab -e</code>时最上边的那一串提示，<code>Output of the crontab jobs (including errors) is sent through email to the user the crontab file belongs to (unless redirected).</code>），因为没有本地邮件账户，会蹦出来好多错误日志，写入<code>/home/xxx/.msmtp.log</code>，不够美型。。</p>
-<p>解决方法:</p>
-<p>执行crontab任务时加上输出后缀即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0 2 * * * /home/backup.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>The <strong>&gt;/dev/null</strong> tells the cron to send all output (STDOUT) to /dev/null</p>
-</li>
-<li><p>The <strong>2&gt;$1</strong> tells the cron to send all errors (STDERR) to same as (STDOUT)</p>
-</li>
-</ul>
-<p>世界清净了！</p>
-<h2 id="1-4有的crontab想发送至本地账户怎么办？"><a href="#1-4有的crontab想发送至本地账户怎么办？" class="headerlink" title="1.4有的crontab想发送至本地账户怎么办？"></a>1.4有的crontab想发送至本地账户怎么办？</h2><p>摸索中。。。</p>
-<h1 id="2-smartmontools"><a href="#2-smartmontools" class="headerlink" title="2.smartmontools"></a>2.smartmontools</h1><h2 id="2-1安装smartmontools"><a href="#2-1安装smartmontools" class="headerlink" title="2.1安装smartmontools"></a>2.1安装smartmontools</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install smartmontools</span><br></pre></td></tr></table></figure>
-
-<p>配置文件在<code>/etc/smartd.conf</code>，配置重点有两个，</p>
-<ol>
-<li><p>#掉<code>DEVICESCAN</code>开头的命令，否则其下的命令都不会执行</p>
-</li>
-<li><p>最上边加入一行<code>/dev/sda -H -m xxx@hotmail.com</code></p>
-</li>
-</ol>
-<p>想测试可以在命令后加<code>-M test</code>,然后<code>sudo systemctl restart smartd</code>重启服务，看看会不会收到邮件。</p>
-<p>如前文提到的，这一步卡了很久，msmtp发送，smartd的配置看起来也很正常，就是发布出去邮件。搜索了很久，受一篇文章启发，利用<code>grep &quot;smartd&quot; /var/log/syslog*</code>查询日志，发现提示大意是没有mail命令啥的，意识到可能是有些前置问题没解决。。。</p>
-<p>再然后，发现安装bsd-mail即可解决，每个用户也有了自己的系统邮箱，输入mail即可查阅，这也是为什么smartd配置文档里<code>-m</code>后跟的不是邮件地址而是用户名的原因。</p>
-<p>另外，配置文件里的建议设置里写的是<code>/dev/sda -H -m root -c 0 -u 0</code>，-c和-u设置为零意思是不检测<code>pending sectors</code>和<code>uncorrectable sectors</code>。。。不知道文档作者是有什么特别的想法。。。至少我看到这俩提示了，还不赶快换硬盘，作死么？</p>
-<h1 id="3-参考链接"><a href="#3-参考链接" class="headerlink" title="3.参考链接"></a>3.参考链接</h1><p>1.<a href="https://www.smartmontools.org/browser/trunk/smartmontools/smartd.conf.5.in?order=name">smartd.conf.5.in</a></p>
-<p>2.<a href="https://wiki.archlinux.org/title/Msmtp">msmtp - ArchWiki (archlinux.org)</a></p>
-<p>3.<a href="https://blog.csdn.net/oMrApollo/article/details/72478000">( msmtp+mutt发送TLS邮件异常处理_Maxi的专栏-CSDN博客</a></p>
-<p>4.<a href="https://linuxconfig.org/how-to-configure-smartd-and-be-notified-of-hard-disk-problems-via-email">How to configure smartd and be notified of hard disk problems via email - Linux Tutorials - Learn Linux Configuration</a></p>
-<p>5.<a href="https://askubuntu.com/questions/623325/how-to-check-all-s-m-a-r-t-logs-location">14.04 - How to check all S.M.A.R.T. logs location - Ask Ubuntu</a></p>
-<p>6.<a href="https://unix.stackexchange.com/questions/640296/configuring-mail-command-to-use-msmtp">Configuring mail command to use msmtp - Unix &amp; Linux Stack Exchange</a>–提及bsd-mailx</p>
-<p>7.<a href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
-<p>8.<a href="https://tecadmin.net/disable-crontab-output-email-notifications/">How To Disable Crontab Output and Email Notifications - TecAdmin</a></p>
-<p>9.<a href="https://www.cnblogs.com/tinywan/p/6025468.html">Shell脚本———— /dev/null 2&gt;&amp;1详解 - Tinywan - 博客园 (cnblogs.com)</a></p>
-<p>10.<a href="https://websistent.com/msmtp-cron/">How to Configure MSMTP for Cron - Jesin’s Blog (websistent.com)</a></p>
-]]></content>
-      <categories>
-        <category>Tutorial</category>
-      </categories>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>harddriver</tag>
-        <tag>msmtps</tag>
-        <tag>smartmontools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>个人Git&amp;Github基本操作</title>
-    <url>/personal-git-hub-basic-commands/</url>
-    <content><![CDATA[<p>毕竟不是程序员，git这种东西，心血来潮才会用，用来用去都是些非常基础的操作，搜索啥的太麻烦，索性在自己记录下，以后复制粘贴喽。</p>
-<p>如果你看到了这里，那么希望以下内容也能对你有用哈。</p>
-<span id="more"></span>
-
-<h1 id="默认pub-key名称"><a href="#默认pub-key名称" class="headerlink" title="默认pub-key名称"></a>默认pub-key名称</h1><p>By default, the filenames of the public keys are one of the following:</p>
-<ul>
-<li><em>id_rsa.pub</em></li>
-<li><em>id_ecdsa.pub</em></li>
-<li><em>id_ed25519.pub</em></li>
-</ul>
-<h1 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH-Key"></a>生成SSH-Key</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="测试SSH"><a href="#测试SSH" class="headerlink" title="测试SSH"></a>测试SSH</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
-<h2 id="Permissions-for-“xxx”-are-too-open"><a href="#Permissions-for-“xxx”-are-too-open" class="headerlink" title="Permissions for “xxx” are too open"></a>Permissions for “xxx” are too open</h2><p>解决方法：</p>
-<p>xxx文件-&gt;属性-&gt;安全-&gt;高级-&gt;所有者改成当前操作用户-&gt;权限条目删除所有并添加当前操作用户，另，禁用继承？</p>
-<h1 id="添加到远程仓库"><a href="#添加到远程仓库" class="headerlink" title="添加到远程仓库"></a>添加到远程仓库</h1><p>1、创建本地仓库（必须与github上面创建的仓库名称一样）（git init 命令）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init 仓库名称（必须与github创建的仓库名称一样）</span><br></pre></td></tr></table></figure>
-
-<p>2、切换到创建的本地仓库（cd 命令）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd 仓库名称</span><br></pre></td></tr></table></figure>
-
-<p>3、添加监控（可以监控该仓库下所有文件夹、具体文件夹、具体文件）（git add 命令）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 文件夹名称</span><br><span class="line"></span><br><span class="line">或是</span><br><span class="line"></span><br><span class="line">git add 具体文件名称</span><br></pre></td></tr></table></figure>
-
-<p>4、将缓存提交到本地仓库并且备注信息（git commit -m 命令）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;备注信息&quot;</span><br></pre></td></tr></table></figure>
-
-<p>5、 添加远程仓库（git remote add origin 命令）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin 仓库克隆SSh地址</span><br></pre></td></tr></table></figure>
-
-<p>6、将分支推送到GitHub（git push 命令）</p>
-<p>首次推送</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master # -u用来设定默认推送，反向操作为 git branch --unset-upstream</span><br></pre></td></tr></table></figure>
-
-<p>非首次推送</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-
-
-<p>ref：</p>
-<p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
-<p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
-]]></content>
-      <categories>
-        <category>Tutorial</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>win10</tag>
-        <tag>error</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>简单在ubuntu下使用fail2ban</title>
-    <url>/ubuntu-fail2ban/</url>
-    <content><![CDATA[<p>这世道，家用动态ip都能被扫描暴力破解…没办法，研究了一下fail2ban的用法，记录一下。</p>
-<span id="more"></span>
-
-
-<h1 id="安装fail2ban"><a href="#安装fail2ban" class="headerlink" title="安装fail2ban"></a>安装fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install fail2ban</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl status fail2ban #查看状态</span><br><span class="line">sudo systemctl start fail2ban  #启动</span><br><span class="line">sudo systemctl enable fail2ban #开机启动</span><br></pre></td></tr></table></figure>
-
-<h1 id="设置fail2ban"><a href="#设置fail2ban" class="headerlink" title="设置fail2ban"></a>设置fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fail2ban按以下顺序读取配置文件。 每个.local文件都会覆盖.conf文件中的设置：</span><br><span class="line"></span><br><span class="line">/etc/fail2ban/jail.conf</span><br><span class="line">/etc/fail2ban/jail.d/*.conf</span><br><span class="line">/etc/fail2ban/jail.local</span><br><span class="line">/etc/fail2ban/jail.d/*.local</span><br></pre></td></tr></table></figure>
-
-<p>我的办法时直接编辑<code>/etc/fail2ban/jail.local</code>，其中的条目会覆盖jail.conf中的对应默认设置:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">bantime = 4w    #ban一个月</span><br><span class="line">findtime = 24h  #24小时区间检测</span><br><span class="line">maxretry = 3    #区间检测内最多可以错三次</span><br><span class="line"></span><br><span class="line">## ssh监控时默认开启的 </span><br></pre></td></tr></table></figure>
-
-<p>排除本地ip使用：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在[DEFAULT]下增加ignoreip = 127.0.0.1/8 ::1 123.123.123.123 192.168.1.0/24</span><br></pre></td></tr></table></figure>
-
-<h1 id="使用fail2ban-client"><a href="#使用fail2ban-client" class="headerlink" title="使用fail2ban-client"></a>使用fail2ban-client</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo fail2ban-client status sshd                  #检查Jails状况</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd unbanip 23.34.45.56 #取消IP权限</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd banip 23.34.45.56   #禁止IP</span><br><span class="line"></span><br><span class="line">sudo iptables --list -n                           </span><br><span class="line"># 由于fail2ban的&quot;ssh-iptables&quot;监狱使用iptables来阻塞问题IP地址，你可以通过以下方式来检测当前iptables来验证禁止规则</span><br></pre></td></tr></table></figure>
-
-<h1 id="查看fail2ban-log"><a href="#查看fail2ban-log" class="headerlink" title="查看fail2ban.log"></a>查看fail2ban.log</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tail /var/log/fail2ban.log #查看最近的fail2ban执行情况</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref:"></a>ref:</h1><p><a href="https://www.myfreax.com/install-configure-fail2ban-on-ubuntu-20-04/">如何在Ubuntu 20.04上安装和配置Fail2ban (myfreax.com)</a></p>
-<p><a href="https://app.sanii.cn/?p=275">Linux防止ssh暴力破解常用方案 | SAnBlog (sanii.cn)</a></p>
-<p><a href="https://blog.csdn.net/weixin_43507959/article/details/102763985">ubuntu使用fail2ban防御ssh暴力破解_SitVen-CSDN博客</a></p>
-<p><a href="https://www.onitroad.com/jc/linux/linux/security/fail2ban.html">fail2ban安装和配置-之路教程 (onitroad.com)</a></p>
-]]></content>
-      <categories>
-        <category>Tutorial</category>
-      </categories>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>fail2ban</tag>
       </tags>
   </entry>
   <entry>
@@ -1132,18 +1036,18 @@
 <h1 id="（三）参考链接"><a href="#（三）参考链接" class="headerlink" title="（三）参考链接"></a>（三）参考链接</h1><ul>
 <li><a href="https://www.jianshu.com/p/405fe33b9032">Docker中国源 - 简书 (jianshu.com)</a></li>
 <li><a href="https://kebingzao.com/2019/02/25/docker-volume/">Docker Volume - 目录挂载以及文件共享 | Zach Ke’s Notes (kebingzao.com)</a></li>
-<li><a href="https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml">docker/docker-compose.yml at master · nextcloud/docker (github.com)</a></li>
+<li><a href="https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml">docker&#x2F;docker-compose.yml at master · nextcloud&#x2F;docker (github.com)</a></li>
 <li><a href="https://stackoverflow.com/questions/41334021/volume-binding-using-docker-compose-on-windows">Volume binding using docker compose on Windows - Stack Overflow</a></li>
-<li><a href="https://github.com/docker/for-win/issues/2151#issuecomment-662343075">Volumes mounted from a Linux WSL instance don’t resolve in container · Issue #2151 · docker/for-win (github.com)</a></li>
+<li><a href="https://github.com/docker/for-win/issues/2151#issuecomment-662343075">Volumes mounted from a Linux WSL instance don’t resolve in container · Issue #2151 · docker&#x2F;for-win (github.com)</a></li>
 <li><a href="https://stackoverflow.com/questions/36765138/bind-to-docker-socket-on-windows">Bind to docker socket on Windows - Stack Overflow</a></li>
-<li><a href="https://github.com/wahyd4/aria2-ariang-x-docker-compose#%E4%BD%BF%E7%94%A8-nextcloud-%E5%AE%89%E8%A3%85">wahyd4/aria2-ariang-x-docker-compose: Docker compose files for Aria2+ AriaNg+ filerun/ Nextcloud/ h5ai + Plex. 图形化BT，磁力，离线下载，文件管理，播放，投屏 (github.com)</a></li>
+<li><a href="https://github.com/wahyd4/aria2-ariang-x-docker-compose#%E4%BD%BF%E7%94%A8-nextcloud-%E5%AE%89%E8%A3%85">wahyd4&#x2F;aria2-ariang-x-docker-compose: Docker compose files for Aria2+ AriaNg+ filerun&#x2F; Nextcloud&#x2F; h5ai + Plex. 图形化BT，磁力，离线下载，文件管理，播放，投屏 (github.com)</a></li>
 <li><a href="https://bynss.com/linux/343532.html">使用Nginx在Ubuntu 20.04上安装NextCloud（LEMP堆栈） - 月灯依旧 (bynss.com)</a></li>
 <li><a href="https://stackoverflow.com/questions/43181654/locating-data-volumes-in-docker-desktop-windows">Locating data volumes in Docker Desktop (Windows) - Stack Overflow</a></li>
-<li><a href="https://github.com/nginx-proxy/nginx-proxy">nginx-proxy/nginx-proxy: Automated nginx proxy for Docker containers using docker-gen (github.com)</a></li>
+<li><a href="https://github.com/nginx-proxy/nginx-proxy">nginx-proxy&#x2F;nginx-proxy: Automated nginx proxy for Docker containers using docker-gen (github.com)</a></li>
 <li><a href="https://github.com/nextcloud/docker/issues/1270#issuecomment-961684856">Strict mode: no http connection allowed</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/89790081">Docker下Nextcloud的Trusted domains添加 - 知乎 (zhihu.com)</a></li>
 <li><a href="https://help.nextcloud.com/t/can-i-move-files-direct-to-nextcloud/33594/3">Can I move files direct to Nextcloud? - 🚧 Installation - Nextcloud community</a></li>
-<li><a href="https://github.com/nextcloud/docker/issues/1003">Cannot write to data directory with check_data_directory_permissions set to false · Issue #1003 · nextcloud/docker (github.com)</a></li>
+<li><a href="https://github.com/nextcloud/docker/issues/1003">Cannot write to data directory with check_data_directory_permissions set to false · Issue #1003 · nextcloud&#x2F;docker (github.com)</a></li>
 <li><a href="https://www.how2shout.com/how-to/how-to-install-nextcloud-on-ubuntu-20-04-lts-wsl-windows-10.html">How to install NextCloud on Ubuntu 20.04 LTS WSL Windows 10 (how2shout.com)</a></li>
 </ul>
 ]]></content>
@@ -1155,6 +1059,105 @@
         <tag>docker</tag>
         <tag>nextcloud</tag>
         <tag>ECM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>msmtp+smartmontools搭建Ubuntu下硬盘状态自动监控发送邮件</title>
+    <url>/msmtp-smartmontools-auto-monitoring-mail/</url>
+    <content><![CDATA[<p>近期又开始折腾了。入手了一个京云小盒子，准备放回老家刷PT。盒子只有2G内存，装完win10 LTSC只剩下400M内存，太危险，没办法，还是用linux吧。我的NAS最基本的就是plex+qb，但毕竟远程操作，及时知道硬盘状态很重要，家里用的stablebit scanner只能在windows下使用，就开始琢磨linux下的方案啦。一如既往，踩够了坑，在整理记录下，希望能对看到的你有所帮助。</p>
+<span id="more"></span>
+
+
+<h1 id="1-msmtp"><a href="#1-msmtp" class="headerlink" title="1.msmtp"></a>1.msmtp</h1><h2 id="1-1安装msmtp"><a href="#1-1安装msmtp" class="headerlink" title="1.1安装msmtp"></a>1.1安装msmtp</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install bsd-mailx msmtp msmtp-mta</span><br></pre></td></tr></table></figure>
+
+<p><code>bsd-mailx</code>这个是本次踩的最大的坑，最小化安装的ubuntu没有自带邮件系统，是没有所有的邮件系统，既没有mail这个命令，也没又系统内置的邮箱，即是说，smartclt即使发送给用户也是收不到的，更不用说向外部发送邮件了。自然<code>msmtp-mta</code>创建的<code>sendmail</code>软链接也就成了无根之水。</p>
+<h2 id="1-2配置msmtp"><a href="#1-2配置msmtp" class="headerlink" title="1.2配置msmtp"></a>1.2配置msmtp</h2><p>全局配置文件在<code>/etc/msmtprc</code>下，具体配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Set default values for all following accounts.</span><br><span class="line">defaults</span><br><span class="line">auth           on</span><br><span class="line">tls            on</span><br><span class="line">tls_trust_file /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">logfile        /home/xxx/.msmtp.log</span><br><span class="line">#tls_starttls   off</span><br><span class="line">#tls_certcheck  off</span><br><span class="line"></span><br><span class="line"># Yandex</span><br><span class="line">account        yandex</span><br><span class="line">host           smtp.yandex.com</span><br><span class="line">port           465</span><br><span class="line">from           xxx@yandex.com</span><br><span class="line">user           xxx</span><br><span class="line">password       xxx</span><br><span class="line"></span><br><span class="line"># Hotmail</span><br><span class="line">account        hotmail</span><br><span class="line">host           smtp-mail.outlook.com</span><br><span class="line">port           587</span><br><span class="line">from           xxx@hotmail.com</span><br><span class="line">user           xxx@hotmail.com</span><br><span class="line">password       xxxx</span><br><span class="line"></span><br><span class="line"># Set a default account</span><br><span class="line">account default : hotmail</span><br></pre></td></tr></table></figure>
+
+<p>这里踩的坑是外发邮箱的选择，一开始选了yandex，但这个邮箱的smtp不支持starttls，可以通过<code>tls_starttls   off</code>并设置端口为465解决予以解决，提示证书错可以通过<code>tls_certcheck  off</code>，更恶心的来了，yandex还会监控你的邮件内容，太过简单的内容会被认为是垃圾邮件而拒绝投递。无奈换了hotmail，豁然开朗！所有问题都不是问题了，所以，有时候，选择啊，比努力更重要XD。</p>
+<h2 id="1-3解决crontab任务持续报错的问题"><a href="#1-3解决crontab任务持续报错的问题" class="headerlink" title="1.3解决crontab任务持续报错的问题"></a>1.3解决crontab任务持续报错的问题</h2><p>这里设置的msmtp是为了让smartmontools发送错误信息，但crontab任务默认会将执行的结果发送给当用户（见<code>crontab -e</code>时最上边的那一串提示，<code>Output of the crontab jobs (including errors) is sent through email to the user the crontab file belongs to (unless redirected).</code>），因为没有本地邮件账户，会蹦出来好多错误日志，写入<code>/home/xxx/.msmtp.log</code>，不够美型。。</p>
+<p>解决方法:</p>
+<p>执行crontab任务时加上输出后缀即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0 2 * * * /home/backup.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>The <strong>&gt;&#x2F;dev&#x2F;null</strong> tells the cron to send all output (STDOUT) to &#x2F;dev&#x2F;null</p>
+</li>
+<li><p>The <strong>2&gt;$1</strong> tells the cron to send all errors (STDERR) to same as (STDOUT)</p>
+</li>
+</ul>
+<p>世界清净了！</p>
+<h2 id="1-4有的crontab想发送至本地账户怎么办？"><a href="#1-4有的crontab想发送至本地账户怎么办？" class="headerlink" title="1.4有的crontab想发送至本地账户怎么办？"></a>1.4有的crontab想发送至本地账户怎么办？</h2><p>摸索中。。。</p>
+<h1 id="2-smartmontools"><a href="#2-smartmontools" class="headerlink" title="2.smartmontools"></a>2.smartmontools</h1><h2 id="2-1安装smartmontools"><a href="#2-1安装smartmontools" class="headerlink" title="2.1安装smartmontools"></a>2.1安装smartmontools</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install smartmontools</span><br></pre></td></tr></table></figure>
+
+<p>配置文件在<code>/etc/smartd.conf</code>，配置重点有两个，</p>
+<ol>
+<li><p>#掉<code>DEVICESCAN</code>开头的命令，否则其下的命令都不会执行</p>
+</li>
+<li><p>最上边加入一行<code>/dev/sda -H -m xxx@hotmail.com</code></p>
+</li>
+</ol>
+<p>想测试可以在命令后加<code>-M test</code>,然后<code>sudo systemctl restart smartd</code>重启服务，看看会不会收到邮件。</p>
+<p>如前文提到的，这一步卡了很久，msmtp发送，smartd的配置看起来也很正常，就是发布出去邮件。搜索了很久，受一篇文章启发，利用<code>grep &quot;smartd&quot; /var/log/syslog*</code>查询日志，发现提示大意是没有mail命令啥的，意识到可能是有些前置问题没解决。。。</p>
+<p>再然后，发现安装bsd-mail即可解决，每个用户也有了自己的系统邮箱，输入mail即可查阅，这也是为什么smartd配置文档里<code>-m</code>后跟的不是邮件地址而是用户名的原因。</p>
+<p>另外，配置文件里的建议设置里写的是<code>/dev/sda -H -m root -c 0 -u 0</code>，-c和-u设置为零意思是不检测<code>pending sectors</code>和<code>uncorrectable sectors</code>。。。不知道文档作者是有什么特别的想法。。。至少我看到这俩提示了，还不赶快换硬盘，作死么？</p>
+<h1 id="3-参考链接"><a href="#3-参考链接" class="headerlink" title="3.参考链接"></a>3.参考链接</h1><p>1.<a href="https://www.smartmontools.org/browser/trunk/smartmontools/smartd.conf.5.in?order=name">smartd.conf.5.in</a></p>
+<p>2.<a href="https://wiki.archlinux.org/title/Msmtp">msmtp - ArchWiki (archlinux.org)</a></p>
+<p>3.<a href="https://blog.csdn.net/oMrApollo/article/details/72478000">( msmtp+mutt发送TLS邮件异常处理_Maxi的专栏-CSDN博客</a></p>
+<p>4.<a href="https://linuxconfig.org/how-to-configure-smartd-and-be-notified-of-hard-disk-problems-via-email">How to configure smartd and be notified of hard disk problems via email - Linux Tutorials - Learn Linux Configuration</a></p>
+<p>5.<a href="https://askubuntu.com/questions/623325/how-to-check-all-s-m-a-r-t-logs-location">14.04 - How to check all S.M.A.R.T. logs location - Ask Ubuntu</a></p>
+<p>6.<a href="https://unix.stackexchange.com/questions/640296/configuring-mail-command-to-use-msmtp">Configuring mail command to use msmtp - Unix &amp; Linux Stack Exchange</a>–提及bsd-mailx</p>
+<p>7.<a href="https://linux.cn/article-4461-1.html">系统运维|使用 smartmontools 查看硬盘的健康状态 (linux.cn)</a></p>
+<p>8.<a href="https://tecadmin.net/disable-crontab-output-email-notifications/">How To Disable Crontab Output and Email Notifications - TecAdmin</a></p>
+<p>9.<a href="https://www.cnblogs.com/tinywan/p/6025468.html">Shell脚本———— &#x2F;dev&#x2F;null 2&gt;&amp;1详解 - Tinywan - 博客园 (cnblogs.com)</a></p>
+<p>10.<a href="https://websistent.com/msmtp-cron/">How to Configure MSMTP for Cron - Jesin’s Blog (websistent.com)</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>harddriver</tag>
+        <tag>msmtps</tag>
+        <tag>smartmontools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简单在ubuntu下使用fail2ban</title>
+    <url>/ubuntu-fail2ban/</url>
+    <content><![CDATA[<p>这世道，家用动态ip都能被扫描暴力破解…没办法，研究了一下fail2ban的用法，记录一下。</p>
+<span id="more"></span>
+
+
+<h1 id="安装fail2ban"><a href="#安装fail2ban" class="headerlink" title="安装fail2ban"></a>安装fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install fail2ban</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl status fail2ban #查看状态</span><br><span class="line">sudo systemctl start fail2ban  #启动</span><br><span class="line">sudo systemctl enable fail2ban #开机启动</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置fail2ban"><a href="#设置fail2ban" class="headerlink" title="设置fail2ban"></a>设置fail2ban</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fail2ban按以下顺序读取配置文件。 每个.local文件都会覆盖.conf文件中的设置：</span><br><span class="line"></span><br><span class="line">/etc/fail2ban/jail.conf</span><br><span class="line">/etc/fail2ban/jail.d/*.conf</span><br><span class="line">/etc/fail2ban/jail.local</span><br><span class="line">/etc/fail2ban/jail.d/*.local</span><br></pre></td></tr></table></figure>
+
+<p>我的办法时直接编辑<code>/etc/fail2ban/jail.local</code>，其中的条目会覆盖jail.conf中的对应默认设置:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">bantime = 4w    #ban一个月</span><br><span class="line">findtime = 24h  #24小时区间检测</span><br><span class="line">maxretry = 3    #区间检测内最多可以错三次</span><br><span class="line"></span><br><span class="line">## ssh监控时默认开启的 </span><br></pre></td></tr></table></figure>
+
+<p>排除本地ip使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在[DEFAULT]下增加ignoreip = 127.0.0.1/8 ::1 123.123.123.123 192.168.1.0/24</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用fail2ban-client"><a href="#使用fail2ban-client" class="headerlink" title="使用fail2ban-client"></a>使用fail2ban-client</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo fail2ban-client status sshd                  #检查Jails状况</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd unbanip 23.34.45.56 #取消IP权限</span><br><span class="line"></span><br><span class="line">sudo fail2ban-client set sshd banip 23.34.45.56   #禁止IP</span><br><span class="line"></span><br><span class="line">sudo iptables --list -n                           </span><br><span class="line"># 由于fail2ban的&quot;ssh-iptables&quot;监狱使用iptables来阻塞问题IP地址，你可以通过以下方式来检测当前iptables来验证禁止规则</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看fail2ban-log"><a href="#查看fail2ban-log" class="headerlink" title="查看fail2ban.log"></a>查看fail2ban.log</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tail /var/log/fail2ban.log #查看最近的fail2ban执行情况</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref:"></a>ref:</h1><p><a href="https://www.myfreax.com/install-configure-fail2ban-on-ubuntu-20-04/">如何在Ubuntu 20.04上安装和配置Fail2ban (myfreax.com)</a></p>
+<p><a href="https://app.sanii.cn/?p=275">Linux防止ssh暴力破解常用方案 | SAnBlog (sanii.cn)</a></p>
+<p><a href="https://blog.csdn.net/weixin_43507959/article/details/102763985">ubuntu使用fail2ban防御ssh暴力破解_SitVen-CSDN博客</a></p>
+<p><a href="https://www.onitroad.com/jc/linux/linux/security/fail2ban.html">fail2ban安装和配置-之路教程 (onitroad.com)</a></p>
+]]></content>
+      <categories>
+        <category>Tutorial</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>fail2ban</tag>
       </tags>
   </entry>
   <entry>
@@ -1186,9 +1189,9 @@
 <p><a href="https://github.com/nginx-proxy/nginx-proxy#virtual-ports">When your container exposes only one port, nginx-proxy will default to this port, else to port 80.</a></p>
 </blockquote>
 <h2 id="new-version"><a href="#new-version" class="headerlink" title="new version:"></a>new version:</h2><p>新版的官方转发规则用了upstream的写法，比较麻烦，懒得研究相应的docker-nginx的写法了，期待大神补充</p>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref:"></a>ref:</h1><p><a href="https://github.com/nginx-proxy/nginx-proxy/wiki">Home · nginx-proxy/nginx-proxy Wiki (github.com)</a></p>
-<p><a href="https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples/cd0df09bd008698d6987eef1937de6364a564063">Old version of nginx proxy example · dani-garcia/vaultwarden Wiki (github.com)</a></p>
-<p><a href="https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples/cd0df09bd008698d6987eef1937de6364a564063">new version of nginx proxy example · dani-garcia/vaultwarden Wiki (github.com)</a></p>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref:"></a>ref:</h1><p><a href="https://github.com/nginx-proxy/nginx-proxy/wiki">Home · nginx-proxy&#x2F;nginx-proxy Wiki (github.com)</a></p>
+<p><a href="https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples/cd0df09bd008698d6987eef1937de6364a564063">Old version of nginx proxy example · dani-garcia&#x2F;vaultwarden Wiki (github.com)</a></p>
+<p><a href="https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples/cd0df09bd008698d6987eef1937de6364a564063">new version of nginx proxy example · dani-garcia&#x2F;vaultwarden Wiki (github.com)</a></p>
 <p><a href="https://github.com/dani-garcia/vaultwarden/wiki/Enabling-WebSocket-notifications">Enabling WebSocket notifications</a></p>
 <p><a href="https://stackoverflow.com/questions/39514293/docker-nginx-proxy-how-to-route-traffic-to-different-container-using-path-and-n">Docker Nginx Proxy: how to route traffic to different container using path and not hostname - Stack Overflow</a></p>
 ]]></content>
@@ -1222,7 +1225,7 @@
 <blockquote>
 <p>PENWRT基于LINUX，来源于电脑系统。LAN和WAN是指不同的防火墙分区（就像WINDOWS链接一个网络后让你选是连接到什么网络一个意思，但LINUX的防火墙分区概念原早于WIN）。而防火墙分区和物理网口既有关系又有很大的区别。一个物理网口可以通过VLAN划分绑定不同的防火墙分区，一个防火墙分区可以绑定多个物理网口。在路由系统里会针对不同的防火墙分区有不同的规则，而你还可以把LAN同时当做一个虚拟网卡来进行IP地址设置以及其他管理。</p>
 <p>OPENWRT默认物理网口绑定到LAN区域（也就是桥接），而LAN区域默认拥有路由远程管理权限。但在单臂路由时，由于一个物理网口同时要收发WAN区域流量和LAN区域流量，所以物理网口（eth0）需要取消桥接LAN。在eth0取消桥接LAN后，由于LAN区域已经不再有实际物理网口绑定，原虚拟网卡LAN的地址自动赋值给物理网口eth0，所以并不妨碍我们远程管理路由。但硬路由LAN桥接的eth0网卡有四个子接口（eth0.1-eth0.4），在取消桥接LAN后系统无法给4个子网卡自动设置IP，网卡没有设置IP，所以我们就不能远程管理路由了</p>
-<p>旁路由其实并不是传统意义上的路由，可以看做传统意义的V-P：N服务器，他只是作为一个服务器存在，所以他的防火墙区域主要是LAN和Vp?n，而V-P/N区域都是基于软件的，接口都是虚拟的，所以一般不会和LAN区域所桥接的接口有什么冲突。</p>
+<p>旁路由其实并不是传统意义上的路由，可以看做传统意义的V-P：N服务器，他只是作为一个服务器存在，所以他的防火墙区域主要是LAN和Vp?n，而V-P&#x2F;N区域都是基于软件的，接口都是虚拟的，所以一般不会和LAN区域所桥接的接口有什么冲突。</p>
 <p>在不桥接LAN接口的情况下，所有的数据包都需要通过程序判断识别为是LAN还是WAN数据包，然后再进一步处理，这会一定程度加重CPU负担，所以可能会有卡顿现象（CPU性能越弱就越明显）。而使用VLAN标识后可以很好解决这种现象，让网络拓扑更清晰，这也是单臂路由推荐的方式，只是需要管理型交换机才能完成。</p>
 </blockquote>
 <blockquote>
@@ -1234,7 +1237,7 @@
 <blockquote>
 <p>说一下我对桥接模式的理解;<br>理论上,桥接就是二层交换机.设为桥接,就是说虚拟出来一个交换机,把这个网口挂上去. 所以设置成桥接后,可选多个网口,这样相当与在内部,多个网口直连到同一个交换机上.<br>取消桥接后,每个接口都可以理解成一个三层口,你只有直连这个三层口,配上ip才能访问. 其他口都是相互独立的.所以连不上了.</p>
 <p>但是为何做旁路由都在强调取消桥接呢? 有的人说不取消也没事.有的人却强调取消. 我也是实验中发现一个其中的原因.</p>
-<p>先说结论: 这里的桥接和普通意义交换机有不同.因为它会arp劫持. 劫持非桥接网段的其他网段ip. 你要细品.再细品,不信就试试看.<br>举个例子:<br>家用互联网.一般不做vlan划分,如果同一个网络中使用两个不同网段ip. 比如上网的是192.168.1.0/24 家里的监控不联网,摄像头硬盘录像机使用192.168.2.0/24.<br>肯定有人说为啥不单独走线,两个网段在同一个网络中,ip广播怎么办.这些都不是一般用户考虑的事情.本身设备也不多呀. 但是当挂上openwrt后.故事就这样开始了.<br>openwrt lan口开桥接模式.ip 192.168.1.2/24 ,然后并到主网络中. 好吗,你会发现摄像头登录不上了. 不信邪.尝试改本机的ip为192.168.2.0/24 直连摄像头.可提示ip冲突. (winxp 会无法设置ip,ip会空. win7以上系统可以设置.单会提示ip冲突. )换个ip同样如此.<br>去openwrt看一下,发现arp出现了问题. 电脑设置的ip地址会备绑定在一个随机的mac上.所以才会提示ip冲突. 我只好把它理解成arp劫持. 它的网桥就是默认开启了这个功能.<br>如果网络中只有这一个网段,我所谓.但是要有其他网段.必须要关闭桥接模式.</p>
+<p>先说结论: 这里的桥接和普通意义交换机有不同.因为它会arp劫持. 劫持非桥接网段的其他网段ip. 你要细品.再细品,不信就试试看.<br>举个例子:<br>家用互联网.一般不做vlan划分,如果同一个网络中使用两个不同网段ip. 比如上网的是192.168.1.0&#x2F;24 家里的监控不联网,摄像头硬盘录像机使用192.168.2.0&#x2F;24.<br>肯定有人说为啥不单独走线,两个网段在同一个网络中,ip广播怎么办.这些都不是一般用户考虑的事情.本身设备也不多呀. 但是当挂上openwrt后.故事就这样开始了.<br>openwrt lan口开桥接模式.ip 192.168.1.2&#x2F;24 ,然后并到主网络中. 好吗,你会发现摄像头登录不上了. 不信邪.尝试改本机的ip为192.168.2.0&#x2F;24 直连摄像头.可提示ip冲突. (winxp 会无法设置ip,ip会空. win7以上系统可以设置.单会提示ip冲突. )换个ip同样如此.<br>去openwrt看一下,发现arp出现了问题. 电脑设置的ip地址会备绑定在一个随机的mac上.所以才会提示ip冲突. 我只好把它理解成arp劫持. 它的网桥就是默认开启了这个功能.<br>如果网络中只有这一个网段,我所谓.但是要有其他网段.必须要关闭桥接模式.</p>
 </blockquote>
 <p>无法判断那个下边说的劫持是否为真，不过我有遇到过虚拟机里的openwrt没有关dhcp，还是一个不同的网段（192.168.0.x），会在内网中抢答给新接入的设备分配到非192.168.1.x的地址，导致不能工作。</p>
 <p><strong>结论：单口的路由，虚拟旁路有，关闭与否没关系。但，不过点一下的事么，解除绑定吧。</strong></p>
@@ -1265,7 +1268,7 @@
 <p>另一个想法是，其他设备实际上与这个oepnwrt在一个子网的，不开启的时候，即使网关改为openwrt，地址转化还是受到主路由的影响，所以会有奇怪的不通现象吧。</p>
 <p><strong>结论：还是要开的。。。</strong></p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
-<li><a href="https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741">https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741</a></li>
+<li><a href="https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&t=1741">https://youtu.be/jXMgAz_GQxI?list=RDCMUCOhkliOps3IS48ly-MgPC2A&amp;t=1741</a></li>
 <li><a href="https://www.right.com.cn/forum/thread-4031598-1-1.html">lan物理设置中的桥接接口到底怎么用-软路由,x86系统,openwrt(x86),Router OS 等-恩山无线论坛 (right.com.cn)</a></li>
 <li><a href="https://www.right.com.cn/forum/thread-7817323-1-1.html">openwrt旁路由该如何设置？（动态伪装相关）-OPENWRT专版-恩山无线论坛 (right.com.cn)</a> </li>
 <li>[<a href="https://openwrt.org/zh/docs/guide-developer/networking/network.interfaces">OpenWrt Wiki] Linux 网络接口(Network Interfaces)</a></li>

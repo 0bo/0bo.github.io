@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -263,14 +263,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>1.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -285,22 +285,24 @@
 
 <p>[toc]</p>
 <h1 id="unix-socket还是tcp-sock？"><a href="#unix-socket还是tcp-sock？" class="headerlink" title="unix socket还是tcp sock？"></a>unix socket还是tcp sock？</h1><h2 id="TCP-socket"><a href="#TCP-socket" class="headerlink" title="TCP socket"></a>TCP socket</h2><ol>
-<li><p>编辑/etc/nginx/sites-available/default：</p>
+<li><p>编辑&#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;default：</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">	  index index.php index.html index.htm;</span><br><span class="line">	  include /etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">	  fastcgi_index index.php;</span><br><span class="line">	  include fastcgi_params;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>编辑/etc/php5/fpm/pool.d/<a href="http://www.conf中的参数listen：">www.conf中的参数listen：</a></p>
+<li><p>编辑&#x2F;etc&#x2F;php5&#x2F;fpm&#x2F;pool.d&#x2F;<a href="http://www.conf中的参数listen：">www.conf中的参数listen：</a></p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen=127.0.0.1:9000</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="unix-socket"><a href="#unix-socket" class="headerlink" title="unix socket"></a>unix socket</h2><ol>
 <li><p>创建socket接口位置</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chown www-data:www-data /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chmod 666 /dev/shm/fpm-cgi.sock</span><br></pre></td></tr></table></figure>
 
-<p> dev/shm目录是所谓的tmpfs，是RAM可以直接使用的区域，读写速度会快一些。</p>
+<p> dev&#x2F;shm目录是所谓的tmpfs，是RAM可以直接使用的区域，读写速度会快一些。</p>
 </li>
-<li><p>编辑/etc/php5/fpm/pool.d/<a href="http://www.conf中的参数：">www.conf中的参数：</a></p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">listen=/dev/shm/fpm-cgi.sock</span><br><span class="line"></span><br><span class="line">; Set listen(2) backlog. A value of &#x27;-1&#x27; means unlimited.</span><br><span class="line">; Default Value: 128 (-1 on FreeBSD and OpenBSD) </span><br><span class="line">; 内存积压，默认是128，并发高了之后就会报错,根据自己内存设置</span><br><span class="line">listen.backlog = 128</span><br></pre></td></tr></table></figure></li>
-<li><p>编辑/etc/nginx/sites-available/default：</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location~\.php$&#123;</span><br><span class="line">	  indexindex.phpindex.htmlindex.htm;</span><br><span class="line">	  include/etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_passunix:/dev/shm/fpm-cgi.sock;</span><br><span class="line">	  fastcgi_indexindex.php;</span><br><span class="line">	  includefastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>修改/etc/sysctl.conf配置，提高内核级别的并发连接数</p>
+<li><p>编辑&#x2F;etc&#x2F;php5&#x2F;fpm&#x2F;pool.d&#x2F;<a href="http://www.conf中的参数：">www.conf中的参数：</a></p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">listen=/dev/shm/fpm-cgi.sock</span><br><span class="line"></span><br><span class="line">; Set listen(2) backlog. A value of &#x27;-1&#x27; means unlimited.</span><br><span class="line">; Default Value: 128 (-1 on FreeBSD and OpenBSD) </span><br><span class="line">; 内存积压，默认是128，并发高了之后就会报错,根据自己内存设置</span><br><span class="line">listen.backlog = 128</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑&#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;default：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location~\.php$&#123;</span><br><span class="line">	  indexindex.phpindex.htmlindex.htm;</span><br><span class="line">	  include/etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_passunix:/dev/shm/fpm-cgi.sock;</span><br><span class="line">	  fastcgi_indexindex.php;</span><br><span class="line">	  includefastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改&#x2F;etc&#x2F;sysctl.conf配置，提高内核级别的并发连接数</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">	net.core.somaxconn = 2048</span><br><span class="line"></span><br><span class="line">	sudo sysctl -p</span><br><span class="line">	````</span><br><span class="line"></span><br><span class="line">5. 重启nginx和php-fpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 两种区别</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">从原理上来说，unix socket方式肯定要比tcp的方式快而且消耗资源少，因为socket之间在nginx和php-fpm的进程之间通信，而tcp需要经过本地回环驱动，还要申请临时端口和tcp相关资源。</span></span><br><span class="line">当然还是从原理上来说，unix socket会显得不是那么稳定，当并发连接数爆发时，会产生大量的长时缓存，在没有面向连接协议支撑的情况下，大数据包很有可能就直接出错并不会返回异常。而TCP这样的面向连接的协议，多少可以保证通信的正确性和完整性。</span><br><span class="line">当然以上主要是半懂不懂的理论分析加主观臆测，具体的差别还是要通过测试数据来说话，以后有空，会进行这方面的测试。从网上别人博客的测试数据，我的理论分析差不多是对的。至于你选择哪种方式，我只能说“鱼和熊掌不可兼得也”，通过高超的运维和配置技巧，在性能和稳定性上做一个平衡吧。</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">楼主，你确定socket比tcp要好吗？我之前也是这么认为的，但是今天做压测的时候就发现tcp比socket稳定多了 同样的并发，超过某个数量的时候，socket就一直报：connect()to unix:/dev/shm/php55-socket failed (11: Resource temporarily unavailable。。。报错率大概是15%的样子，但是查看一些资料发现，tcp比socket这方面稳定，故改tcp，发现基本没有报错了。同样的并发下，起码出现502的几率相对减少，所以我还是改tcp了。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">php-fpm进程数的优化 [php-fpm进程数设置多少合适](https://zhuanlan.zhihu.com/p/94627701)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 了解参数</span></span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">需要了解的参数是：pm、pm.max_children、pm.start_servers、pm.min_spare_servers、pm.max_spare_servers。</span><br><span class="line"></span><br><span class="line">pm：表示使用那种方式，有两个值可以选择，就是static（静态）或者dynamic（动态）。</span><br><span class="line"></span><br><span class="line">在更老一些的版本中，dynamic被称作apache-like。这个要注意看配置文件的说明。</span><br><span class="line"></span><br><span class="line">下面5个参数的意思分别为：</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">pm = dynamic 如何控制子进程，选项有static和dynamic    </span><br><span class="line">pm.max_children：静态方式下开启的php-fpm进程数量    </span><br><span class="line">pm.max_requests：php-fpm子进程能处理的最大请求数    </span><br><span class="line">pm.start_servers：动态方式下的起始php-fpm进程数量</span><br><span class="line">pm.min_spare_servers：动态方式下的最小php-fpm进程数</span><br><span class="line">pm.max_spare_servers：动态方式下的最大php-fpm进程数量</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>如果dm设置为 static，那么其实只有pm.max_children这个参数生效。系统会开启设置数量的php-fpm进程。</p>
@@ -311,7 +313,7 @@
 <p>在php的运行中，无非是两种场景</p>
 <ol>
 <li>大运算的场景，即 php程序需要用大量的cpu资源来进行数据计算之类的操作，在这种场景下，fpm进程可以设置为cpu数量的一倍或者两倍</li>
-<li>高io场景，php的使用场景中（最起码是本电商场景中）基本上属于高io，因为程序花了大量的时间在等待redis返回等待数据库返回。高io场景下，因为cpu大多处在wa状态下，所以可以尽量的加大fpm进程数，所以这个时候使用内存/30m是更为合理的</li>
+<li>高io场景，php的使用场景中（最起码是本电商场景中）基本上属于高io，因为程序花了大量的时间在等待redis返回等待数据库返回。高io场景下，因为cpu大多处在wa状态下，所以可以尽量的加大fpm进程数，所以这个时候使用内存&#x2F;30m是更为合理的</li>
 </ol>
 <p>经过我们自己真实压测，大量redis和mysql读写的io密集情况下，16G的内存，fpm我们设置为400个的时候qps比fpm 16个 32个要好不少</p>
 <h1 id="php-ini调优"><a href="#php-ini调优" class="headerlink" title="php.ini调优"></a>php.ini调优</h1><h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>php.ini中的 memory_limit设置用于设定单个 PHP 进程可以使用的系统内存最大值。</p>
@@ -406,14 +408,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">35k</span>
+    <span title="站点总字数">36k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:03</span>
+    <span title="站点阅读时长">1:05</span>
   </span>
 </div>
 <div class="busuanzi-count">
