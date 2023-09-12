@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"starv.eu","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前段时间买了个android电视盒子，在家中服务器上开启了共享，之前没有问题，突然有天win10升级，之后就各种诡异。共享的盘符，随即出现一个或多个无法访问，具体表现就是共享文件夹点了没有反应，而同时win电脑则可以访问。换了android手机用es文件管理器同样无法访问，也没有错误提示。 后来想了个办法，整个文件夹复制到手机，终于看到了错误提示代码 (0xC0000205)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android电视盒子无法打开win10共享文件夹">
+<meta property="og:url" content="https://starv.eu/0xc0000205-android-shared-folder/index.html">
+<meta property="og:site_name" content="0bo">
+<meta property="og:description" content="前段时间买了个android电视盒子，在家中服务器上开启了共享，之前没有问题，突然有天win10升级，之后就各种诡异。共享的盘符，随即出现一个或多个无法访问，具体表现就是共享文件夹点了没有反应，而同时win电脑则可以访问。换了android手机用es文件管理器同样无法访问，也没有错误提示。 后来想了个办法，整个文件夹复制到手机，终于看到了错误提示代码 (0xC0000205)。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-01-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-01-22T16:00:00.000Z">
+<meta property="article:author" content="Colin">
+<meta property="article:tag" content="win10">
+<meta property="article:tag" content="error">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="tvbox">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://starv.eu/0xc0000205-android-shared-folder/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://starv.eu/0xc0000205-android-shared-folder/","path":"0xc0000205-android-shared-folder/","title":"android电视盒子无法打开win10共享文件夹"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>android电视盒子无法打开win10共享文件夹 | 0bo</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDSVLMHFZ3"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-HDSVLMHFZ3","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9f828f4eb77d5d2b4a77d456c306faa8"></script>
+
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;9d54a4e47d7b49d89d5f1ef3eda8cd78&quot;}'></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">0bo</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Colin"
+      src="/images/myavatar.gif">
+  <p class="site-author-name" itemprop="name">Colin</p>
+  <div class="site-description" itemprop="description">记录我的科技生活、问题解决、学习、探索以及思考。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/0bo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;0bo" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:colin@starv.eu" title="E-Mail → mailto:colin@starv.eu" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://starv.eu/0xc0000205-android-shared-folder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/myavatar.gif">
+      <meta itemprop="name" content="Colin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0bo">
+      <meta itemprop="description" content="记录我的科技生活、问题解决、学习、探索以及思考。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="android电视盒子无法打开win10共享文件夹 | 0bo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          android电视盒子无法打开win10共享文件夹
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-23T00:00:00+08:00">2018-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ECM/" itemprop="url" rel="index"><span itemprop="name">ECM</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>582</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>前段时间买了个android电视盒子，在家中服务器上开启了共享，之前没有问题，突然有天win10升级，之后就各种诡异。共享的盘符，随即出现一个或多个无法访问，具体表现就是共享文件夹点了没有反应，而同时win电脑则可以访问。换了android手机用es文件管理器同样无法访问，也没有错误提示。</p>
+<p>后来想了个办法，整个文件夹复制到手机，终于看到了错误提示代码 (0xC0000205)。</p>
+<span id="more"></span>
+
+<p>查了无数资料，百度无望，都是在说改权限，但我的设置没有问题。最后在谷歌上搜了好久，一个<a target="_blank" rel="noopener" href="https://www.tenforums.com/network-sharing/43931-samba-access-android-device-stopped-working-post885824.html?s=62a07bacd1f654ea36105f0a2d60cbe7#post885824">论坛回复</a>给出了正解。</p>
+<p>So follow the link and add the new <code>IRPStackSize DWORD</code> in</p>
+<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters</code></p>
+<p>and set the value to <code>50</code> works for me. Hope this helps other people.</p>
+<p>注意，50是十进制数</p>
+<p>他注册论坛为了分享，我注册论坛，为了感谢他。</p>
+<p>也希望能帮到需要的人吧.</p>
+<hr>
+<p>2018.11.1 在“程序和功能”-“启动或关闭windows功能”-“SMB1.0XX”开启。</p>
+<hr>
+<p>2019.5.3 another <a target="_blank" rel="noopener" href="https://forum.kodi.tv/showthread.php?tid=304203">link</a> may be helpful.</p>
+<ol>
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Click on Connections:Ethernet</span><br><span class="line">Click on Properties button (lower left)</span><br><span class="line">Double click internet Protocol Version 4 (TCP/IPv4)</span><br><span class="line">Click Advanced Button lower right</span><br><span class="line">Click the WINS tab</span><br><span class="line">Click the radio button to Enable NetBios over TCP/IP</span><br></pre></td></tr></table></figure>
+
+<p>2.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">I could not get the sc config command (or sc.exe in Powershell) to achieve the result I desired, so I resorted to two registry edits and a reboot.  See new steps below. Try this:</span><br><span class="line">1. Run &quot;tasklist /svc&quot;</span><br><span class="line">In the output, you should see something like this: Browser and LanmanServer running in their own svchost processes. *Sample output below is abbreviated for illustration purposes. You will see a longer list.Image Name                     PID Services</span><br><span class="line">========================= ======== ==============</span><br><span class="line">svchost.exe                   2772 LanmanServer</span><br><span class="line">svchost.exe                   2868 Browser</span><br><span class="line"></span><br><span class="line">2. Run these two commands to add the SvcHostSplitDisable registry value set to 1.</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Browser /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer /v SvcHostSplitDisable /t REG_DWORD /d 1 /f</span><br><span class="line"></span><br><span class="line">This will reconfigure the Browser service to run in a shared svchost with LanmanServer like in previous versions of Windows.</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Create a user profile with password in Windows 10. It&#x27;s not wise to use your main Windows admin profile as Kodi will leak this password in plain text.</span><br><span class="line"></span><br><span class="line">Make sure your media folder is shared to this user. I will presume you know how to set up a Windows share.</span><br><span class="line"></span><br><span class="line">Install Kodi v.18. Until Microsoft fixes SMB v.1 (maybe in June), you cannot share to earlier builds.</span><br><span class="line"></span><br><span class="line">(More info: https://support.microsoft.com/en-us/help...-kb4103721 )</span><br><span class="line"></span><br><span class="line">In Kodi &gt; Settings &gt; Services &gt; SMB &gt; Default settings (min none, max v.3).</span><br><span class="line"></span><br><span class="line">In Kodi File Manager &gt; Add Source &gt; Browse &gt; Add Network Location &gt; (Protocol SMB) &gt; Enter fields: Server Name, Shared Folder, Username, Password (do no attempt to browse there).</span><br><span class="line"></span><br><span class="line">Once you&#x27;ve succeeded in creating a link to your shared folder you can choose it as an Add Source shortcut for all media.</span><br><span class="line"></span><br><span class="line">NB: Make sure you instruct Kodi to remember your password.</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li></li>
+</ol>
+<p><strong>Don’t use USB Hub to connect your hard driver!!</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Colin
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://starv.eu/0xc0000205-android-shared-folder/" title="android电视盒子无法打开win10共享文件夹">https://starv.eu/0xc0000205-android-shared-folder/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/win10/" rel="tag"># win10</a>
+              <a href="/tags/error/" rel="tag"># error</a>
+              <a href="/tags/android/" rel="tag"># android</a>
+              <a href="/tags/tvbox/" rel="tag"># tvbox</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/who-will-you-call/" rel="prev" title="你会打电话给谁？">
+                  <i class="fa fa-angle-left"></i> 你会打电话给谁？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/qbittorrent-libtorrent-rasterbar-so-7/" rel="next" title="debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决">
+                  debian8编译qbittorrent提示libtorrent-rasterbar.so.7缺失的解决 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Colin</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">35k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:03</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"0bo/comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

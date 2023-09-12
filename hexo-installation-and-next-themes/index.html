@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"starv.eu","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="网上这样的垃圾帖子估计没上万，但上千总有的吧，为什么我又搞一篇出来？ 这个问题问的好，其他写类似主题的人中有不少也应该想过这个问题，最终还是决定要写自己的一篇。除了专门为了生产垃圾信息的AI人以外，剩下的，应该都是遇到了”奇怪的问题”，最终觉得还是有必要写出来记录下。 这种想法在我过去六年接触Linux开始，体会是越来越深。Linux开源的系统赋予程序员么近乎无限的自由，但无助于解决碎片化的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="又一个Win10安装hexo及主题的记录">
+<meta property="og:url" content="https://starv.eu/hexo-installation-and-next-themes/index.html">
+<meta property="og:site_name" content="0bo">
+<meta property="og:description" content="网上这样的垃圾帖子估计没上万，但上千总有的吧，为什么我又搞一篇出来？ 这个问题问的好，其他写类似主题的人中有不少也应该想过这个问题，最终还是决定要写自己的一篇。除了专门为了生产垃圾信息的AI人以外，剩下的，应该都是遇到了”奇怪的问题”，最终觉得还是有必要写出来记录下。 这种想法在我过去六年接触Linux开始，体会是越来越深。Linux开源的系统赋予程序员么近乎无限的自由，但无助于解决碎片化的问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-19T16:00:00.000Z">
+<meta property="article:author" content="Colin">
+<meta property="article:tag" content="error,科技,nas">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://starv.eu/hexo-installation-and-next-themes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://starv.eu/hexo-installation-and-next-themes/","path":"hexo-installation-and-next-themes/","title":"又一个Win10安装hexo及主题的记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>又一个Win10安装hexo及主题的记录 | 0bo</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDSVLMHFZ3"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-HDSVLMHFZ3","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9f828f4eb77d5d2b4a77d456c306faa8"></script>
+
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;9d54a4e47d7b49d89d5f1ef3eda8cd78&quot;}'></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">0bo</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-hexo%E7%9A%84%E8%BF%90%E8%A1%8C%E5%9F%BA%E7%A1%80"><span class="nav-text">1. hexo的运行基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85hexo"><span class="nav-text">2. 安装hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96hexo"><span class="nav-text">3. 初始化hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98"><span class="nav-text">4. 安装主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E5%BB%BA%E7%AB%8Btags%E3%80%81categories%E3%80%81404%E9%A1%B5%E9%9D%A2"><span class="nav-text">5. 建立tags、categories、404页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E6%8D%A2gitignore"><span class="nav-text">6.换gitignore</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E6%8E%A8%E9%80%81%E6%BA%90%E7%A0%81%E8%87%B3github"><span class="nav-text">7.推送源码至github</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF-%E2%89%88-NaN-aN"><span class="nav-text">8. 阅读时长 ≈ NaN:aN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-%E9%83%A8%E7%BD%B2"><span class="nav-text">9. 部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-hexo-deployer"><span class="nav-text">9.1 hexo deployer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-hexo-action"><span class="nav-text">9.2 hexo-action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-vercel"><span class="nav-text">9.3 vercel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-hexo-word-counter%E4%B8%AD%E7%9A%84post%E5%9B%BE%E6%A0%87%E9%80%89%E9%A1%B9"><span class="nav-text">10. hexo-word-counter中的post图标选项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-hexo-%E6%96%87%E7%AB%A0%E5%88%9B%E5%BB%BA%E6%97%B6%E9%97%B4%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4"><span class="nav-text">11.hexo 文章创建时间与更新时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-powershell%E4%B8%8B%E4%BD%BF%E7%94%A8hexo%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E2%80%9D%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC%E2%80%9D"><span class="nav-text">12.powershell下使用hexo命令提示”此系统上禁止运行脚本”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-%E5%81%9C%E6%AD%A2%E7%9B%AE%E5%BD%95%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7"><span class="nav-text">13.停止目录自动编号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Changelog"><span class="nav-text">Changelog</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Colin"
+      src="/images/myavatar.gif">
+  <p class="site-author-name" itemprop="name">Colin</p>
+  <div class="site-description" itemprop="description">记录我的科技生活、问题解决、学习、探索以及思考。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/0bo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;0bo" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:colin@starv.eu" title="E-Mail → mailto:colin@starv.eu" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://starv.eu/hexo-installation-and-next-themes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/myavatar.gif">
+      <meta itemprop="name" content="Colin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0bo">
+      <meta itemprop="description" content="记录我的科技生活、问题解决、学习、探索以及思考。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="又一个Win10安装hexo及主题的记录 | 0bo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          又一个Win10安装hexo及主题的记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-20T00:00:00+08:00">2021-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tutorial/" itemprop="url" rel="index"><span itemprop="name">Tutorial</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>网上这样的垃圾帖子估计没上万，但上千总有的吧，为什么我又搞一篇出来？</p>
+<p>这个问题问的好，其他写类似主题的人中有不少也应该想过这个问题，最终还是决定要写自己的一篇。除了专门为了生产垃圾信息的<del>AI</del>人以外，剩下的，应该都是遇到了”奇怪的问题”，最终觉得还是有必要写出来记录下。</p>
+<p>这种想法在我过去六年接触Linux开始，体会是越来越深。Linux开源的系统赋予程序员么近乎无限的自由，但无助于解决碎片化的问题。特别是当涉及缺乏利益驱动的免费开源程序时，当“爱”用尽时，自然留下了烂摊子。</p>
+<p>即使不是烂摊子，那些相互之间的依赖，嵌套着的程序，对于最终使用者来说，在不同的环境下，还是会遇到开发者们感觉“匪夷所思”的问题。</p>
+<p>怎么办？</p>
+<p>写到这里再想想，可能所有教程都会遇到上边的问题吧，只是在Linux这个平台上，这这样的情况相对突出一些罢了。</p>
+<p>根本原因在于这种比较复杂麻烦的事，必须做，但不需要经常做，但只做一次最终肯定会忘，而忘记了必然有一天需要还的，怎么办？<strong>写个教程教未来的自己吧！着重记录原理，提及踩的坑，下次可以立即上手就好。</strong></p>
+<p>本着这样的精神，以下开始教程啦：</p>
+<span id="more"></span>
+
+<h1 id="1-hexo的运行基础"><a href="#1-hexo的运行基础" class="headerlink" title="1. hexo的运行基础"></a>1. hexo的运行基础</h1><p>hexo作为一个JS程序，想跑起来，根据官网，至少需要Node.js和Git，下载安装即可，我用的LTS版本。Node.js安装时还会安装chocolatey，记得机器科学上网，当然，即使科学了，用时也很长。为了节省时间，装好了赶紧蹭蹭首富的光吧。</p>
+<p>切换npm镜像地址的程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org install node-red-contrib-composer@latest #临时使用淘宝源</span><br><span class="line"></span><br><span class="line">npm config set registry https://registry.npm.taobao.org #全局配置切换到淘宝源</span><br><span class="line"></span><br><span class="line"># npm config set registry http://www.npmjs.org #全局配置切换到官方源</span><br><span class="line"></span><br><span class="line">npm info hexo-cli #检测是否切换到了淘宝源</span><br></pre></td></tr></table></figure>
+
+<p>如果安装过程中没有选择windows组件，那么安装node.js后可以在管理员权限下的PowerShell中输入<code>npm install -g windows-build-tools</code></p>
+<p>也可以自己安装，<a target="_blank" rel="noopener" href="https://github.com/nodejs/node-gyp">相关教程</a></p>
+<h1 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2. 安装hexo"></a>2. 安装hexo</h1><p>使用Node.js的包管理器安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意！是<em>hexo-cli</em>，不是hexo！！</strong></p>
+<p><code>-g</code>这个扩展表示把hexo安装成为全局程序，使命令行全局可用<code>hexo</code>命令。用<code>-S</code>则不能，另外powershell不行，用cmd吧。</p>
+<p>此外，相应的还有如下几种选择：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">npm install X -g</span><br><span class="line">安装模块到全局，不会在项目node_modules目录中保存模块包。</span><br><span class="line">不会将模块依赖写入devDependencies或dependencies 节点。</span><br><span class="line">运行 npm install 初始化项目时不会下载模块。</span><br><span class="line">具体想知道装在哪里，可以npm config ls，安装完成后也会显示位置。</span><br><span class="line"></span><br><span class="line">npm install X</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">不会修改package.json</span><br><span class="line">之后运行npm install命令时，不会自动安装X</span><br><span class="line"></span><br><span class="line">npm install X --save  同  npm install X -S</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">会在package.json的dependencies属性下添加X</span><br><span class="line">之后运行npm install命令时，会自动安装X到node_modules目录中</span><br><span class="line">之后运行npm install --production或者注明NODE_ENV变量值为production时，会自动安装msbuild到node_modules目录中,即是在线上环境运行时会将包安装</span><br><span class="line"></span><br><span class="line">npm install X –save-dev  同  npm install X -D</span><br><span class="line">会把X包安装到node_modules目录中</span><br><span class="line">会在package.json的devDependencies属性下添加X</span><br><span class="line">之后运行npm install命令时，会自动安装X到node_modules目录中</span><br><span class="line">之后运行npm install –production或者注明NODE_ENV变量值为production时，不会自动安装X到node_modules目录中</span><br><span class="line"></span><br><span class="line">使用原则:</span><br><span class="line">devDependencies 节点下的模块是我们在开发时需要用的，比如项目中使用的 gulp ，压缩css、js的模块。这些模块在我们的项目部署后是不需要的，所以我们可以使用--save-dev的形式安装。像 express 这些模块是项目运行必备的，应该安装在 dependencies 节点下，所以我们应该使用--save的形式安装。</span><br><span class="line"></span><br><span class="line">总结为一句话：运行时需要用到的包使用––save，否则使用––save-dev。</span><br><span class="line"></span><br><span class="line">作者：JuanitaLee</span><br><span class="line">链接：https://www.jianshu.com/p/920c1a6e999c</span><br><span class="line">来源：简书</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-初始化hexo"><a href="#3-初始化hexo" class="headerlink" title="3. 初始化hexo"></a>3. 初始化hexo</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt; # 创建网站目录，并从github上pull模板下来</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install # 根据模板的package，安装各种模块</span><br></pre></td></tr></table></figure>
+
+<p>安装好后，会提示你<code>xx packages are looking for funding</code>。这里没有其他意思，真的是字面上的意思，有xx个包的开发者正在寻求资金支持，输入<code>npm fund</code>就可找到详细的链接了，如果有意愿和余力，当然是鼓励支持呀！</p>
+<p>如果不想看到这段话。。。就运行<code>npm install --no-fund</code></p>
+<h1 id="4-安装主题"><a href="#4-安装主题" class="headerlink" title="4. 安装主题"></a>4. 安装主题</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -S hexo-theme-next@latest # 安装next主题</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">npm install -S hexo-theme-icarus <span class="comment"># 安装icarus主题</span></span></span><br></pre></td></tr></table></figure>
+
+<p>创建<del><code>_config.icarus.yml</code>和</del><code>_config.next.yml</code>配置文件</p>
+<p><code>_config.yml</code>是站点设置，<code>_config.xx.yml</code>是对应的主题设置。</p>
+<h1 id="5-建立tags、categories、404页面"><a href="#5-建立tags、categories、404页面" class="headerlink" title="5. 建立tags、categories、404页面"></a>5. 建立tags、categories、404页面</h1><p>Next主题设置页面中明确提示了：</p>
+<blockquote>
+<p>Except <code>home</code> and <code>archives</code>, all custom pages under <code>menu</code> section need to be created manually. See <a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/theme-settings/custom-pages.html">«Custom Page Support»</a>.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo new page 404</span><br><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+<h1 id="6-换gitignore"><a href="#6-换gitignore" class="headerlink" title="6.换gitignore"></a>6.换gitignore</h1><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><span class="line"># Hexo init</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># General</span><br><span class="line">.DS_Store</span><br><span class="line">.AppleDouble</span><br><span class="line">.LSOverride</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Thumbnails</span><br><span class="line">._*</span><br><span class="line"></span><br><span class="line"># Files that might appear in the root of a volume</span><br><span class="line">.DocumentRevisions-V100</span><br><span class="line">.fseventsd</span><br><span class="line">.Spotlight-V100</span><br><span class="line">.TemporaryItems</span><br><span class="line">.Trashes</span><br><span class="line">.VolumeIcon.icns</span><br><span class="line">.com.apple.timemachine.donotpresent</span><br><span class="line"></span><br><span class="line"># Directories potentially created on remote AFP share</span><br><span class="line">.AppleDB</span><br><span class="line">.AppleDesktop</span><br><span class="line">Network Trash Folder</span><br><span class="line">Temporary Items</span><br><span class="line">.apdisk</span><br><span class="line"></span><br><span class="line"># Windows thumbnail cache files</span><br><span class="line">Thumbs.db</span><br><span class="line">ehthumbs.db</span><br><span class="line">ehthumbs_vista.db</span><br><span class="line"></span><br><span class="line"># Dump file</span><br><span class="line">*.stackdump</span><br><span class="line"></span><br><span class="line"># Folder config file</span><br><span class="line">Desktop.ini</span><br><span class="line"></span><br><span class="line"># Recycle Bin used on file shares</span><br><span class="line">$RECYCLE.BIN/</span><br><span class="line"></span><br><span class="line"># Windows Installer files</span><br><span class="line">*.cab</span><br><span class="line">*.msi</span><br><span class="line">*.msm</span><br><span class="line">*.msp</span><br><span class="line"></span><br><span class="line"># Windows shortcuts</span><br><span class="line">*.lnk</span><br><span class="line"></span><br><span class="line">*~</span><br><span class="line"></span><br><span class="line"># temporary files which can be created if a process still has a handle open of a deleted file</span><br><span class="line">.fuse_hidden*</span><br><span class="line"></span><br><span class="line"># KDE directory preferences</span><br><span class="line">.directory</span><br><span class="line"></span><br><span class="line"># Linux trash folder which might appear on any partition or disk</span><br><span class="line">.Trash-*</span><br><span class="line"></span><br><span class="line"># .nfs files are created when an open file is removed but is still being accessed</span><br><span class="line">.nfs*</span><br><span class="line"></span><br><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line">yarn-debug.log*</span><br><span class="line">yarn-error.log*</span><br><span class="line"></span><br><span class="line"># Runtime data</span><br><span class="line">pids</span><br><span class="line">*.pid</span><br><span class="line">*.seed</span><br><span class="line">*.pid.lock</span><br><span class="line"></span><br><span class="line"># Directory for instrumented libs generated by jscoverage/JSCover</span><br><span class="line">lib-cov</span><br><span class="line"></span><br><span class="line"># Coverage directory used by tools like istanbul</span><br><span class="line">coverage</span><br><span class="line"></span><br><span class="line"># nyc test coverage</span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"># Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)</span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"># Bower dependency directory (https://bower.io/)</span><br><span class="line">bower_components</span><br><span class="line"></span><br><span class="line"># node-waf configuration</span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"># Compiled binary addons (https://nodejs.org/api/addons.html)</span><br><span class="line">build/Release</span><br><span class="line"></span><br><span class="line"># Dependency directories</span><br><span class="line">node_modules/</span><br><span class="line">jspm_packages/</span><br><span class="line"></span><br><span class="line"># Typescript v1 declaration files</span><br><span class="line">typings/</span><br><span class="line"></span><br><span class="line"># Optional npm cache directory</span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"># Optional eslint cache</span><br><span class="line">.eslintcache</span><br><span class="line"></span><br><span class="line"># Optional REPL history</span><br><span class="line">.node_repl_history</span><br><span class="line"></span><br><span class="line"># Output of &#x27;npm pack&#x27;</span><br><span class="line">*.tgz</span><br><span class="line"></span><br><span class="line"># Yarn Integrity file</span><br><span class="line">.yarn-integrity</span><br><span class="line"></span><br><span class="line"># dotenv environment variables file</span><br><span class="line">.env</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.vscode/*</span><br><span class="line">!.vscode/settings.json</span><br><span class="line">!.vscode/tasks.json</span><br><span class="line">!.vscode/launch.json</span><br><span class="line">!.vscode/extensions.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*.gem</span><br><span class="line">*.rbc</span><br><span class="line">/.config</span><br><span class="line">/coverage/</span><br><span class="line">/InstalledFiles</span><br><span class="line">/pkg/</span><br><span class="line">/spec/reports/</span><br><span class="line">/spec/examples.txt</span><br><span class="line">/test/tmp/</span><br><span class="line">/test/version_tmp/</span><br><span class="line">/tmp/</span><br><span class="line"></span><br><span class="line"># Used by dotenv library to load environment variables.</span><br><span class="line"># .env</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion:</span><br><span class="line">.dat*</span><br><span class="line">.repl_history</span><br><span class="line">build/</span><br><span class="line">*.bridgesupport</span><br><span class="line">build-iPhoneOS/</span><br><span class="line">build-iPhoneSimulator/</span><br><span class="line"></span><br><span class="line">## Specific to RubyMotion (use of CocoaPods):</span><br><span class="line">#</span><br><span class="line"># We recommend against adding the Pods directory to your .gitignore. However</span><br><span class="line"># you should judge for yourself, the pros and cons are mentioned at:</span><br><span class="line"># https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control</span><br><span class="line">#</span><br><span class="line"># vendor/Pods/</span><br><span class="line"></span><br><span class="line">## Documentation cache and generated files:</span><br><span class="line">/.yardoc/</span><br><span class="line">/_yardoc/</span><br><span class="line">/doc/</span><br><span class="line">/rdoc/</span><br><span class="line"></span><br><span class="line">## Environment normalization:</span><br><span class="line">/.bundle/</span><br><span class="line">/vendor/bundle</span><br><span class="line">/lib/bundler/man/</span><br><span class="line"></span><br><span class="line"># for a library or gem, you might want to ignore these files since the code is</span><br><span class="line"># intended to run in multiple environments; otherwise, check them in:</span><br><span class="line"># Gemfile.lock</span><br><span class="line"># .ruby-version</span><br><span class="line"># .ruby-gemset</span><br><span class="line"></span><br><span class="line"># unless supporting rvm &lt; 1.11.0 or doing something fancy, ignore this:</span><br><span class="line">.rvmrc</span><br><span class="line"></span><br><span class="line"># jekyll</span><br><span class="line">Gemfile.lock</span><br><span class="line">package-lock.json</span><br><span class="line">_site/</span><br><span class="line">.sass-cache/</span><br><span class="line">.jekyll-metadata</span><br><span class="line"></span><br><span class="line">_drafts/</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-推送源码至github"><a href="#7-推送源码至github" class="headerlink" title="7.推送源码至github"></a>7.推送源码至github</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-阅读时长-≈-NaN-aN"><a href="#8-阅读时长-≈-NaN-aN" class="headerlink" title="8. 阅读时长 ≈ NaN:aN"></a>8. 阅读时长 ≈ NaN:aN</h1><p>按照教程开启阅读时长及字数统计后，如果不显示正确信息，那么记得清楚数据：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<h1 id="9-部署"><a href="#9-部署" class="headerlink" title="9. 部署"></a>9. 部署</h1><p>这里介绍两种部署到github的方式，还可以选择部署到vercel</p>
+<h2 id="9-1-hexo-deployer"><a href="#9-1-hexo-deployer" class="headerlink" title="9.1 hexo deployer"></a>9.1 hexo deployer</h2><p>先要安装插件’npm install hexo-deployer-git –save’，然后在<code>_config.yml</code>中设置deploy的相关内容，<a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment">具体参见</a></p>
+<h2 id="9-2-hexo-action"><a href="#9-2-hexo-action" class="headerlink" title="9.2 hexo-action"></a>9.2 hexo-action</h2><p>参考<a target="_blank" rel="noopener" href="https://github.com/sma11black/hexo-action">hexo-action</a>，利用github action来将网页发布到github pages.</p>
+<p>注意，不要使用GitHub账户的那个<code>key</code>，单独设置一个，而且添加时候也会提醒。。。偷不到懒的。。。</p>
+<h2 id="9-3-vercel"><a href="#9-3-vercel" class="headerlink" title="9.3 vercel"></a>9.3 vercel</h2><p>直接在vercel的网站上配置即可。</p>
+<h1 id="10-hexo-word-counter中的post图标选项"><a href="#10-hexo-word-counter中的post图标选项" class="headerlink" title="10. hexo-word-counter中的post图标选项"></a>10. hexo-word-counter中的post图标选项</h1><p><code>hexo-word-counter</code>插件说明中提到<code>item_text_post</code>选项，实际测试设置无效，且next-theme的配置说明里也没有这个选项。</p>
+<p>找到了next-theme的<a target="_blank" rel="noopener" href="https://t.me/theme_next_cn">telegram群</a>，群内大佬指点，应该修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  item_text: false</span><br></pre></td></tr></table></figure>
+
+<p>即可。</p>
+<h1 id="11-hexo-文章创建时间与更新时间"><a href="#11-hexo-文章创建时间与更新时间" class="headerlink" title="11.hexo 文章创建时间与更新时间"></a>11.hexo 文章创建时间与更新时间</h1><p>在<code>_config.yml</code>下设置<code>updated_option: &#39;date&#39;</code></p>
+<p>在<code>_config.next.yml</code>下设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">post_meta:</span><br><span class="line">  updated_at:</span><br><span class="line">    enable: true</span><br><span class="line">    another_day: true</span><br></pre></td></tr></table></figure>
+
+<p>然后在文章头中设置<code>updated</code>项，以此防止文件修改时间干扰最终显示。</p>
+<h1 id="12-powershell下使用hexo命令提示”此系统上禁止运行脚本”"><a href="#12-powershell下使用hexo命令提示”此系统上禁止运行脚本”" class="headerlink" title="12.powershell下使用hexo命令提示”此系统上禁止运行脚本”"></a>12.powershell下使用hexo命令提示”此系统上禁止运行脚本”</h1><p><code>Set-ExecutionPolicy RemoteSigned</code> #此命令当时从哪里找的，忘了。。。</p>
+<p><code>Set-ExecutionPolicy -ExecutionPolicy UNRESTRICTED</code> #刚才搜了一下，现在网上都是这个了。。。还没有测试过。。。 </p>
+<h1 id="13-停止目录自动编号"><a href="#13-停止目录自动编号" class="headerlink" title="13.停止目录自动编号"></a>13.停止目录自动编号</h1><p>在’_config.next.yml’中修改<code>toc</code>下的<code>number</code>为<code>false</code></p>
+<h1 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h1><p>2022/11/21 增加停止目录自动编号的方法</p>
+<p>2022/11/11 安装hexo还是要带着<code>-g</code>的，不能带’-S’，否则hexo命令行不起作用</p>
+<p>2022/11/09 此系统上禁止运行脚本</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Colin
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://starv.eu/hexo-installation-and-next-themes/" title="又一个Win10安装hexo及主题的记录">https://starv.eu/hexo-installation-and-next-themes/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/github-desktop-proxy/" rel="prev" title="为Github桌面客户端登录与添加代理">
+                  <i class="fa fa-angle-left"></i> 为Github桌面客户端登录与添加代理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/personal-git-hub-basic-commands/" rel="next" title="个人Git&Github基本操作">
+                  个人Git&Github基本操作 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Colin</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">35k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:03</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"0bo/comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
