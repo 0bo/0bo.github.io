@@ -1,5 +1,5 @@
-https://0bo.github.io/404.html
 https://0bo.github.io/qr.html
+https://0bo.github.io/404.html
 https://0bo.github.io/personal-git-hub-basic-commands/
 https://0bo.github.io/hexo-installation-and-next-themes/
 https://0bo.github.io/about/index.html
