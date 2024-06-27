@@ -849,7 +849,7 @@
 <p>我在本地使用hexo deploy时也是同样的问题，但多了一个提示，说使用用户名和密码的验证方式很早就禁止了。在为本地计算机配置git ssh，将repo地址改为ssh的写法后，一切顺利。</p>
 <h2 id="8-2-hexo-action"><a href="#8-2-hexo-action" class="headerlink" title="8.2 hexo-action"></a>8.2 hexo-action</h2><p>参考<a href="https://github.com/sma11black/hexo-action">hexo-action</a>，利用github action来将网页发布到github pages.</p>
 <p>注意，不要使用GitHub账户的那个<code>key</code>，单独设置一个，而且添加时候也会提醒。。。偷不到懒的。。。</p>
-<p><strong>config里的deploy插件是必须的</strong>，另外注意<code>9.1</code>中提到的git地址的写法，也就是<a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;</a>:xxx</p>
+<p><strong>config里的deploy插件是必须的</strong>，另外注意<code>9.1</code>中提到的git地址的写法，也就是<a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;">&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;</a>:xxx</p>
 <hr>
 <p>2023.9.12测试补充<br>npm更新到10.0以上时，sma11black的脚本使用的node版本太旧了，在marketplace里找到一个更新:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- name: Hexo Action with Nodejs 17</span><br><span class="line">  uses: mark0smith/hexo-action@v0.0.3</span><br></pre></td></tr></table></figure>
@@ -923,7 +923,7 @@
 <p>You can do a temporary trick to cache the authorization</p>
 </blockquote>
 <p>原因我也找到了：在vscode里开启了<code>auto-fetch</code>，同时这个仓库还使用https的链接</p>
-<p>解决方法：设置github的ssh认证方式，然后把仓库链接改为<a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#64;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>这种形式的。一劳永逸啊。</p>
+<p>解决方法：设置github的ssh认证方式，然后把仓库链接改为<a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#x6d;">&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#x6d;</a>这种形式的。一劳永逸啊。</p>
 <p>ref：</p>
 <p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
 <p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
