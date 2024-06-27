@@ -1,5 +1,6 @@
-https://0bo.github.io/404.html
 https://0bo.github.io/qr.html
+https://0bo.github.io/404.html
+https://0bo.github.io/steamdeck-geek/
 https://0bo.github.io/personal-git-hub-basic-commands/
 https://0bo.github.io/hexo-installation-and-next-themes/
 https://0bo.github.io/about/index.html
@@ -33,8 +34,8 @@ https://0bo.github.io/wordpress-editing-pics-error/
 https://0bo.github.io/
 https://0bo.github.io/tags/rdp/
 https://0bo.github.io/tags/ubuntu/
-https://0bo.github.io/tags/win10/
 https://0bo.github.io/tags/git/
+https://0bo.github.io/tags/win10/
 https://0bo.github.io/tags/wordpress/
 https://0bo.github.io/tags/error/
 https://0bo.github.io/tags/macbook/
@@ -73,6 +74,8 @@ https://0bo.github.io/tags/nextcloud/
 https://0bo.github.io/tags/ECM/
 https://0bo.github.io/tags/fail2ban/
 https://0bo.github.io/tags/vaultwarden/
+https://0bo.github.io/tags/steamdeck/
+https://0bo.github.io/tags/game/
 https://0bo.github.io/categories/Tutorial/
 https://0bo.github.io/categories/Thinking/
 https://0bo.github.io/categories/ECM/
