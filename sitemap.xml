@@ -462,6 +462,20 @@
   </url>
   
   <url>
+    <loc>https://0bo.github.io/tags/flexget/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/autoremove-torrents/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://0bo.github.io/tags/Ubuntu/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -477,20 +491,6 @@
   
   <url>
     <loc>https://0bo.github.io/tags/openvz/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/flexget/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/autoremove-torrents/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -567,6 +567,13 @@
   </url>
   
   <url>
+    <loc>https://0bo.github.io/tags/fail2ban/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://0bo.github.io/tags/docker/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -582,13 +589,6 @@
   
   <url>
     <loc>https://0bo.github.io/tags/ECM/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/fail2ban/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
