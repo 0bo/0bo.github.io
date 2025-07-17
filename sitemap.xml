@@ -308,6 +308,20 @@
 
   
   <url>
+    <loc>https://0bo.github.io/tags/wordpress/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/error/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://0bo.github.io/tags/macbook/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -364,21 +378,7 @@
   </url>
   
   <url>
-    <loc>https://0bo.github.io/tags/wordpress/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://0bo.github.io/tags/nginx/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/error/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -497,27 +497,6 @@
   </url>
   
   <url>
-    <loc>https://0bo.github.io/tags/p20pro/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/rdp/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/ubuntu/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://0bo.github.io/tags/hyper-v/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -533,6 +512,27 @@
   
   <url>
     <loc>https://0bo.github.io/tags/lean/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/p20pro/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/rdp/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/ubuntu/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -567,13 +567,6 @@
   </url>
   
   <url>
-    <loc>https://0bo.github.io/tags/fail2ban/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://0bo.github.io/tags/docker/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -589,6 +582,13 @@
   
   <url>
     <loc>https://0bo.github.io/tags/ECM/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/fail2ban/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
