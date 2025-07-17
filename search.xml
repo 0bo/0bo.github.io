@@ -376,6 +376,48 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu重启后SSH不启动以及Syncthing更新1.0后无法启动</title>
+    <url>/ubuntu-reboot-ssh-stop-syncthingv1-stop/</url>
+    <content><![CDATA[<p>古老的Openvz终于露出了狰狞的獠牙，美人白发，英雄迟暮，不单单是世人看不下去，他们自己，也看不下去。。。</p>
+<span id="more"></span>
+
+<h2 id="不知道原因就再也进不去的Ubuntu"><a href="#不知道原因就再也进不去的Ubuntu" class="headerlink" title="不知道原因就再也进不去的Ubuntu"></a>不知道原因就再也进不去的Ubuntu</h2><p>Linux的用户，真的应该谨记，计算机是用来用的，不是用来折腾的，只要它还能动弹，就不要去碰它。今天闲的荒，apt upgrade出了事。。。不知道更新了什么，重启后就ssh不上了，当时服务器可以ping通，ISP的后台也能看到机器在运行，最终在ISP的后台开了online console，登上去看了下，ssh和syncthing都无法启动了，然后折腾了一下午，解决如下：</p>
+<h2 id="SSH无法启动的解决"><a href="#SSH无法启动的解决" class="headerlink" title="SSH无法启动的解决"></a>SSH无法启动的解决</h2><p>‘sshd -t’后提示：<br><code>Missing privilege separation directory: /var/run/sshd</code></p>
+<p>早在2006年就有人遇到过这个<a href="https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234">问题了</a>，当时的解决办法就是，<code>rc.local, bootmisc.sh - either way, it&#39;s seems trivial enough to me (yet I managed to get my patch wrong, aaargh!) and I hope this will be fixed soon.</code> </p>
+<p>比较悲伤，虽然我不知道是为啥，但十多年后我也遇到了。。。然后我又看到了<a href="https://talk.plesk.com/threads/missing-privilege-separation-directory-var-run-sshd.350438/">这个</a>,作者提问的同时也给出了解决办法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">@reboot mkdir -p -m0755 /var/run/sshd &amp;&amp; systemctl restart sshd.service</span><br></pre></td></tr></table></figure>
+
+<p>其实就是重启强行重建这个文件夹。。简单粗暴，但在找不到原因，又不想重装的情况下，不失为一个很好的选择了。</p>
+<h2 id="syncthing无法启动的解决"><a href="#syncthing无法启动的解决" class="headerlink" title="syncthing无法启动的解决"></a>syncthing无法启动的解决</h2><p>更新完syncthing的1.0版本后，无法启动了，这不是第一次发生了，这次的google终于有了些进展。</p>
+<p>之前我用的systemd文件如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Syncthing - Open Source Continuous File Synchronization for %I</span><br><span class="line">Documentation=man:syncthing(1)</span><br><span class="line">After=network.target</span><br><span class="line">Wants=syncthing-inotify@.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=%i</span><br><span class="line">ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0</span><br><span class="line">Restart=on-failure</span><br><span class="line">SuccessExitStatus=3 4</span><br><span class="line">RestartForceExitStatus=3 4</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>然后到github页查看发现，官方syncthing@.service的内容为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Syncthing - Open Source Continuous File Synchronization for %I</span><br><span class="line">Documentation=man:syncthing(1)</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=%i</span><br><span class="line">ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0</span><br><span class="line">Restart=on-failure</span><br><span class="line">SuccessExitStatus=3 4</span><br><span class="line">RestartForceExitStatus=3 4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Hardening</span></span><br><span class="line">ProtectSystem=full</span><br><span class="line">PrivateTmp=true</span><br><span class="line">SystemCallArchitectures=native</span><br><span class="line">MemoryDenyWriteExecute=true</span><br><span class="line">NoNewPrivileges=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>但是用如上内容也无法启动syncthing，依旧启动失败，之后发现了如下两个issue:</p>
+<ol>
+<li><a href="https://github.com/syncthing/syncthing/issues/5449">#5449</a></li>
+<li><a href="https://github.com/syncthing/syncthing/issues/5286">#5286</a></li>
+</ol>
+<p>之后把systemd文件中如下两项#掉，终于可以用了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># SystemCallArchitectures=native</span><br><span class="line"># MemoryDenyWriteExecute=true</span><br></pre></td></tr></table></figure>
+<p>issue中的对话值得深思：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@serl</span><br><span class="line">Problem is, as you can guess from my version information, I cannot update the kernel to support these options, as the machine is a OpenVZ VPS and I have no control on the hypervisor.</span><br><span class="line"></span><br><span class="line">Relates to #5286</span><br><span class="line"></span><br><span class="line">Version Information</span><br><span class="line">Syncthing Version: v1.0.0</span><br><span class="line">OS Version: Ubuntu 16.04 / Kernel 2.6.32-openvz-042stab120.18-amd64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@calmh</span><br><span class="line">Nonetheless, you’ve solved the problem. Outdated kernels and other software will always be around, but we cannot be forever prevented from using new features.</span><br></pre></td></tr></table></figure>
+
+<p>openvz不知道还能坚持多久？廉价vps如果没有了ovz的支持，会怎样走下去？毕竟2.6.32，真的太老了。。。</p>
+]]></content>
+      <categories>
+        <category>ECM</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>SSH</tag>
+        <tag>openvz</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>qbittorrent、flexget和AMT配合使用，全自动的盒子配置</title>
     <url>/qbittorrent-flexget-autoremove-torrents/</url>
     <content><![CDATA[<p>qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。</p>
@@ -460,48 +502,6 @@
         <tag>qbittorrent</tag>
         <tag>flexget</tag>
         <tag>autoremove-torrents</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu重启后SSH不启动以及Syncthing更新1.0后无法启动</title>
-    <url>/ubuntu-reboot-ssh-stop-syncthingv1-stop/</url>
-    <content><![CDATA[<p>古老的Openvz终于露出了狰狞的獠牙，美人白发，英雄迟暮，不单单是世人看不下去，他们自己，也看不下去。。。</p>
-<span id="more"></span>
-
-<h2 id="不知道原因就再也进不去的Ubuntu"><a href="#不知道原因就再也进不去的Ubuntu" class="headerlink" title="不知道原因就再也进不去的Ubuntu"></a>不知道原因就再也进不去的Ubuntu</h2><p>Linux的用户，真的应该谨记，计算机是用来用的，不是用来折腾的，只要它还能动弹，就不要去碰它。今天闲的荒，apt upgrade出了事。。。不知道更新了什么，重启后就ssh不上了，当时服务器可以ping通，ISP的后台也能看到机器在运行，最终在ISP的后台开了online console，登上去看了下，ssh和syncthing都无法启动了，然后折腾了一下午，解决如下：</p>
-<h2 id="SSH无法启动的解决"><a href="#SSH无法启动的解决" class="headerlink" title="SSH无法启动的解决"></a>SSH无法启动的解决</h2><p>‘sshd -t’后提示：<br><code>Missing privilege separation directory: /var/run/sshd</code></p>
-<p>早在2006年就有人遇到过这个<a href="https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234">问题了</a>，当时的解决办法就是，<code>rc.local, bootmisc.sh - either way, it&#39;s seems trivial enough to me (yet I managed to get my patch wrong, aaargh!) and I hope this will be fixed soon.</code> </p>
-<p>比较悲伤，虽然我不知道是为啥，但十多年后我也遇到了。。。然后我又看到了<a href="https://talk.plesk.com/threads/missing-privilege-separation-directory-var-run-sshd.350438/">这个</a>,作者提问的同时也给出了解决办法：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">@reboot mkdir -p -m0755 /var/run/sshd &amp;&amp; systemctl restart sshd.service</span><br></pre></td></tr></table></figure>
-
-<p>其实就是重启强行重建这个文件夹。。简单粗暴，但在找不到原因，又不想重装的情况下，不失为一个很好的选择了。</p>
-<h2 id="syncthing无法启动的解决"><a href="#syncthing无法启动的解决" class="headerlink" title="syncthing无法启动的解决"></a>syncthing无法启动的解决</h2><p>更新完syncthing的1.0版本后，无法启动了，这不是第一次发生了，这次的google终于有了些进展。</p>
-<p>之前我用的systemd文件如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Syncthing - Open Source Continuous File Synchronization for %I</span><br><span class="line">Documentation=man:syncthing(1)</span><br><span class="line">After=network.target</span><br><span class="line">Wants=syncthing-inotify@.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=%i</span><br><span class="line">ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0</span><br><span class="line">Restart=on-failure</span><br><span class="line">SuccessExitStatus=3 4</span><br><span class="line">RestartForceExitStatus=3 4</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>然后到github页查看发现，官方syncthing@.service的内容为：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Syncthing - Open Source Continuous File Synchronization for %I</span><br><span class="line">Documentation=man:syncthing(1)</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=%i</span><br><span class="line">ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0</span><br><span class="line">Restart=on-failure</span><br><span class="line">SuccessExitStatus=3 4</span><br><span class="line">RestartForceExitStatus=3 4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Hardening</span></span><br><span class="line">ProtectSystem=full</span><br><span class="line">PrivateTmp=true</span><br><span class="line">SystemCallArchitectures=native</span><br><span class="line">MemoryDenyWriteExecute=true</span><br><span class="line">NoNewPrivileges=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>但是用如上内容也无法启动syncthing，依旧启动失败，之后发现了如下两个issue:</p>
-<ol>
-<li><a href="https://github.com/syncthing/syncthing/issues/5449">#5449</a></li>
-<li><a href="https://github.com/syncthing/syncthing/issues/5286">#5286</a></li>
-</ol>
-<p>之后把systemd文件中如下两项#掉，终于可以用了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># SystemCallArchitectures=native</span><br><span class="line"># MemoryDenyWriteExecute=true</span><br></pre></td></tr></table></figure>
-<p>issue中的对话值得深思：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@serl</span><br><span class="line">Problem is, as you can guess from my version information, I cannot update the kernel to support these options, as the machine is a OpenVZ VPS and I have no control on the hypervisor.</span><br><span class="line"></span><br><span class="line">Relates to #5286</span><br><span class="line"></span><br><span class="line">Version Information</span><br><span class="line">Syncthing Version: v1.0.0</span><br><span class="line">OS Version: Ubuntu 16.04 / Kernel 2.6.32-openvz-042stab120.18-amd64</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@calmh</span><br><span class="line">Nonetheless, you’ve solved the problem. Outdated kernels and other software will always be around, but we cannot be forever prevented from using new features.</span><br></pre></td></tr></table></figure>
-
-<p>openvz不知道还能坚持多久？廉价vps如果没有了ovz的支持，会怎样走下去？毕竟2.6.32，真的太老了。。。</p>
-]]></content>
-      <categories>
-        <category>ECM</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>SSH</tag>
-        <tag>openvz</tag>
       </tags>
   </entry>
   <entry>
@@ -849,7 +849,7 @@
 <p>我在本地使用hexo deploy时也是同样的问题，但多了一个提示，说使用用户名和密码的验证方式很早就禁止了。在为本地计算机配置git ssh，将repo地址改为ssh的写法后，一切顺利。</p>
 <h2 id="8-2-hexo-action"><a href="#8-2-hexo-action" class="headerlink" title="8.2 hexo-action"></a>8.2 hexo-action</h2><p>参考<a href="https://github.com/sma11black/hexo-action">hexo-action</a>，利用github action来将网页发布到github pages.</p>
 <p>注意，不要使用GitHub账户的那个<code>key</code>，单独设置一个，而且添加时候也会提醒。。。偷不到懒的。。。</p>
-<p><strong>config里的deploy插件是必须的</strong>，另外注意<code>9.1</code>中提到的git地址的写法，也就是<a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;</a>:xxx</p>
+<p><strong>config里的deploy插件是必须的</strong>，另外注意<code>9.1</code>中提到的git地址的写法，也就是<a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#x2e;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#x2e;&#99;&#111;&#x6d;</a>:xxx</p>
 <hr>
 <p>2023.9.12测试补充<br>npm更新到10.0以上时，sma11black的脚本使用的node版本太旧了，在marketplace里找到一个更新:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- name: Hexo Action with Nodejs 17</span><br><span class="line">  uses: mark0smith/hexo-action@v0.0.3</span><br></pre></td></tr></table></figure>
@@ -923,7 +923,7 @@
 <p>You can do a temporary trick to cache the authorization</p>
 </blockquote>
 <p>原因我也找到了：在vscode里开启了<code>auto-fetch</code>，同时这个仓库还使用https的链接</p>
-<p>解决方法：设置github的ssh认证方式，然后把仓库链接改为<a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#x63;&#x6f;&#109;</a>这种形式的。一劳永逸啊。</p>
+<p>解决方法：设置github的ssh认证方式，然后把仓库链接改为<a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#109;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#109;</a>这种形式的。一劳永逸啊。</p>
 <p>ref：</p>
 <p><a href="https://blog.csdn.net/qq_36761831/article/details/88725670">https://blog.csdn.net/qq_36761831/article/details/88725670</a></p>
 <p><a href="https://blog.csdn.net/xiaohaolaoda/article/details/105434315">https://blog.csdn.net/xiaohaolaoda/article/details/105434315</a></p>
