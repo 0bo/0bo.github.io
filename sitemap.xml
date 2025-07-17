@@ -308,6 +308,20 @@
 
   
   <url>
+    <loc>https://0bo.github.io/tags/wordpress/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/error/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://0bo.github.io/tags/macbook/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -329,6 +343,20 @@
   </url>
   
   <url>
+    <loc>https://0bo.github.io/tags/openwrt/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://0bo.github.io/tags/703n/</loc>
+    <lastmod>2025-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://0bo.github.io/tags/windows/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -344,34 +372,6 @@
   
   <url>
     <loc>https://0bo.github.io/tags/firewall/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/openwrt/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/703n/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/error/</loc>
-    <lastmod>2025-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://0bo.github.io/tags/wordpress/</loc>
     <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
