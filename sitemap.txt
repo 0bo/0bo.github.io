@@ -32,13 +32,10 @@ https://0bo.github.io/703n-openwrt-external-storage/
 https://0bo.github.io/macbook-win10-bluetooth/
 https://0bo.github.io/wordpress-editing-pics-error/
 https://0bo.github.io/
-https://0bo.github.io/tags/rdp/
-https://0bo.github.io/tags/ubuntu/
-https://0bo.github.io/tags/win10/
-https://0bo.github.io/tags/git/
 https://0bo.github.io/tags/wordpress/
 https://0bo.github.io/tags/error/
 https://0bo.github.io/tags/macbook/
+https://0bo.github.io/tags/win10/
 https://0bo.github.io/tags/bluetooth/
 https://0bo.github.io/tags/openwrt/
 https://0bo.github.io/tags/703n/
@@ -66,7 +63,10 @@ https://0bo.github.io/tags/hyper-v/
 https://0bo.github.io/tags/lede/
 https://0bo.github.io/tags/lean/
 https://0bo.github.io/tags/p20pro/
+https://0bo.github.io/tags/rdp/
+https://0bo.github.io/tags/ubuntu/
 https://0bo.github.io/tags/php/
+https://0bo.github.io/tags/git/
 https://0bo.github.io/tags/msmtps/
 https://0bo.github.io/tags/smartmontools/
 https://0bo.github.io/tags/docker/
@@ -76,7 +76,6 @@ https://0bo.github.io/tags/fail2ban/
 https://0bo.github.io/tags/vaultwarden/
 https://0bo.github.io/tags/steamdeck/
 https://0bo.github.io/tags/game/
+https://0bo.github.io/categories/ECM/
 https://0bo.github.io/categories/Tutorial/
 https://0bo.github.io/categories/Thinking/
-https://0bo.github.io/categories/ECM/
-https://0bo.github.io/categories/Tutorials/
