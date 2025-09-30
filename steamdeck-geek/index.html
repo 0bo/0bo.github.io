@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -30,8 +30,8 @@
 <meta property="article:published_time" content="2024-06-26T01:32:00.000Z">
 <meta property="article:modified_time" content="2024-06-26T01:32:00.000Z">
 <meta property="article:author" content="Colin">
-<meta property="article:tag" content="steamdeck">
 <meta property="article:tag" content="game">
+<meta property="article:tag" content="steamdeck">
 <meta name="twitter:card" content="summary">
 
 
@@ -319,10 +319,7 @@
 </li>
 <li><p>启动到u盘恢复镜像后，选择<code>terminal with repair tools</code></p>
 </li>
-<li><pre><code>sudo ~/tools/repair_device.sh chroot 
-rm -f /var/lib/overlays/etc/upper/passwd 
-rm -f /var/lib/overlays/etc/upper/shadow
-</code></pre>
+<li><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ~/tools/repair_device.sh chroot </span><br><span class="line">rm -f /var/lib/overlays/etc/upper/passwd </span><br><span class="line">rm -f /var/lib/overlays/etc/upper/shadow</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>重启即刻重置</p>
 </li>
