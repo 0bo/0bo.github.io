@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"0bo.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"a11y-light","dark":"a11y-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。 qbittorr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qbittorrent、flexget和AMT配合使用，全自动的盒子配置">
+<meta property="og:url" content="https://0bo.github.io/qbittorrent-flexget-autoremove-torrents/index.html">
+<meta property="og:site_name" content="0bo">
+<meta property="og:description" content="qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。 qbittorr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-16T03:29:22.000Z">
+<meta property="article:author" content="Colin">
+<meta property="article:tag" content="autoremove-torrents">
+<meta property="article:tag" content="flexget">
+<meta property="article:tag" content="qbittorrent">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://0bo.github.io/qbittorrent-flexget-autoremove-torrents/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://0bo.github.io/qbittorrent-flexget-autoremove-torrents/","path":"qbittorrent-flexget-autoremove-torrents/","title":"qbittorrent、flexget和AMT配合使用，全自动的盒子配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>qbittorrent、flexget和AMT配合使用，全自动的盒子配置 | 0bo</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDSVLMHFZ3"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-HDSVLMHFZ3","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js" defer></script>
+  <script async src="https://hm.baidu.com/hm.js?9f828f4eb77d5d2b4a77d456c306faa8"></script>
+
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;9d54a4e47d7b49d89d5f1ef3eda8cd78&quot;}'></script>
+
+
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">0bo</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85qbittorrent"><span class="nav-text">安装qbittorrent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%BA%90"><span class="nav-text">添加源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="nav-text">设置自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85flexget"><span class="nav-text">安装flexget</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip%E5%AE%89%E8%A3%85"><span class="nav-text">pip安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A1%AB%E5%86%99flexget%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-text">填写flexget配置文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95flexget%E8%BF%90%E8%A1%8C"><span class="nav-text">测试flexget运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAflexget%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C"><span class="nav-text">创建flexget系统服务运行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%BD%BDsysemd%E6%96%87%E4%BB%B6"><span class="nav-text">重载sysemd文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85autoremove-torrents"><span class="nav-text">安装autoremove-torrents</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip%E5%AE%89%E8%A3%85-1"><span class="nav-text">pip安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%BB%BA%E7%AB%8Bconfig-yml"><span class="nav-text">在运行目录下建立config.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95AMT%E8%BF%90%E8%A1%8C"><span class="nav-text">测试AMT运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C"><span class="nav-text">自动运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7qb%E5%92%8Cflexget%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-text">监控qb和flexget的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#qb%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC"><span class="nav-text">qb监控脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexget%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC"><span class="nav-text">flexget监控脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90"><span class="nav-text">修改权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C"><span class="nav-text">定时运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0"><span class="nav-text">更新</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Colin"
+      src="/images/myavatar.gif">
+  <p class="site-author-name" itemprop="name">Colin</p>
+  <div class="site-description" itemprop="description">记录我的科技生活、问题解决、学习、探索以及思考。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/0bo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;0bo" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://0bo.github.io/qbittorrent-flexget-autoremove-torrents/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/myavatar.gif">
+      <meta itemprop="name" content="Colin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0bo">
+      <meta itemprop="description" content="记录我的科技生活、问题解决、学习、探索以及思考。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="qbittorrent、flexget和AMT配合使用，全自动的盒子配置 | 0bo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          qbittorrent、flexget和AMT配合使用，全自动的盒子配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-31 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-31T00:00:00+08:00">2018-12-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-16 11:29:22" itemprop="dateModified" datetime="2022-01-16T11:29:22+08:00">2022-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tutorial/" itemprop="url" rel="index"><span itemprop="name">Tutorial</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>956</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>qbittorrent应该才是Linux下PT的正确打开方式，尽管网络上rutorrent备受推崇，transmission因为预装在许多nas上而成为许多人唯一知道的选择，但只要有机会选择，那些好用的东西，总会脱颖而出的。qb下载上传如此之快，甩其他客户端（不包括Deluge，没用过）不知几条街，几乎能连上所有的种子，但也会带来一些副作用，比如。。。cpu占用过高，自行取舍哈。</p>
+<p>qbittorrent的另一个致命问题是，其webui不支持rss，可想而知对于盒子用户而言这是多么不可理喻的事情，但为了qb的高效率，还是忍了。。。由于懒的学习flexget，一直以来都是通过安装rutorrent来充当rss下载器，然后qb监控ru的.session种子文件夹来实现自动下载。后来，我的这个方法受到了严重挑战，一是不知道为何，qb在我的vps上难以修改watch folder，多番测试，结果都很玄学，可能与<br>配置文件的权限、是否先启动qb完成同意协议的过程并生成配置文件、浏览器缓存等等有关，试了好多次后，最终放弃；二是ru实在太卡了，即使只负责下载种子，作为一个强迫症患者，删除种子的时候都会卡死，是可忍孰不可忍，叔叔能忍，婶婶不能忍，那就ByeBye啦！</p>
+<p>被逼无奈，最终捡起flexget，然后开启了新世界的大门！这玩意儿真的是非常便捷强大，比在rutorrent里写正则表达过滤方便太多了！！</p>
+<p>最后要介绍的PT贴吧大神做的autoremove-torrents，真的是神器，最终实现了全自动无人值守的盒子配置。下面进入正题吧：</p>
+<span id="more"></span>
+<p>（本文所有命令均在Ubuntu 16.04 x64下运行，理论上讲18.04也可以，14.04主要是apt和<br>apt-get的区别,均在root用户下，&#x2F;root&#x2F;目录下运行）</p>
+<h2 id="安装qbittorrent"><a href="#安装qbittorrent" class="headerlink" title="安装qbittorrent"></a>安装qbittorrent</h2><h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install software-properties-common python-software-properties</span><br><span class="line">add-apt-repository ppa:qbittorrent-team/qbittorrent-stable</span><br><span class="line">apt update &amp;&amp; apt install qbittorrent-nox</span><br></pre></td></tr></table></figure>
+<h3 id="设置自启动"><a href="#设置自启动" class="headerlink" title="设置自启动"></a>设置自启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/systemd/system/qbittorrent.service</span><br></pre></td></tr></table></figure>
+
+<p>填入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=qBittorrent Daemon Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=你的用户</span><br><span class="line">ExecStart=/usr/bin/qbittorrent-nox</span><br><span class="line">ExecStop=/usr/bin/killall -w qbittorrent-nox</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable qbittorrent  #开启自启动</span><br><span class="line">systemctl start qbittorrent   #启动qb</span><br><span class="line">systemctl stop qbittorrent    #停止qb</span><br><span class="line">systemctl restart qbittorrent #重启qb</span><br></pre></td></tr></table></figure>
+
+<p>启动后应该可以在http:&#x2F;&#x2F;你的ip:8080&#x2F;访问webui，用户名admin，密码adminadmin，登录后<br>切记修改用户名和密码！！！</p>
+<h2 id="安装flexget"><a href="#安装flexget" class="headerlink" title="安装flexget"></a>安装flexget</h2><h3 id="pip安装"><a href="#pip安装" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install python3-setuptools python3-pip</span><br><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install flexget ##也可能是pip install，取决于你是否安装了python2.</span><br></pre></td></tr></table></figure>
+
+<h3 id="填写flexget配置文件："><a href="#填写flexget配置文件：" class="headerlink" title="填写flexget配置文件："></a>填写flexget配置文件：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir .flexget</span><br><span class="line">nano .flexget/config.yml</span><br></pre></td></tr></table></figure>
+
+<p>填入以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">templates:</span><br><span class="line">  freespace:</span><br><span class="line">    free_space:</span><br><span class="line">      path: /home/star</span><br><span class="line">      space: 10240     </span><br><span class="line">  qb:</span><br><span class="line">    qbittorrent:</span><br><span class="line">      path: /home/star/Downloads/</span><br><span class="line">      host: localhost</span><br><span class="line">      port: 8080</span><br><span class="line">      username: xx</span><br><span class="line">      password: xx	  </span><br><span class="line">  size:</span><br><span class="line">    content_size:</span><br><span class="line">      min: 10000</span><br><span class="line">      max: 66666</span><br><span class="line">      strict: no</span><br><span class="line">tasks:</span><br><span class="line">  CHDbits:</span><br><span class="line">    rss: https://chdbits.co/torrentrss.php?rows=</span><br><span class="line">    verify_ssl_certificates: no</span><br><span class="line">    accept_all: yes</span><br><span class="line">    template:</span><br><span class="line">      - freespace</span><br><span class="line">      - qb</span><br><span class="line">    qbittorrent:</span><br><span class="line">      label: CHDbits</span><br><span class="line">  CMCT:</span><br><span class="line">    rss: https://hdcmct.org/torrentrss.php?rows=</span><br><span class="line">    verify_ssl_certificates: no</span><br><span class="line">    accept_all: yes</span><br><span class="line">    template:</span><br><span class="line">      - freespace</span><br><span class="line">	  - size</span><br><span class="line">      - qb</span><br><span class="line">    qbittorrent:</span><br><span class="line">      label: CMCT</span><br><span class="line">schedules:</span><br><span class="line">  - tasks: [ChDbits, CMCT]</span><br><span class="line">    interval:</span><br><span class="line">      minutes: 10</span><br></pre></td></tr></table></figure>
+
+<p>以上配置是最简单的配置了，直接替换rss链接，就会下载10-66g之间的种子，每10分钟更新<br>一次，更多配置可以参考：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/Aniverse/inexistence/968bf4ef1c92db5d53adf840ececd2e3aab97e89/00.Installation/template/config/flexget.config.yml">flexget.config.yml</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.2dan.cc/pt/qbittorrent-flexget.html">qbittorrent配合flexget</a></li>
+<li>google和百度</li>
+</ol>
+<h3 id="测试flexget运行"><a href="#测试flexget运行" class="headerlink" title="测试flexget运行"></a>测试flexget运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flexget --test  --loglevel debug execute</span><br></pre></td></tr></table></figure>
+
+<p>看看是不是符合你的预期？</p>
+<h3 id="创建flexget系统服务运行"><a href="#创建flexget系统服务运行" class="headerlink" title="创建flexget系统服务运行"></a>创建flexget系统服务运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Flexget Daemon</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=xx</span><br><span class="line">Group=xx</span><br><span class="line">UMask=000</span><br><span class="line">WorkingDirectory=/etc/flexget</span><br><span class="line">ExecStart=/usr/local/bin/flexget daemon start</span><br><span class="line">ExecStop=/usr/local/bin/flexget daemon stop</span><br><span class="line">ExecReload=/usr/local/bin/flexget daemon reload</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=5  ##间隔5s重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>其他使用与qb一致。</p>
+<h1 id="重载sysemd文件"><a href="#重载sysemd文件" class="headerlink" title="重载sysemd文件"></a>重载sysemd文件</h1><p>编辑QB和flexget的systemd文件后，可以重载一下相关文件：</p>
+<p><code>sudo systemctl daemon-reload</code></p>
+<h2 id="安装autoremove-torrents"><a href="#安装autoremove-torrents" class="headerlink" title="安装autoremove-torrents"></a>安装autoremove-torrents</h2><p>软件来自<a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/5617157829?red_tag=0564171599">贴吧大神 @蛋糕机Mac</a><br><del>2018年12月31号，最新版本1.2.4，但是我发现有重复统计的bug，就一直在用1.1了。</del></p>
+<h3 id="pip安装-1"><a href="#pip安装-1" class="headerlink" title="pip安装"></a>pip安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install autoremove-torrents</span><br></pre></td></tr></table></figure>
+
+<h3 id="在运行目录下建立config-yml"><a href="#在运行目录下建立config-yml" class="headerlink" title="在运行目录下建立config.yml"></a>在运行目录下建立config.yml</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano config.yml</span><br></pre></td></tr></table></figure>
+
+<p>填入如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">my_task: </span><br><span class="line">  client: qbittorrent</span><br><span class="line">  host: http://127.0.0.1:8080</span><br><span class="line">  username: XXX</span><br><span class="line">  password: XXX</span><br><span class="line">  strategies:</span><br><span class="line">    s1:</span><br><span class="line">      all_categories: true</span><br><span class="line">      #seeding_time: 1209600</span><br><span class="line">      seed_size:</span><br><span class="line">        limit: 1020</span><br><span class="line">        action: remove-old-seeds</span><br><span class="line">  delete_data: true</span><br></pre></td></tr></table></figure>
+
+<p>这个设置是说，检查所有的分类，如果种子总大小超过1020G则删除较旧的种子和数据。<br>更多设置请参考<a target="_blank" rel="noopener" href="https://github.com/jerrymakesjelly/autoremove-torrents/wiki">AMT-wiki</a></p>
+<h3 id="测试AMT运行"><a href="#测试AMT运行" class="headerlink" title="测试AMT运行"></a>测试AMT运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoremove-torrents --view</span><br></pre></td></tr></table></figure>
+
+<p>看看是不是符合你的预期？</p>
+<h3 id="自动运行"><a href="#自动运行" class="headerlink" title="自动运行"></a>自动运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">*/15 * * * * /home/xx/.local/bin/autoremove-torrents --conf=/home/xx/config.yml ##切记按照个人的bin和配置文件位置写</span><br></pre></td></tr></table></figure>
+
+<p>每十五分钟运行一次，看看有没有符合条件需要删除的种子。</p>
+<h2 id="监控qb和flexget的情况"><a href="#监控qb和flexget的情况" class="headerlink" title="监控qb和flexget的情况"></a><del>监控qb和flexget的情况</del></h2><h3 id="qb监控脚本"><a href="#qb监控脚本" class="headerlink" title="qb监控脚本"></a><del>qb监控脚本</del></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano listen-qb.sh</span><br></pre></td></tr></table></figure>
+
+<p><del>填入：</del></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pgrep qbittorrent &amp;&gt; /dev/null</span><br><span class="line">if [ $? -gt 0 ]</span><br><span class="line">then</span><br><span class="line">echo &quot;`date` qbittorrent is stop&quot;</span><br><span class="line">systemctl start qbittorrent</span><br><span class="line">else</span><br><span class="line">echo &quot;`date` qbittorrent running&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="flexget监控脚本"><a href="#flexget监控脚本" class="headerlink" title="flexget监控脚本"></a><del>flexget监控脚本</del></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano listen-flex.sh</span><br></pre></td></tr></table></figure>
+
+<p><del>填入：</del></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pgrep flexget &amp;&gt; /dev/null</span><br><span class="line">if [ $? -gt 0 ]</span><br><span class="line">then</span><br><span class="line">echo &quot;`date` flexget is stop&quot;</span><br><span class="line">flexget daemon start -d</span><br><span class="line">else</span><br><span class="line">echo &quot;`date` flexget is running&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a><del>修改权限</del></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 listen-qb.sh</span><br><span class="line">chmod 777 listen-flex.sh</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="定时运行"><a href="#定时运行" class="headerlink" title="定时运行"></a><del>定时运行</del></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+
+<p><del>加入如下两行</del></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*/5 * * * * /root/listen-qb.sh  &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">*/5 * * * * /root/listen-flex.sh  &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p><del>每五分钟自动检测qb和flex是否再运行，没有则启动。</del></p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>2022-10-20 cron中增加<code>&gt;/dev/null 2&gt;&amp;1</code></p>
+<p>2022-1-16：使用systemd来实现自动重启。</p>
+<p>2021-12-21：使用pip安装art。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Colin
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://0bo.github.io/qbittorrent-flexget-autoremove-torrents/" title="qbittorrent、flexget和AMT配合使用，全自动的盒子配置">https://0bo.github.io/qbittorrent-flexget-autoremove-torrents/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/qbittorrent/" rel="tag"># qbittorrent</a>
+              <a href="/tags/flexget/" rel="tag"># flexget</a>
+              <a href="/tags/autoremove-torrents/" rel="tag"># autoremove-torrents</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/external-hard-drive-auto-sleep/" rel="prev" title="阻止外置硬盘自动休眠">
+                  <i class="fa fa-angle-left"></i> 阻止外置硬盘自动休眠
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ubuntu-reboot-ssh-stop-syncthingv1-stop/" rel="next" title="Ubuntu重启后SSH不启动以及Syncthing更新1.0后无法启动">
+                  Ubuntu重启后SSH不启动以及Syncthing更新1.0后无法启动 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Colin</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">22k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:21</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"0bo/comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"0bo.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"a11y-light","dark":"a11y-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="之前折腾个人的小破站，搜集了不少各路“优化”设置，放在这里，以备不时之需啦。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php优化设置">
+<meta property="og:url" content="https://0bo.github.io/php-optimize-setting/index.html">
+<meta property="og:site_name" content="0bo">
+<meta property="og:description" content="之前折腾个人的小破站，搜集了不少各路“优化”设置，放在这里，以备不时之需啦。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-27T16:00:00.000Z">
+<meta property="article:author" content="Colin">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://0bo.github.io/php-optimize-setting/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://0bo.github.io/php-optimize-setting/","path":"php-optimize-setting/","title":"php优化设置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>php优化设置 | 0bo</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDSVLMHFZ3"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-HDSVLMHFZ3","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js" defer></script>
+  <script async src="https://hm.baidu.com/hm.js?9f828f4eb77d5d2b4a77d456c306faa8"></script>
+
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;9d54a4e47d7b49d89d5f1ef3eda8cd78&quot;}'></script>
+
+
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">0bo</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#unix-socket%E8%BF%98%E6%98%AFtcp-sock%EF%BC%9F"><span class="nav-text">unix socket还是tcp sock？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-socket"><span class="nav-text">TCP socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unix-socket"><span class="nav-text">unix socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php-ini%E8%B0%83%E4%BC%98"><span class="nav-text">php.ini调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-text">内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="nav-text">最长执行时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-text">Ref:</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Colin"
+      src="/images/myavatar.gif">
+  <p class="site-author-name" itemprop="name">Colin</p>
+  <div class="site-description" itemprop="description">记录我的科技生活、问题解决、学习、探索以及思考。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/0bo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;0bo" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://0bo.github.io/php-optimize-setting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/myavatar.gif">
+      <meta itemprop="name" content="Colin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="0bo">
+      <meta itemprop="description" content="记录我的科技生活、问题解决、学习、探索以及思考。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="php优化设置 | 0bo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          php优化设置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-28T00:00:00+08:00">2020-03-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tutorial/" itemprop="url" rel="index"><span itemprop="name">Tutorial</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>828</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>之前折腾个人的小破站，搜集了不少各路“优化”设置，放在这里，以备不时之需啦。</p>
+<span id="more"></span>
+
+<p>[toc]</p>
+<h1 id="unix-socket还是tcp-sock？"><a href="#unix-socket还是tcp-sock？" class="headerlink" title="unix socket还是tcp sock？"></a>unix socket还是tcp sock？</h1><h2 id="TCP-socket"><a href="#TCP-socket" class="headerlink" title="TCP socket"></a>TCP socket</h2><ol>
+<li><p>编辑&#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;default：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">	  index index.php index.html index.htm;</span><br><span class="line">	  include /etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">	  fastcgi_index index.php;</span><br><span class="line">	  include fastcgi_params;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑&#x2F;etc&#x2F;php5&#x2F;fpm&#x2F;pool.d&#x2F;<a href="http://www.conf中的参数listen：">www.conf中的参数listen：</a></p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen=127.0.0.1:9000</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="unix-socket"><a href="#unix-socket" class="headerlink" title="unix socket"></a>unix socket</h2><ol>
+<li><p>创建socket接口位置</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chown www-data:www-data /dev/shm/fpm-cgi.sock</span><br><span class="line">sudo chmod 666 /dev/shm/fpm-cgi.sock</span><br></pre></td></tr></table></figure>
+
+<p> dev&#x2F;shm目录是所谓的tmpfs，是RAM可以直接使用的区域，读写速度会快一些。</p>
+</li>
+<li><p>编辑&#x2F;etc&#x2F;php5&#x2F;fpm&#x2F;pool.d&#x2F;<a href="http://www.conf中的参数：">www.conf中的参数：</a></p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">listen=/dev/shm/fpm-cgi.sock</span><br><span class="line"></span><br><span class="line">; Set listen(2) backlog. A value of &#x27;-1&#x27; means unlimited.</span><br><span class="line">; Default Value: 128 (-1 on FreeBSD and OpenBSD) </span><br><span class="line">; 内存积压，默认是128，并发高了之后就会报错,根据自己内存设置</span><br><span class="line">listen.backlog = 128</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑&#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;default：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location~\.php$&#123;</span><br><span class="line">	  indexindex.phpindex.htmlindex.htm;</span><br><span class="line">	  include/etc/nginx/fastcgi_params;</span><br><span class="line">	  fastcgi_passunix:/dev/shm/fpm-cgi.sock;</span><br><span class="line">	  fastcgi_indexindex.php;</span><br><span class="line">	  includefastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改&#x2F;etc&#x2F;sysctl.conf配置，提高内核级别的并发连接数</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">	net.core.somaxconn = 2048</span><br><span class="line"></span><br><span class="line">	sudo sysctl -p</span><br><span class="line">	````</span><br><span class="line"></span><br><span class="line">5. 重启nginx和php-fpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 两种区别</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">从原理上来说，unix socket方式肯定要比tcp的方式快而且消耗资源少，因为socket之间在nginx和php-fpm的进程之间通信，而tcp需要经过本地回环驱动，还要申请临时端口和tcp相关资源。</span></span><br><span class="line">当然还是从原理上来说，unix socket会显得不是那么稳定，当并发连接数爆发时，会产生大量的长时缓存，在没有面向连接协议支撑的情况下，大数据包很有可能就直接出错并不会返回异常。而TCP这样的面向连接的协议，多少可以保证通信的正确性和完整性。</span><br><span class="line">当然以上主要是半懂不懂的理论分析加主观臆测，具体的差别还是要通过测试数据来说话，以后有空，会进行这方面的测试。从网上别人博客的测试数据，我的理论分析差不多是对的。至于你选择哪种方式，我只能说“鱼和熊掌不可兼得也”，通过高超的运维和配置技巧，在性能和稳定性上做一个平衡吧。</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">楼主，你确定socket比tcp要好吗？我之前也是这么认为的，但是今天做压测的时候就发现tcp比socket稳定多了 同样的并发，超过某个数量的时候，socket就一直报：connect()to unix:/dev/shm/php55-socket failed (11: Resource temporarily unavailable。。。报错率大概是15%的样子，但是查看一些资料发现，tcp比socket这方面稳定，故改tcp，发现基本没有报错了。同样的并发下，起码出现502的几率相对减少，所以我还是改tcp了。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">php-fpm进程数的优化 [php-fpm进程数设置多少合适](https://zhuanlan.zhihu.com/p/94627701)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 了解参数</span></span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">需要了解的参数是：pm、pm.max_children、pm.start_servers、pm.min_spare_servers、pm.max_spare_servers。</span><br><span class="line"></span><br><span class="line">pm：表示使用那种方式，有两个值可以选择，就是static（静态）或者dynamic（动态）。</span><br><span class="line"></span><br><span class="line">在更老一些的版本中，dynamic被称作apache-like。这个要注意看配置文件的说明。</span><br><span class="line"></span><br><span class="line">下面5个参数的意思分别为：</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">pm = dynamic 如何控制子进程，选项有static和dynamic    </span><br><span class="line">pm.max_children：静态方式下开启的php-fpm进程数量    </span><br><span class="line">pm.max_requests：php-fpm子进程能处理的最大请求数    </span><br><span class="line">pm.start_servers：动态方式下的起始php-fpm进程数量</span><br><span class="line">pm.min_spare_servers：动态方式下的最小php-fpm进程数</span><br><span class="line">pm.max_spare_servers：动态方式下的最大php-fpm进程数量</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>如果dm设置为 static，那么其实只有pm.max_children这个参数生效。系统会开启设置数量的php-fpm进程。</p>
+<p>如果dm设置为 dynamic，那么pm.max_children参数失效，后面3个参数生效。</p>
+<p>系统会在php-fpm运行开始 的时候启动pm.start_servers个php-fpm进程，</p>
+<p>然后根据系统的需求动态在pm.min_spare_servers和pm.max_spare_servers之间调整php-fpm进程数。</p>
+<p>在高并发场景（我们公司是一万并发测试）中，一般都是采用的static方式，因为一般来说我们的服务器都是有严格的业务分离，fpm服务器就是用来作为fpm服务器使用，除去还有一个nginx之外，不会去考虑有其他的服务器占用资源。</p>
+<p>在php的运行中，无非是两种场景</p>
+<ol>
+<li>大运算的场景，即 php程序需要用大量的cpu资源来进行数据计算之类的操作，在这种场景下，fpm进程可以设置为cpu数量的一倍或者两倍</li>
+<li>高io场景，php的使用场景中（最起码是本电商场景中）基本上属于高io，因为程序花了大量的时间在等待redis返回等待数据库返回。高io场景下，因为cpu大多处在wa状态下，所以可以尽量的加大fpm进程数，所以这个时候使用内存&#x2F;30m是更为合理的</li>
+</ol>
+<p>经过我们自己真实压测，大量redis和mysql读写的io密集情况下，16G的内存，fpm我们设置为400个的时候qps比fpm 16个 32个要好不少</p>
+<h1 id="php-ini调优"><a href="#php-ini调优" class="headerlink" title="php.ini调优"></a>php.ini调优</h1><h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>php.ini中的 memory_limit设置用于设定单个 PHP 进程可以使用的系统内存最大值。</p>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file_uploads = 1</span><br><span class="line">upload_max_filesize = 10M</span><br><span class="line">max_file_uploads = 3</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，PHP允许在单次请求中上传20个文件，上传的文件最大为2MB，这里为单次请求最多只能上传3个文件，每个文件最大为10MB，这个值不要设置太大，否则会出现超时。</p>
+<p>如果非要上传大文件，Web 服务器的配置也要做相应调整。除了在 php.ini 中设置之外，还要调整 Nginx 虚拟主机配置中的 client_max_body_size 设置。</p>
+<h2 id="最长执行时间"><a href="#最长执行时间" class="headerlink" title="最长执行时间"></a>最长执行时间</h2><p>最长执行时间</p>
+<p>php.ini 文件中的 max_execution_time 用于设置单个 PHP 进程在终止之前最长可运行时间。这个设置默认是 30 秒，建议将其设置为 5 秒：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max_execution_time = 5</span><br></pre></td></tr></table></figure>
+
+<p>在 PHP 脚本中可以调用 set_limit_time() 函数覆盖这个设置。</p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/pcyph/java/article/details/46513521">nginx和php-fpm通信使用unix socket还是TCP，及其配置</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94627701">php-fpm进程数设置多少合适</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dtfly520/article/details/76849855">php.ini 配置调优 —— 让 PHP 应用性能维持在更高水平</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Colin
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://0bo.github.io/php-optimize-setting/" title="php优化设置">https://0bo.github.io/php-optimize-setting/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/php/" rel="tag"># php</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/diff-result-fdisk-df/" rel="prev" title="fdisk与df显示磁盘大小不一致的解决办法">
+                  <i class="fa fa-angle-left"></i> fdisk与df显示磁盘大小不一致的解决办法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/github-desktop-proxy/" rel="next" title="为Github桌面客户端登录与添加代理">
+                  为Github桌面客户端登录与添加代理 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Colin</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">22k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:21</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"0bo/comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+</body>
+</html>
